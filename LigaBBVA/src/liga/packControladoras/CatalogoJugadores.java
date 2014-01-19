@@ -18,7 +18,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadores(String equipo) {
 		String[][] listaJugadores = null;
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT Nombre, Dorsal, estaEnVenta, estaRetirado, numSanciones FROM Jugador WHERE NombreEquipo = " + equipo);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL('SELECT Nombre, Dorsal, estaEnVenta, estaRetirado, numSanciones FROM Jugador WHERE NombreEquipo = "' + equipo + '"');
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("Nombre");
 			listaJugadores[i][1] = RdoSQL.get("Dorsal");
@@ -35,9 +35,9 @@ public class CatalogoJugadores {
 	}
 	
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM Jugador WHERE NombreEquipo = " + nombreEquipo + " AND Nombre = " + nombreJugador);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL('SELECT COUNT(*) as cont FROM Jugador WHERE NombreEquipo = "' + nombreEquipo + '" AND Nombre = "' + nombreJugador + '"');
 		RdoSQL.next();
-		if (RdoSQL.get("cont") != "0")
+		if (RdoSQL.getInt("cont") != 0)
 			return true;
 		return false;
 	}
@@ -48,7 +48,7 @@ public class CatalogoJugadores {
 	
 	public boolean anadirJugador(String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("INSERT INTO Jugador (Nombre, Dorsal, NombreEquipo) VALUES (" + nombreJugador + ", " + dorsal + ", " + nombreEquipo + ")");
+			SGBD.getSGBD().execSQL('INSERT INTO Jugador (Nombre, Dorsal, NombreEquipo) VALUES ("' + nombreJugador + '", ' + dorsal + ', "' + nombreEquipo + '")');
 			return true;
 		}
 		return false;
@@ -56,7 +56,7 @@ public class CatalogoJugadores {
 	
 	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("UPDATE Jugador SET Nombre = " + nombreJugador + " WHERE CodJug = " + codJug);
+			SGBD.getSGBD().execSQL('UPDATE Jugador SET Nombre = "' + nombreJugador + '" WHERE CodJug = ' + codJug);
 			return true;
 		}
 		return false;
