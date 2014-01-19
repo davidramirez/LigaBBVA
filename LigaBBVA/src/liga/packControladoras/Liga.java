@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import java.sql.Date;
+
 /**MAE patron fachadas
  *
  */
