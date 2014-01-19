@@ -13,6 +13,18 @@ public class Jugador
 		this.nombreEquipo=pNomEq;
 		this.numSanciones=pNumSan;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getNombreEquipo() {
+		return nombreEquipo;
+	}
+
+	public int getNumSanciones() {
+		return numSanciones;
+	}
 	
 
 }
