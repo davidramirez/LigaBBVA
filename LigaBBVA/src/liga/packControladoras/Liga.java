@@ -21,6 +21,6 @@ public class Liga
 	
 	public Jugador obtenerJugadorFairplay(int codTemporada)
 	{
-		return CatalogoEstadisticasJugador.getMiEstadisticasJugador.obtenerJugadorFairPlay(codTemporada);
+		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerjugadorFairPlay(codTemporada);
 	}
 }

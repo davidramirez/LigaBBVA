@@ -14,6 +14,7 @@ public class SGBD {
 	private SGBD()
 	{
 		
+		
 	}
 	
 	public static SGBD getSGBD()
