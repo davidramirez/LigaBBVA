@@ -55,7 +55,9 @@ public class CatalogoJugadores {
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE nombreequipo = " + nombreEquipo + " AND nombre = " + nombreJugador);
 		RdoSQL.next();
-		if (RdoSQL.getInt("cont") != 0)
+		int cont=RdoSQL.getInt("cont");
+		RdoSQL.close();
+		if (cont != 0)
 			return true;
 		return false;
 	}
