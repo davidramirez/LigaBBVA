@@ -27,4 +27,8 @@ public class C_Clasificacion
 	{
 		return Liga.getMiLiga().obtenerUltimaJornadaDe(pLaTemporada);
 	}
+	public String[] obtenerClasificacion(int pNumTemporada, int pNumJornada)
+	{
+		return Liga.getMiLiga().obtenerClasificacion(pNumTemporada, pNumJornada);
+	}
 }

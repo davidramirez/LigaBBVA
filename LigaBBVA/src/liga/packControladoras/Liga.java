@@ -66,7 +66,7 @@ public class Liga
 	{
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaJornadaDe(pLaTemporada);
 	}
-	public void obtenerClasificacion(int pNumTemporada,int pNumJornada){
+	public String[] obtenerClasificacion(int pNumTemporada,int pNumJornada){
 		return CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacion(pNumTemporada, pNumJornada);
 	}
 }

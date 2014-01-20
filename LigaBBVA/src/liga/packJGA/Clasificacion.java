@@ -1,13 +1,15 @@
 package liga.packJGA;
 
-public class Clasificacion {
+public class Clasificacion 
+{
 			
 			private String nombreEquipo;
 			private int golesAFavor;
 			private int golesEncontra;
 			private int puntos;
 			
-			public Clasificacion(String pNomEq,int pGolAFav, int pGolEnContra){
+			public Clasificacion(String pNomEq, int pPoints, int pGolAFav, int pGolEnContra){
+				this.puntos=pPoints;
 				this.nombreEquipo=pNomEq;
 				this.golesAFavor=pGolAFav;
 				this.golesEncontra=pGolEnContra;
@@ -23,6 +25,9 @@ public class Clasificacion {
 			
 			public int getGolesEnContra(){
 				return this.getGolesEnContra();
+			}
+			public int getPuntos(){
+				return this.puntos;
 			}
 		}
 
