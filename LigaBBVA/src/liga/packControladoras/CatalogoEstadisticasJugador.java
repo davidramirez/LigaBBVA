@@ -1,4 +1,6 @@
 package liga.packControladoras;
+import java.util.ArrayList;
+
 import  liga.packGestorBD.*;
 
 public class CatalogoEstadisticasJugador 
@@ -14,16 +16,16 @@ public class CatalogoEstadisticasJugador
 		return miCatalogoEstJug;
 	}
 	
-	public Jugador obtenerjugadorFairPlay(int codTemp)
+	public ArrayList<String> obtenerjugadorFairPlay(int codTemp)
 	{
-		
+		ArrayList<String> jugFairPlay = new ArrayList<String>();
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM EstadisticasJugador AS e NATURAL JOIN Jugador AS j WHERE e.numtemporada='codTemp' AND j.estaretirado='false' ORDER BY e.numsanciones ASC");
 		if(RdoSQL.next())
 		{
-			String nombre=RdoSQL.get("nombre");
-			String nomEquipo=RdoSQL.get("nombreequipo");
-			int sanciones=RdoSQL.getInt("numsanciones");
-			return new Jugador(nombre,nomEquipo,sanciones);
+			jugFairPlay.add(RdoSQL.get("nombre"));
+			jugFairPlay.add(RdoSQL.get("nombreequipo"));
+			jugFairPlay.add(RdoSQL.get("numsanciones"));
+			return jugFairPlay;
 		}
 		return null;
 				

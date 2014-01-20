@@ -62,4 +62,8 @@ public class Liga
 	public void darDeBajaJugador(String codJug) {
 		CatalogoJugadores.getCatalogoJugadores().darDeBajaJugador(codJug);
 	}
+	public String[] obtenerTemporadas() {
+		
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
+	}
 }
