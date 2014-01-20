@@ -54,4 +54,23 @@ public class CatalogoUsuarios {
 		return rdo;
 		
 	}
+	
+	public String obtenerPregunta(String id)
+	{
+		
+		/*
+		 * Método que devuelve la pregunta de seguridad de un usuario. Si el ID de éste es incorrecto,
+		 * devuelve null.
+		 */
+		String rdo=null;
+		
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT PreguntaSeg FROM Usuario WHERE Nombre=" + id +"");
+		if(RdoSQL.next())
+		rdo=RdoSQL.get("PreguntaSeg");
+		
+		return rdo;
+	}
+	
+	
+	
 }
