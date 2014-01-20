@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import java.sql.Date;
+
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
 
@@ -27,6 +29,11 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 			
 		}
 		return jugFairPlay;
+	}
+	public int obtenerJornadaAnterior(Date fecha) {
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha < " + fecha + " ORDER BY fecha DESC");
+		RdoSQL.next();
+		return RdoSQL.getInt("numjornada"); 
 	}
 	
 	
