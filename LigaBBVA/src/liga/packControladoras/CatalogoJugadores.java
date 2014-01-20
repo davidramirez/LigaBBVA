@@ -25,6 +25,7 @@ public class CatalogoJugadores {
 			listaJugadores[i][4] = RdoSQL.get("numsanciones");
 			i++;
 		}
+		RdoSQL.close();
 		return listaJugadores;
 	}
 	
@@ -46,6 +47,7 @@ public class CatalogoJugadores {
 				}
 			}
 		}
+		
 		return listaJugadoresConvocables;
 	}
 	

@@ -9,11 +9,12 @@ public class CatalogoTemporadas
 {
 private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 	
-	private  int maxTemporadas;
+ 	static final int  maxTemporadas=100;
+	static final int maxJornadas=38; 
 	
 	private  CatalogoTemporadas() 
 	{		
-		this.maxTemporadas=100;
+		
 	}
 	public static CatalogoTemporadas getMiCatalogoTemporadas(){
 		return misTemporadas;
@@ -23,17 +24,32 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 		int[] jugFairPlay =new int[maxTemporadas];
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio DESC");
 		int i=0;
-		while(RdoSQL.next())
+		while(RdoSQL.next() && i<maxTemporadas)
 		{			
 			jugFairPlay[i]=RdoSQL.getInt("numtemporada");
-			
+			i++;			
 		}
+		RdoSQL.close();
 		return jugFairPlay;
 	}
+	public int[] obtenerJornadasDe(int unaTemporada)
+	{
+		int i=0;
+		int[] jornadas= new int[maxJornadas];
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornadas WHERE numtemporada=unatemporada");
+		while(RdoSQL.next() && i< maxJornadas){
+			jornadas[i]=RdoSQL.getInt("numjornada");
+		}
+		RdoSQL.close();
+		return jornadas;
+	}
 	public int obtenerJornadaAnterior(Date fecha) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha < " + fecha + " ORDER BY fecha DESC");
-		RdoSQL.next();
-		return RdoSQL.getInt("numjornada"); 
+		int rdo=0;
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 "
+				+ "AND fecha < " + fecha + " ORDER BY fecha DESC");		
+		if(RdoSQL.next()) rdo=RdoSQL.getInt("numjornada") ;
+		RdoSQL.close();
+		return rdo;
 	}
 	
 	public int obtenerUltimaTemporada(){
@@ -49,6 +65,7 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 		if(RdoSQL.next()){
 			laJornada=RdoSQL.getInt("numjornada");
 		}
+		RdoSQL.close();
 		return laJornada;
 	}
 	

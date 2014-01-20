@@ -69,4 +69,10 @@ public class Liga
 	public String[] obtenerClasificacion(int pNumTemporada,int pNumJornada){
 		return CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacion(pNumTemporada, pNumJornada);
 	}
+	public int[] obtenerEstadisticas(int elJugador){
+		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(elJugador);
+	}
+	public int[] obtenerJornadasDe(int pNumTemporada){
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pNumTemporada);
+	}
 }

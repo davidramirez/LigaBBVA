@@ -58,6 +58,7 @@ private static CatalogoClasificacion miCatalogoClasificacion= new CatalogoClasif
 			String pNomEq=itr.next().getNombreEquipo();
 			clasificacion[i]=pNomEq;
 		}
+		RdoSQL.close();
 		return clasificacion;
 	}
 
