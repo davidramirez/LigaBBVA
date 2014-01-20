@@ -2,6 +2,9 @@ package liga.packControladoras;
 
 import java.sql.Date;
 
+import liga.packGestorBD.ResultadoSQL;
+import liga.packGestorBD.SGBD;
+
 /**MAE patron fachadas
  *
  */
@@ -26,12 +29,18 @@ public class Liga
 		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerjugadorFairPlay(codTemporada);
 	}
 	
+	private int obtenerJornadaAnterior(Date fecha) {
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT NumJornada FROM Jornada WHERE estaJugada = 1 AND fecha < " + fecha + " ORDER BY fecha DESC");
+		RdoSQL.next();
+		return RdoSQL.getInt("NumJornada"); 
+	}
+	
 	public String[][] getListaJugadores(String equipo) {
 		return CatalogoJugadores.getCatalogoJugadores().getListaJugadores(equipo);
 	}
 	
 	public String[][] getJugadoresConvocables(Date fecha, String equipo) {
-		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(fecha, equipo);
+		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(0, obtenerJornadaAnterior(fecha), equipo);
 	}
 	
 	public boolean anadirJugadoresConvocados() {
