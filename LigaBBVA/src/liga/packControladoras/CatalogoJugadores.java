@@ -45,6 +45,7 @@ public class CatalogoJugadores {
 					listaJugadoresConvocables[cont][2] = listaJugadores[i][2]; // Dorsal.
 					cont++;
 				}
+				RdoSQL.close();
 			}
 		}
 		
