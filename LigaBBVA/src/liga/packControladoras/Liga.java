@@ -30,9 +30,9 @@ public class Liga
 	}
 	
 	private int obtenerJornadaAnterior(Date fecha) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT NumJornada FROM Jornada WHERE estaJugada = 1 AND fecha < " + fecha + " ORDER BY fecha DESC");
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha < " + fecha + " ORDER BY fecha DESC");
 		RdoSQL.next();
-		return RdoSQL.getInt("NumJornada"); 
+		return RdoSQL.getInt("numjornada"); 
 	}
 	
 	public String[][] getListaJugadores(String equipo) {

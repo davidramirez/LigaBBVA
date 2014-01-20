@@ -16,13 +16,13 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadores(String equipo) {
 		String[][] listaJugadores = null;
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT CodJug, Nombre, Dorsal, estaEnVenta, numSanciones FROM Jugador WHERE estaRetirado = 0 AND NombreEquipo = " + equipo);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT codjug, nombre, dorsal, estaenventa, numsanciones FROM jugador WHERE estaretirado = 0 AND nombreequipo = " + equipo);
 		while (RdoSQL.next()) {
-			listaJugadores[i][0] = RdoSQL.get("CodJug");
-			listaJugadores[i][1] = RdoSQL.get("Nombre");
-			listaJugadores[i][2] = RdoSQL.get("Dorsal");
-			listaJugadores[i][3] = RdoSQL.get("estaEnVenta");
-			listaJugadores[i][4] = RdoSQL.get("numSanciones");
+			listaJugadores[i][0] = RdoSQL.get("codjug");
+			listaJugadores[i][1] = RdoSQL.get("nombre");
+			listaJugadores[i][2] = RdoSQL.get("dorsal");
+			listaJugadores[i][3] = RdoSQL.get("estaenventa");
+			listaJugadores[i][4] = RdoSQL.get("numsanciones");
 			i++;
 		}
 		return listaJugadores;
@@ -36,7 +36,7 @@ public class CatalogoJugadores {
 		for (i = 0; i < listaJugadores.length; i++) { // Hay que comprobar cada jugador.
 			int estaEnVenta = Integer.parseInt(listaJugadores[i][3]);
 			if (estaEnVenta == 0) { // Solo puede ser convocado si no esta en venta...
-				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM Tarjetas WHERE NumTemporada = " + temporada + " AND NumJornada = " + jornada + " CodJug = " + listaJugadores[i][0] + " AND esAmarilla = 0");
+				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM tarjetas WHERE numtemporada = " + temporada + " AND numjornada = " + jornada + " codjug = " + listaJugadores[i][0] + " AND esamarilla = 0");
 				RdoSQL.next();
 				if (RdoSQL.getInt("cont") == 0) { // ...ademas de no haber tenido tarjeta roja la jornada anterior.
 					listaJugadoresConvocables[cont][0] = listaJugadores[i][0]; // CodJug.
@@ -50,7 +50,7 @@ public class CatalogoJugadores {
 	}
 	
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM Jugador WHERE NombreEquipo = " + nombreEquipo + " AND Nombre = " + nombreJugador);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE nombreequipo = " + nombreEquipo + " AND nombre = " + nombreJugador);
 		RdoSQL.next();
 		if (RdoSQL.getInt("cont") != 0)
 			return true;
@@ -63,7 +63,7 @@ public class CatalogoJugadores {
 	
 	public boolean anadirJugador(String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("INSERT INTO Jugador (Nombre, Dorsal, NombreEquipo) VALUES (" + nombreJugador + ", " + dorsal + ", " + nombreEquipo + ")");
+			SGBD.getSGBD().execSQL("INSERT INTO jugador (nombre, dorsal, nombreequipo) VALUES (" + nombreJugador + ", " + dorsal + ", " + nombreEquipo + ")");
 			return true;
 		}
 		return false;
@@ -71,13 +71,13 @@ public class CatalogoJugadores {
 	
 	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("UPDATE Jugador SET Nombre = " + nombreJugador + " WHERE CodJug = " + codJug);
+			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = " + nombreJugador + " WHERE codjug = " + codJug);
 			return true;
 		}
 		return false;
 	}
 	
 	public void darDeBajaJugador(String codJug) {
-		SGBD.getSGBD().execSQL("UPDATE Jugador SET estaRetirado = 1 WHERE CodJug = " + codJug);
+		SGBD.getSGBD().execSQL("UPDATE jugador SET estaretirado = 1 WHERE codjug = " + codJug);
 	}
 }
