@@ -57,8 +57,14 @@ public class CatalogoJugadores {
 		return false;
 	}
 	
-	public boolean anadirJugadoresConvocados() {
-		return true;
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
+		for (int i = 0; i < jugadoresTitulares.length; i++)
+			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", " + equipoLocal + ", " + equipoVisitante + ", " + jugadoresTitulares[i] + ")");
+	}
+	
+	public void anadirJugadoresConvocados(String[] jugadoresConvocados, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
+		for (int i = 0; i < jugadoresConvocados.length; i++)
+			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", " + equipoLocal + ", " + equipoVisitante + ", " + jugadoresConvocados[i] + ")");
 	}
 	
 	public boolean anadirJugador(String nombreEquipo, String nombreJugador, String dorsal) {
@@ -69,9 +75,9 @@ public class CatalogoJugadores {
 		return false;
 	}
 	
-	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador) {
+	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = " + nombreJugador + " WHERE codjug = " + codJug);
+			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = " + nombreJugador + " AND dorsal = " + dorsal + " WHERE codjug = " + codJug);
 			return true;
 		}
 		return false;
