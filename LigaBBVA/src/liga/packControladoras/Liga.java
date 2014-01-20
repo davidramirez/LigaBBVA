@@ -43,16 +43,20 @@ public class Liga
 		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(0, obtenerJornadaAnterior(fecha), equipo);
 	}
 	
-	public boolean anadirJugadoresConvocados() {
-		return CatalogoJugadores.getCatalogoJugadores().anadirJugadoresConvocados();
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresTitulares, equipoLocal, equipoVisitante, temporada, jornada);
+	}
+	
+	public void anadirJugadoresConvocados(String[] jugadoresConvocados, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresConvocados(jugadoresConvocados, equipoLocal, equipoVisitante, temporada, jornada);
 	}
 	
 	public boolean anadirJugador(String equipo, String nombreJugador, String dorsal) {
 		return CatalogoJugadores.getCatalogoJugadores().anadirJugador(equipo, nombreJugador, dorsal);
 	}
 	
-	public boolean modificarJugador(String codJug, String equipo, String nombreJugador) {
-		return CatalogoJugadores.getCatalogoJugadores().modificarJugador(codJug, equipo, nombreJugador);
+	public boolean modificarJugador(String codJug, String equipo, String nombreJugador, String dorsal) {
+		return CatalogoJugadores.getCatalogoJugadores().modificarJugador(codJug, equipo, nombreJugador, dorsal);
 	}
 	
 	public void darDeBajaJugador(String codJug) {
