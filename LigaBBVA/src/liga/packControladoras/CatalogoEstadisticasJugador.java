@@ -25,9 +25,9 @@ public class CatalogoEstadisticasJugador
 			jugFairPlay.add(RdoSQL.get("nombre"));
 			jugFairPlay.add(RdoSQL.get("nombreequipo"));
 			jugFairPlay.add(RdoSQL.get("numsanciones"));
-			return jugFairPlay;
+			
 		}
-		return null;
+		return jugFairPlay;
 				
 	}
 

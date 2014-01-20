@@ -14,7 +14,7 @@ private static C_Estadisticas misEstadisticas = new C_Estadisticas();
 		return misEstadisticas;
 	}
 	
-	public String[] obtenerTemporadas(){
+	public int[] obtenerTemporadas(){
 		return Liga.getMiLiga().obtenerTemporadas();
 	}
 }

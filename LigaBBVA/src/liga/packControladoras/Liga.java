@@ -1,6 +1,7 @@
 package liga.packControladoras;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
@@ -24,7 +25,7 @@ public class Liga
 		
 	}
 	
-	public Jugador obtenerJugadorFairplay(int codTemporada)
+	public ArrayList<String> obtenerJugadorFairplay(int codTemporada)
 	{
 		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerjugadorFairPlay(codTemporada);
 	}
@@ -62,7 +63,7 @@ public class Liga
 	public void darDeBajaJugador(String codJug) {
 		CatalogoJugadores.getCatalogoJugadores().darDeBajaJugador(codJug);
 	}
-	public String[] obtenerTemporadas() {
+	public int[] obtenerTemporadas() {
 		
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
 	}
