@@ -40,4 +40,16 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas()[0];
 	}
 	
+	public int obtenerUltimaJornadaDe(int pLaTemporada)
+	//pre:se obtiene la última jornada de la temporada recibida como parametro.
+	//pos:si existe última jornada en esa temporada se devuelve, si no devuelve 0.
+	{
+		int laJornada=0;		
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("Select numjornada FROM jornada WHERE numtemporada=pLaTemporada ORDER BY Fecha DESC");
+		if(RdoSQL.next()){
+			laJornada=RdoSQL.getInt("numjornada");
+		}
+		return laJornada;
+	}
+	
 }

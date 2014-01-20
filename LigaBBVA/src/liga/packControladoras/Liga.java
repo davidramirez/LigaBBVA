@@ -3,9 +3,6 @@ package liga.packControladoras;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import liga.packGestorBD.ResultadoSQL;
-import liga.packGestorBD.SGBD;
-
 /**MAE patron fachadas
  *
  */
@@ -64,5 +61,9 @@ public class Liga
 	public int[] obtenerTemporadas() {
 		
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
+	}
+	public int obtenerUltimaJornadaDe(int pLaTemporada)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaJornadaDe(pLaTemporada);
 	}
 }

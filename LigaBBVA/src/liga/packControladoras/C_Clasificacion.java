@@ -17,4 +17,14 @@ public class C_Clasificacion
 	public int obtenerUltimaTemporada(){
 		return Liga.getMiLiga().obtenerUltimaTemporada();
 	}
+	
+	public int[] obtenerTemporadas()
+	{
+		return Liga.getMiLiga().obtenerTemporadas();
+	}
+	
+	public int obtenerUltimaJornadaDe(int pLaTemporada)
+	{
+		return Liga.getMiLiga().obtenerUltimaJornadaDe(pLaTemporada);
+	}
 }
