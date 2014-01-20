@@ -21,7 +21,7 @@ public class Liga
 	}
 	
 	public int obtenerUltimaTemporada(){
-		return 0;
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
 		
 	}
 	

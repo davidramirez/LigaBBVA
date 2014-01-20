@@ -21,7 +21,7 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 	public int[] obtenerTemporadas() 
 	{
 		int[] jugFairPlay =new int[maxTemporadas];
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio DESC");
 		int i=0;
 		while(RdoSQL.next())
 		{			
@@ -36,5 +36,8 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 		return RdoSQL.getInt("numjornada"); 
 	}
 	
+	public int obtenerUltimaTemporada(){
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas()[0];
+	}
 	
 }
