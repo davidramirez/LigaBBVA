@@ -1,5 +1,8 @@
 package liga.packControladoras;
 
+import java.util.Comparator;
+
+import net.sf.jga.fn.comparison.Max.Comparable;
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
 
@@ -22,31 +25,7 @@ private static CatalogoClasificacion miCatalogoClasificacion= new CatalogoClasif
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada=pNumTemporada"
 				+ "AND numjornada=pNumJornada ORDER BY puntos ASC");
 		
-		 class clasificacion {
-			
-			private String nombreEquipo;
-			private int golesAFavor;
-			private int golesEncontra;
-			private int puntos;
-			
-			public clasificacion(String pNomEq,int pGolAFav, int pGolEnContra){
-				this.nombreEquipo=pNomEq;
-				this.golesAFavor=pGolAFav;
-				this.golesEncontra=pGolEnContra;
-			}
-			
-			public String getNombreEquipo(){
-				return this.nombreEquipo;
-			}
-			
-			public int getGolesAFavor(){
-				return this.getGolesAFavor();
-			}
-			
-			public int getGolesEnContra(){
-				return this.getGolesEnContra();
-			}
-		}
+		
 	}
 
 }
