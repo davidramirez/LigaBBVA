@@ -1,20 +1,25 @@
 package liga.packControladoras;
 
 import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
+import liga.packModelo.ListaArbitros;
+import liga.packModelo.ListaEquipos;
+import liga.packModelo.ListaTemporadas;
 
 public class CatalogoTemporadas 
 {
-private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
+	private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
+	private ListaTemporadas listaTemporadas;
 	
  	static final int  maxTemporadas=100;
 	static final int maxJornadas=38; 
 	
 	private  CatalogoTemporadas() 
 	{		
-		
+		listaTemporadas = new ListaTemporadas();
 	}
 	public static CatalogoTemporadas getMiCatalogoTemporadas(){
 		return misTemporadas;
@@ -67,6 +72,16 @@ private static CatalogoTemporadas misTemporadas=new CatalogoTemporadas();
 		}
 		RdoSQL.close();
 		return laJornada;
+	}
+	
+	private ListaTemporadas getListaTemporadas()
+	{
+		return this.listaTemporadas;
+	}
+	
+	public void inicializarTemporada(ListaEquipos pListaEquipos, ListaArbitros pListaArbitros, GregorianCalendar pFecha, int pNumTemp)
+	{
+		this.getListaTemporadas().inicializarTemporada(pListaEquipos, pListaArbitros, pFecha, pNumTemp);
 	}
 	
 }
