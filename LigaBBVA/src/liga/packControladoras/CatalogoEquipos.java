@@ -29,5 +29,19 @@ public class CatalogoEquipos
 		
 		return equipoFairPlay;
 	}
+	
+	/**
+	 * Buscamos si existe o no un equipo basado en el nombre que recibe
+	 * @param nombreEquipo el nombre del equipo
+	 */
 
+	public boolean buscarSiExiste(String pNombreEquipo) {
+		boolean existe = false;
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM equipo WHERE nombre=pNombreEquipo");
+		if(RdoSQL.next()) {
+			//Existe el equipo.
+			existe = true;
+		}
+		return existe;
+	}
 }

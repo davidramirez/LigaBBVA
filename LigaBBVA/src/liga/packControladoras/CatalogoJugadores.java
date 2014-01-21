@@ -48,8 +48,37 @@ public class CatalogoJugadores {
 				RdoSQL.close();
 			}
 		}
-		
 		return listaJugadoresConvocables;
+	}
+	
+	@SuppressWarnings("null")
+	public String[][] getListaJugadoresConvocados(int temporada, int jornada, String equipo) {
+		String[][] listaJugadores = null;
+		int i = 0;
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT c.codjug as cj, j.nombre as nj, j.dorsal as dj FROM convocado as c, jugador as j WHERE c.numtemporada = " + temporada + " AND c.numjornada " + jornada + " AND c.codjug = j.codjug AND (nomeqlocal = " + equipo + " OR nomeqvisitante = " + equipo);
+		while (RdoSQL.next()) {
+			listaJugadores[i][0] = RdoSQL.get("cj");
+			listaJugadores[i][1] = RdoSQL.get("nj");
+			listaJugadores[i][2] = RdoSQL.get("dj");
+			i++;
+		}
+		RdoSQL.close();
+		return listaJugadores;
+	}
+	
+	@SuppressWarnings("null")
+	public String[][] getListaJugadoresTitulares(int temporada, int jornada, String equipo) {
+		String[][] listaJugadores = null;
+		int i = 0;
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT t.codjug as cj, j.nombre as nj, j.dorsal as dj FROM titular as t, jugador as j WHERE t.numtemporada = " + temporada + " AND t.numjornada " + jornada + " AND t.codjug = j.codjug AND (nomeqlocal = " + equipo + " OR nomeqvisitante = " + equipo);
+		while (RdoSQL.next()) {
+			listaJugadores[i][0] = RdoSQL.get("cj");
+			listaJugadores[i][1] = RdoSQL.get("nj");
+			listaJugadores[i][2] = RdoSQL.get("dj");
+			i++;
+		}
+		RdoSQL.close();
+		return listaJugadores;
 	}
 	
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
