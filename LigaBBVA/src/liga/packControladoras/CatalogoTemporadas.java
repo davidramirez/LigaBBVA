@@ -74,6 +74,21 @@ public class CatalogoTemporadas
 		return laJornada;
 	}
 	
+	public String[][] obtenerPartidosDe(int laJor, int laTemp)
+	{
+		String[][] rdo= new String[10][2];
+		int i=0;
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT NomEqLocal, NomEqVisitante FROM Partido WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+"");
+		while (RdoSQL.next())
+		{
+			rdo[i][0]=RdoSQL.get("NomEqLocal");
+			rdo[i][1]=RdoSQL.get("NomEqVisitante");
+			i++;
+		}
+		
+		return rdo;
+	}
+	
 	private ListaTemporadas getListaTemporadas()
 	{
 		return this.listaTemporadas;
