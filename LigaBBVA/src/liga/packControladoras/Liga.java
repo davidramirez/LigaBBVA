@@ -112,4 +112,13 @@ public class Liga
 	{
 		return CatalogoUsuarios.getMiCatalogoUsuarios().cambiarPass(id, passAnt, passN, preg, resp);
 	}
+	
+	/**
+	 * Buscamos si existe o no un equipo basado en el nombre que recibe
+	 * @param nombreEquipo el nombre del equipo
+	 */
+	
+	public boolean buscarSiExiste(String pNombreEquipo) {
+		return CatalogoEquipos.getMisEquipos().buscarSiExiste(pNombreEquipo);
+	}
 }
