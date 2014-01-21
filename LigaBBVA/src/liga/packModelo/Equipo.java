@@ -18,4 +18,14 @@ public class Equipo {
 		dinero = 0;
 	}
 
+	public Provincia getProvincia()
+	{
+		return this.getProvincia();
+	}
+
+	public String getNombre()
+	{
+		return this.nombre;
+	}
+
 }

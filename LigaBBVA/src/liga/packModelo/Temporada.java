@@ -3,6 +3,8 @@ package liga.packModelo;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import liga.packGestorBD.SGBD;
+
 public class Temporada {
 	
 	private int numTemporada;
@@ -48,7 +50,7 @@ public class Temporada {
 		
 		Jornada jornadaAnterior = jornada1; 
 		int dia = this.getFecha().get(Calendar.DATE);
-		int mes = this.getFecha().get(Calendar.MONDAY);
+		int mes = this.getFecha().get(Calendar.MONTH);
 		int ano = this.getFecha().get(Calendar.YEAR);
 		GregorianCalendar fecha = null;
 		
@@ -69,7 +71,7 @@ public class Temporada {
 	
 	private GregorianCalendar inicializarSegundaVuelta(GregorianCalendar pFecha) {
 		int dia = pFecha.get(Calendar.DATE);
-		int mes = pFecha.get(Calendar.MONDAY);
+		int mes = pFecha.get(Calendar.MONTH);
 		int ano = pFecha.get(Calendar.YEAR);
 		GregorianCalendar fecha = null;
 		for (int i=19;i<=37;i++){
@@ -85,6 +87,35 @@ public class Temporada {
 	
 		return fecha;
 	}
+
+	private void asignarArbitrosAPartidos()
+	{
+		this.getListaJornadas().asignarArbitros(this.getListaArbitros());
+	}
+	
+	private void almacenarTemporada()
+	{
+		String fechaInicio = this.getFecha().get(Calendar.YEAR)+"-"+this.getFecha().get(Calendar.MONTH+1)+"-"+this.getFecha().get(Calendar.DATE);
+		String fechaFin = this.getFechaFin().get(Calendar.YEAR)+"-"+this.getFechaFin().get(Calendar.MONTH+1)+"-"+this.getFechaFin().get(Calendar.DATE);;
+		
+		SGBD.getSGBD().execSQL("INSERT INTO temporada VALUES ("+this.getNumTemp()+","+fechaInicio+","+fechaFin+")");
+		
+		this.getListaEquipos().almacenarEquiposTemporada(this.getNumTemp());
+		
+		this.getListaArbitros().almacenarArbitrosTemporada(this.getNumTemp());
+		
+		this.getListaJornadas().almacenarJornadas(this.getNumTemp());
+	}
+	
+	private int getNumTemp()
+	{
+		return this.numTemporada;
+	}
+	
+	private GregorianCalendar getFechaFin()
+	{
+		return this.fechaFin;
+	}
 	
 	private void setFechaFin(GregorianCalendar pFecha)
 	{
@@ -99,6 +130,11 @@ public class Temporada {
 	private ListaEquipos getListaEquipos()
 	{
 		return this.listaEquipos;
+	}
+	
+	private ListaArbitros getListaArbitros()
+	{
+		return this.listaArbitros;
 	}
 	
 	private GregorianCalendar getFecha()
