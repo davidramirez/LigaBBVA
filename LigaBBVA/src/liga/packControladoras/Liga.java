@@ -84,4 +84,29 @@ public class Liga
 	{
 		CatalogoTemporadas.getMiCatalogoTemporadas().inicializarTemporada(pListaEquipos, pListaArbitros, pFecha, pNumTemp);
 	}
+	
+	public boolean identificarse(String id, String pass)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().identificarse(id, pass);
+	}
+	
+	public String obtenerTipo(String id)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().obtenerTipo(id);
+	}
+	
+	public String obtenerPregunta(String id)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().obtenerPregunta(id);
+	}
+	
+	public String recuperarPass(String id, String resp)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().recuperarPass(id, resp);
+	}
+	
+	public boolean cambiarPass(String id, String passAnt, String passN, String preg, String resp)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().cambiarPass(id, passAnt, passN, preg, resp);
+	}
 }
