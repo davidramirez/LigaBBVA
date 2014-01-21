@@ -25,7 +25,7 @@ public class CatalogoUsuarios {
 	public String obtenerTipo(String id)
 	{
 		/*
-		 * Función que comprueba el tipo de usuario. No tiene en cuenta el caso de que no
+		 * Método que comprueba el tipo de usuario. No tiene en cuenta el caso de que no
 		 * exista el usuario ya que antes se habrá ejecutado indentificarse(id,pass)
 		 */
 		
