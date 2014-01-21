@@ -11,4 +11,22 @@ public class ListaJornadas {
 		lista = new ArrayList<Jornada>();
 	}
 
+	public void anadirJornada(Jornada pJornada)
+	{
+		if(!this.getLista().contains(pJornada))
+		{
+			this.getLista().add(pJornada);
+		}
+	}
+	
+	private ArrayList<Jornada> getLista()
+	{
+		return this.lista;
+	}
+	
+	public Jornada obtenerJornadaPos(int pPos)
+	{
+		return this.getLista().get(pPos);
+	}
+
 }

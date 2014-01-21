@@ -23,4 +23,15 @@ public class Partido {
 		golesLocal = 0;
 	}
 
+
+	public Equipo getLocal()
+	{
+		return this.equipoLocal;
+	}
+	
+	public Equipo getVisitante()
+	{
+		return this.equipoVisitante;
+	}
+
 }
