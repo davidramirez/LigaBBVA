@@ -129,7 +129,16 @@ public class Liga
 	 * @param pPresupuesto el presupuesto del equipo
 	 */
 	
-	public void AnadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
-		CatalogoEquipos.getMisEquipos().AnadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
+	public void anadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
+		CatalogoEquipos.getMisEquipos().anadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
+	}
+	
+	/**
+	 * Se encarga de obtener todos lo nombres de los equipos
+	 * 
+	**/
+	
+	public ArrayList<String> obtenerNombresEquipos() {
+		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
 	}
 }

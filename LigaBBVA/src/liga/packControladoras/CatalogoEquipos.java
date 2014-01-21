@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
 
-public class CatalogoEquipos 
-{
+public class CatalogoEquipos {
 	private static CatalogoEquipos misEquipos=new CatalogoEquipos();
 	
 	private CatalogoEquipos(){}
@@ -52,10 +51,25 @@ public class CatalogoEquipos
 	 * @param pPresupuesto el presupuesto del equipo
 	 */
 	
-	public void AnadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
+	public void anadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
 		//Generamos un usuario por defecto para le nuevo equipo.
 		SGBD.getSGBD().execSQL("INSERT INTO Usuario(Nombre, Contrasena,EstaActivo)VALUES('usuario','contraseña',si)");
 		
 		SGBD.getSGBD().execSQL("INSERT INTO Equipo (Nombre, Puntos, Dinero, NombreUsuario, Provincia) VALUES ('"+pNombreEquipo+"',0,"+pPresupuesto+",'usuario','"+pNombreProvincia+"')");
 	}
+	
+	/**
+	 * Se encarga de obtener todos lo nombres de los equipos
+	 * 
+	**/
+	
+	public ArrayList<String> obtenerNombresEquipos() {
+		ArrayList<String> nombresEquipos = new ArrayList<String>();
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * from Equpos");
+		while(RdoSQL.next()) {
+			nombresEquipos.add(RdoSQL.get("Nombre"));
+		}
+		return nombresEquipos;
+	}
+	
 }

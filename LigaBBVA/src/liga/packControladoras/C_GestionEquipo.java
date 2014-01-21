@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import java.util.ArrayList;
+
 public class C_GestionEquipo {
 	private static C_GestionEquipo miC_GestionEquipo = new C_GestionEquipo();	
 	
@@ -17,12 +19,21 @@ public class C_GestionEquipo {
 	 * @param pNombreProvincia la provincia de procedencia
 	 * @param pPresupuesto el presupuesto del equipo
 	 */
-	public void AnadirEquipo(String pNombreEquipo,String pNombreProvincia,String pPresupuesto) {
+	public void anadirEquipo(String pNombreEquipo,String pNombreProvincia,String pPresupuesto) {
 		boolean existe = false;
 		existe = Liga.getMiLiga().buscarSiExiste(pNombreEquipo);
 		if(!existe) {
 			//El equipo no existe, lo insertamos en la BD.
-			Liga.getMiLiga().AnadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
+			Liga.getMiLiga().anadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
 		}
+	}
+	
+	/**
+	 * Se encarga de obtener todos lo nombres de los equipos
+	 * 
+	**/
+	
+	public ArrayList<String> obtenerNombresEquipos() {
+		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
 	}
 }
