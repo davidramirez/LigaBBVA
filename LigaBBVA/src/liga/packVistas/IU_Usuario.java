@@ -1,23 +1,22 @@
 package liga.packVistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
+
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
-public class I_Usuario extends JFrame {
+@SuppressWarnings("serial")
+public class IU_Usuario extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btnSalir;
@@ -37,7 +36,7 @@ public class I_Usuario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					I_Usuario frame = new I_Usuario();
+					IU_Usuario frame = new IU_Usuario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +48,7 @@ public class I_Usuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public I_Usuario() {
+	public IU_Usuario() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
