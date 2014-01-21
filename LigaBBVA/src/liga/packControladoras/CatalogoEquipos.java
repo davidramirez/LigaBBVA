@@ -44,4 +44,18 @@ public class CatalogoEquipos
 		}
 		return existe;
 	}
+	
+	/**
+	 * Añadimos un nuevo equipo en la BD
+	 * @param pNombreEquipo el nombre del equipo
+	 * @param pNombreProvincia la provincia de procedencia
+	 * @param pPresupuesto el presupuesto del equipo
+	 */
+	
+	public void AnadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
+		//Generamos un usuario por defecto para le nuevo equipo.
+		SGBD.getSGBD().execSQL("INSERT INTO Usuario(Nombre, Contrasena,EstaActivo)VALUES('usuario','contraseña',si)");
+		
+		SGBD.getSGBD().execSQL("INSERT INTO Equipo (Nombre, Puntos, Dinero, NombreUsuario, Provincia) VALUES ('"+pNombreEquipo+"',0,"+pPresupuesto+",'usuario','"+pNombreProvincia+"')");
+	}
 }

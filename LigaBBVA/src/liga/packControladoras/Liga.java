@@ -121,4 +121,15 @@ public class Liga
 	public boolean buscarSiExiste(String pNombreEquipo) {
 		return CatalogoEquipos.getMisEquipos().buscarSiExiste(pNombreEquipo);
 	}
+	
+	/**
+	 * Añadimos un nuevo equipo en la BD
+	 * @param pNombreEquipo el nombre del equipo
+	 * @param pNombreProvincia la provincia de procedencia
+	 * @param pPresupuesto el presupuesto del equipo
+	 */
+	
+	public void AnadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
+		CatalogoEquipos.getMisEquipos().AnadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
+	}
 }
