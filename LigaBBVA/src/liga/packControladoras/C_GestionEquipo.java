@@ -36,4 +36,14 @@ public class C_GestionEquipo {
 	public ArrayList<String> obtenerNombresEquipos() {
 		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
 	}
+	
+	/**
+	 * Obtiene los datos relativos a un equipo dado su nombre.
+	 * 
+	 * @param pNombre el nombre del equipo.
+	 */
+	
+	public ArrayList<String> buscarEquipo(String pNombre) {
+		return Liga.getMiLiga().buscarEquipo(pNombre);
+	}
 }

@@ -109,5 +109,30 @@ public class CatalogoUsuarios {
 		return rdo;
 	}
 	
+	/**
+	 * Se encarga de buscar si existe o no un usuario en el sistema.
+	 * 
+	 * @param pUnUsuario el nombre del usuario que deseamos buscar.
+	 */
 	
+	public boolean buscarUnUsuario(String pUnUsuario) {
+		boolean existe = false;
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Usuario WHERE Nombre="+pUnUsuario);
+		if(RdoSQL.next()) {
+			//El usuario existe
+			existe = true;
+		}
+		return existe;
+	}
+	
+	/**
+	 * Actualizamos el admin y password de un equipo determinado
+	 * 
+	 * @param pUnUsuario el nombre del usuario
+	 * @param pUnaContraseña la contraseña
+	 * @param pNombreUsuario el nombre del anterior usuario.
+	 */
+	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
+		SGBD.getSGBD().execSQL("UPDATE usuario SET nombre='"+pUnUsuario+"',contraseña='"+pUnaContraseña+"' WHERE usuario='"+pNombreUsuario+'"');
+	}
 }

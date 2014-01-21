@@ -72,4 +72,20 @@ public class CatalogoEquipos {
 		return nombresEquipos;
 	}
 	
+	/**
+	 * Obtiene los datos relativos a un equipo dado su nombre.
+	 * 
+	 * @param pNombre el nombre del equipo.
+	 */
+	
+	public ArrayList<String> buscarEquipo(String pNombre) {
+		ArrayList<String> infoEquipo = new ArrayList<String>();
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Equipo WHERE Nombre="+pNombre);
+		if(RdoSQL.next()) {
+			infoEquipo.add(RdoSQL.get("Puntos"));
+			infoEquipo.add(RdoSQL.get("Dinero"));
+			infoEquipo.add(RdoSQL.get("NombreUsuario"));
+		}
+		return infoEquipo;
+	}
 }
