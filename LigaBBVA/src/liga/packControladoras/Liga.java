@@ -2,6 +2,10 @@ package liga.packControladoras;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
+import liga.packModelo.ListaArbitros;
+import liga.packModelo.ListaEquipos;
 
 /**MAE patron fachadas
  *
@@ -68,5 +72,16 @@ public class Liga
 	}
 	public String[] obtenerClasificacion(int pNumTemporada,int pNumJornada){
 		return CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacion(pNumTemporada, pNumJornada);
+	}
+	public int[] obtenerEstadisticas(int elJugador){
+		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(elJugador);
+	}
+	public int[] obtenerJornadasDe(int pNumTemporada){
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pNumTemporada);
+	}
+	
+	public void inicializarTemporada(ListaEquipos pListaEquipos, ListaArbitros pListaArbitros, GregorianCalendar pFecha, int pNumTemp)
+	{
+		CatalogoTemporadas.getMiCatalogoTemporadas().inicializarTemporada(pListaEquipos, pListaArbitros, pFecha, pNumTemp);
 	}
 }

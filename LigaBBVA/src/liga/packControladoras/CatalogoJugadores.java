@@ -25,6 +25,7 @@ public class CatalogoJugadores {
 			listaJugadores[i][4] = RdoSQL.get("numsanciones");
 			i++;
 		}
+		RdoSQL.close();
 		return listaJugadores;
 	}
 	
@@ -44,15 +45,19 @@ public class CatalogoJugadores {
 					listaJugadoresConvocables[cont][2] = listaJugadores[i][2]; // Dorsal.
 					cont++;
 				}
+				RdoSQL.close();
 			}
 		}
+		
 		return listaJugadoresConvocables;
 	}
 	
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE nombreequipo = " + nombreEquipo + " AND nombre = " + nombreJugador);
 		RdoSQL.next();
-		if (RdoSQL.getInt("cont") != 0)
+		int cont=RdoSQL.getInt("cont");
+		RdoSQL.close();
+		if (cont != 0)
 			return true;
 		return false;
 	}

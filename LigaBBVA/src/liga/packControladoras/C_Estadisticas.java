@@ -17,4 +17,8 @@ private static C_Estadisticas misEstadisticas = new C_Estadisticas();
 	public int[] obtenerTemporadas(){
 		return Liga.getMiLiga().obtenerTemporadas();
 	}
+	
+	public int[] obtenerEstadistica(int elJugador){
+		return Liga.getMiLiga().obtenerEstadisticas(elJugador);
+	}
 }

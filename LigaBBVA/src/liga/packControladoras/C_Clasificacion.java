@@ -31,4 +31,9 @@ public class C_Clasificacion
 	{
 		return Liga.getMiLiga().obtenerClasificacion(pNumTemporada, pNumJornada);
 	}
+	
+	public int[] obtenerJornadasDe(int pNumTemporada)
+	{
+		return Liga.getMiLiga().obtenerJornadasDe(pNumTemporada);
+	}
 }

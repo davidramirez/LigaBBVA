@@ -30,5 +30,17 @@ public class CatalogoEstadisticasJugador
 		return jugFairPlay;
 				
 	}
+	
+	public int[] obtenerEstadisticasJugador(int pJugador)
+	{
+		int[]estadistica=new int[2];
+		ResultadoSQL RdoSQL= SGBD.getSGBD().consultaSQL("SELECT numgoles,"
+				+ "numsanciones FROM estadisticasjugador WHERE codjug=pJugador");
+		if(RdoSQL.next()){
+			estadistica[0]=RdoSQL.getInt("numgoles");
+			estadistica[1]=RdoSQL.getInt("numsanciones");
+		}
+		return estadistica;		
+	}
 
 }
