@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
 
 public class I_Usuario extends JFrame {
 
@@ -24,8 +26,8 @@ public class I_Usuario extends JFrame {
 	private JButton btnFairplay;
 	private JButton btnQuiniela;
 	private JButton btnDatos;
-	private JScrollPane scrollPane;
-	private JTextArea textArea;
+	private JScrollPane scrollPaneJornadas;
+	private JLabel lblPartidosDeLa;
 
 	/**
 	 * Launch the application.
@@ -61,14 +63,33 @@ public class I_Usuario extends JFrame {
 		contentPane.add(getBtnFairplay());
 		contentPane.add(getBtnQuiniela());
 		contentPane.add(getBtnDatos());
-		contentPane.add(getScrollPane());
-		contentPane.add(getTextArea());
+		contentPane.add(getScrollPaneJornadas());
+		
+		JScrollPane scrollPanePartidos = new JScrollPane();
+		scrollPanePartidos.setBounds(216, 146, 329, 132);
+		contentPane.add(scrollPanePartidos);
+		
+		JTextPane textPanePartidos = new JTextPane();
+		scrollPanePartidos.setViewportView(textPanePartidos);
+		
+		JLabel lblCalendarioDeLa = new JLabel("Calendario de la liga");
+		lblCalendarioDeLa.setBounds(12, 29, 169, 15);
+		contentPane.add(lblCalendarioDeLa);
+		
+		JLabel lblListaDeEquipos = new JLabel("Lista de equipos");
+		lblListaDeEquipos.setBounds(216, 29, 139, 15);
+		contentPane.add(lblListaDeEquipos);
+		
+		JLabel lblListaDeJugadores = new JLabel("Lista de jugadores");
+		lblListaDeJugadores.setBounds(216, 66, 139, 15);
+		contentPane.add(lblListaDeJugadores);
+		contentPane.add(getLblPartidosDeLa());
 		setResizable(false);
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("Salir");
-			btnSalir.setBounds(12, 419, 117, 25);
+			btnSalir.setBounds(12, 379, 117, 25);
 		}
 		return btnSalir;
 	}
@@ -123,18 +144,21 @@ public class I_Usuario extends JFrame {
 		}
 		return btnDatos;
 	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 127, 117, 280);
+	private JScrollPane getScrollPaneJornadas() {
+		if (scrollPaneJornadas == null) {
+			scrollPaneJornadas = new JScrollPane();
+			scrollPaneJornadas.setBounds(12, 66, 145, 276);
+			
+			JTextPane textPaneJornadas = new JTextPane();
+			scrollPaneJornadas.setViewportView(textPaneJornadas);
 		}
-		return scrollPane;
+		return scrollPaneJornadas;
 	}
-	private JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea();
-			textArea.setBounds(216, 48, 190, 78);
+	private JLabel getLblPartidosDeLa() {
+		if (lblPartidosDeLa == null) {
+			lblPartidosDeLa = new JLabel("Partidos de la jornada");
+			lblPartidosDeLa.setBounds(216, 119, 193, 15);
 		}
-		return textArea;
+		return lblPartidosDeLa;
 	}
 }
