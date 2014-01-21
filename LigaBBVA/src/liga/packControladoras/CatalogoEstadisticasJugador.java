@@ -16,7 +16,7 @@ public class CatalogoEstadisticasJugador
 		return miCatalogoEstJug;
 	}
 	
-	public ArrayList<String> obtenerjugadorFairPlay(int codTemp)
+	public ArrayList<String> obtenerJugadorFairPlay(int codTemp)
 	{
 		ArrayList<String> jugFairPlay = new ArrayList<String>();
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM EstadisticasJugador AS e NATURAL JOIN Jugador AS j WHERE e.numtemporada='codTemp' AND j.estaretirado='false' ORDER BY e.numsanciones ASC");

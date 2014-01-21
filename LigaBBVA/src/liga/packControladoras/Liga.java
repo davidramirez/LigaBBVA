@@ -26,9 +26,12 @@ public class Liga
 		
 	}
 	
-	public ArrayList<String> obtenerJugadorFairplay(int codTemporada)
+	public ArrayList<String> obtenerJugadorFairplay(int pNumTemporada)
 	{
-		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerjugadorFairPlay(codTemporada);
+		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerJugadorFairPlay(pNumTemporada);
+	}
+	public ArrayList<String> obtenerEquipoFairPlay(int pNumTemporada){
+		return CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(pNumTemporada);
 	}
 	
 	private int obtenerJornadaAnterior(Date fecha) {
