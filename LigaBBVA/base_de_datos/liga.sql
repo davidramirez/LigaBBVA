@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `estadisticasjugador` (
 CREATE TABLE IF NOT EXISTS `goles` (
   `numtemporada` int(10) NOT NULL,
   `numjornada` int(2) NOT NULL,
+  `nomeqafectado` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqlocal` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqvisitante` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `codjug` int(11) NOT NULL,
@@ -236,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `partido` (
 CREATE TABLE IF NOT EXISTS `sustituciones` (
   `numtemporada` int(10) NOT NULL,
   `numjornada` int(2) NOT NULL,
+  `nomeqafectado` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqlocal` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqvisitante` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `codjugsale` int(11) NOT NULL,
@@ -256,6 +258,7 @@ CREATE TABLE IF NOT EXISTS `sustituciones` (
 CREATE TABLE IF NOT EXISTS `tarjetas` (
   `numtemporada` int(10) NOT NULL,
   `numjornada` int(2) NOT NULL,
+  `nomeqafectado` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqlocal` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nomeqvisitante` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `codjug` int(11) NOT NULL,
