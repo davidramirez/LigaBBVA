@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 public class I_Usuario extends JFrame {
 
@@ -84,6 +85,14 @@ public class I_Usuario extends JFrame {
 		lblListaDeJugadores.setBounds(216, 66, 139, 15);
 		contentPane.add(lblListaDeJugadores);
 		contentPane.add(getLblPartidosDeLa());
+		
+		JComboBox comboBoxEquipos = new JComboBox();
+		comboBoxEquipos.setBounds(408, 24, 139, 24);
+		contentPane.add(comboBoxEquipos);
+		
+		JComboBox comboBoxJugadores = new JComboBox();
+		comboBoxJugadores.setBounds(408, 66, 139, 24);
+		contentPane.add(comboBoxJugadores);
 		setResizable(false);
 	}
 	private JButton getBtnSalir() {
