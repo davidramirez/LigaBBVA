@@ -102,8 +102,9 @@ public class CatalogoUsuarios {
 		}
 		/*
 		 * Como un execSQL no nos permite comprobar si se ha efectuado el cambio, comprobamos que haya introducido
-		 * la contraseña vieja correcta mediante el método identificarse(id,pass)
+		 * la contraseña vieja correcta mediante el método identificarse(id,pass).
 		 */
+		
 		
 		return rdo;
 	}
