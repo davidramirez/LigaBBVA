@@ -1,9 +1,12 @@
 package liga.packControladoras;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.sql.Date;
 
-public class C_GestionEquipo {
+import liga.packVistas.IU_GestionEquipo;
+
+public class C_GestionEquipo extends Observable {
 	private static C_GestionEquipo miC_GestionEquipo = new C_GestionEquipo();	
 	private String miEquipo = null;
 			
@@ -74,11 +77,21 @@ public class C_GestionEquipo {
 	}
 	
 	public boolean anadirJugador(String nombre, String dorsal) {
-		return Liga.getMiLiga().anadirJugador(this.miEquipo, nombre, dorsal);
+		if (Liga.getMiLiga().anadirJugador(this.miEquipo, nombre, dorsal)) {
+			setChanged();
+			notifyObservers();
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean modificarJugador(String codJug, String nombre, String dorsal) {
-		return Liga.getMiLiga().modificarJugador(codJug, this.miEquipo, nombre, dorsal);
+		if (Liga.getMiLiga().modificarJugador(codJug, this.miEquipo, nombre, dorsal)) {
+			setChanged();
+			notifyObservers();
+			return true;
+		}
+		return false;
 	}
 	
 	public void darDeBajaJugador(String codJug) {

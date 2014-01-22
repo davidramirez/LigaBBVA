@@ -3,6 +3,8 @@ package liga.packVistas;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ import liga.packControladoras.C_GestionEquipo;
 import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
-public class IU_GestionEquipo extends JFrame {
+public class IU_GestionEquipo extends JFrame implements Observer {
 
 	private JPanel contentPane;
 	private JButton btnSalir;
@@ -28,10 +30,10 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton btnMercado;
 	private JButton btnAnadirJugador;
 	private JButton btnGestionarFichajes;
-	private JButton btnModificar;
 	private JList<String> listJugadores;
 	private String idAdmin;
 	private JButton btnModificarJugador;
+	private String[][] jugadores;
 
 	/**
 	 * Launch the application.
@@ -40,7 +42,7 @@ public class IU_GestionEquipo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IU_GestionEquipo frame = new IU_GestionEquipo("", "Athletic");
+					IU_GestionEquipo frame = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "", "Athletic");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +54,7 @@ public class IU_GestionEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo(String id, String equipo) {
+	public IU_GestionEquipo(C_GestionEquipo model, String id, String equipo) {
 		idAdmin=id;
 		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +80,8 @@ public class IU_GestionEquipo extends JFrame {
 		contentPane.add(lblNombreEquipo);
 		contentPane.add(getListJugadores());
 		setResizable(false);
+		
+		model.addObserver(this);
 		
 		comprobaciones();
 	}
@@ -146,14 +150,14 @@ public class IU_GestionEquipo extends JFrame {
 			listJugadores = new JList<String>();
 			listJugadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listJugadores.setBounds(12, 56, 300, 389);
-			llenarLista();
+			actualizarLista();
 			listJugadores.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
-					if (arg0.getValueIsAdjusting() == false) {
+					if (!arg0.getValueIsAdjusting()) {
 						if (listJugadores.getSelectedIndex() == -1)
-							btnModificar.setEnabled(false);
+							btnModificarJugador.setEnabled(false);
 				        else
-				        	btnModificar.setEnabled(true);
+				        	btnModificarJugador.setEnabled(true);
 				    }
 				}
 			});
@@ -171,8 +175,8 @@ public class IU_GestionEquipo extends JFrame {
 		}
 	}
 	
-	private void llenarLista() {
-		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
+	private void actualizarLista() {
+		jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		for (int i = 0; i < jugadores.length; i++) {
 			if (jugadores[i][3].equals("1"))
@@ -182,17 +186,25 @@ public class IU_GestionEquipo extends JFrame {
 		}
 		listJugadores.setModel(modelo);
 	}
+	
 	private JButton getBtnModificarJugador() {
 		if (btnModificarJugador == null) {
 			btnModificarJugador = new JButton("ModificarJugador");
+			btnModificarJugador.setEnabled(false);
 			btnModificarJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					IU_ModificarJugador mj = new IU_ModificarJugador("1", "Erik Morán", "5");
+					int indice = listJugadores.getSelectedIndex();
+					IU_ModificarJugador mj = new IU_ModificarJugador(jugadores[indice][0], jugadores[indice][1], jugadores[indice][2]);
 					mj.setVisible(true);
 				}
 			});
 			btnModificarJugador.setBounds(428, 273, 189, 25);
 		}
 		return btnModificarJugador;
+	}
+
+	public void update(Observable arg0, Object arg1) {
+		System.out.println("yeeeeeeeeeeeeeeeha!");
+		this.actualizarLista();
 	}
 }
