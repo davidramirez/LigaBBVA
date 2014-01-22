@@ -50,6 +50,11 @@ public class C_Usuario {
 		return Liga.getMiLiga().recuperarPass(id, resp);
 	}
 	
+	public String obtenerEquipoDe(String id)
+	{
+		return Liga.getMiLiga().obtenerEquipoDe(id);
+	}
+	
 	public boolean cambiarPass(String id, String passAnt, String passN, String preg, String resp)
 	{
 		return Liga.getMiLiga().cambiarPass(id, passAnt, passN, preg, resp);

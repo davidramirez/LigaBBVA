@@ -132,6 +132,11 @@ public class Liga
 		return CatalogoUsuarios.getMiCatalogoUsuarios().cambiarPass(id, passAnt, passN, preg, resp);
 	}
 	
+	public String obtenerEquipoDe(String id)
+	{
+		return CatalogoUsuarios.getMiCatalogoUsuarios().obtenerEquipoDe(id);
+	}
+	
 	/**
 	 * Buscamos si existe o no un equipo basado en el nombre que recibe
 	 * @param nombreEquipo el nombre del equipo

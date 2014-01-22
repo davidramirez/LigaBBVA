@@ -125,6 +125,17 @@ public class CatalogoUsuarios {
 		return existe;
 	}
 	
+	public String obtenerEquipoDe(String id)
+	{
+		String rdo=null;
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombre FROM equipo WHERE nombreusuario=" + id +"");
+		if(RdoSQL.next())
+		rdo=RdoSQL.get("nombre");
+		RdoSQL.close();
+		return rdo;
+	}
+	
+	
 	/**
 	 * Actualizamos el admin y password de un equipo determinado
 	 * 
