@@ -1,7 +1,7 @@
 package liga.packControladoras;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class C_GestionEquipo {
 	private static C_GestionEquipo miC_GestionEquipo = new C_GestionEquipo();	

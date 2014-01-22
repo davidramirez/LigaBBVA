@@ -149,7 +149,12 @@ public class IU_GestionEquipo extends JFrame {
 			llenarLista();
 			listJugadores.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
-					btnModificar.setEnabled(false);	
+					if (arg0.getValueIsAdjusting() == false) {
+						if (listJugadores.getSelectedIndex() == -1)
+							btnModificar.setEnabled(false);
+				        else
+				        	btnModificar.setEnabled(true);
+				    }
 				}
 			});
 		}
@@ -169,8 +174,12 @@ public class IU_GestionEquipo extends JFrame {
 	private void llenarLista() {
 		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for (int i = 0; i < jugadores.length; i++)
-			modelo.addElement(jugadores[i][1]);
+		for (int i = 0; i < jugadores.length; i++) {
+			if (jugadores[i][3].equals("1"))
+				modelo.addElement(jugadores[i][1] + " (en venta)");
+			else
+				modelo.addElement(jugadores[i][1]);
+		}
 		listJugadores.setModel(modelo);
 	}
 	private JButton getBtnModificarJugador() {

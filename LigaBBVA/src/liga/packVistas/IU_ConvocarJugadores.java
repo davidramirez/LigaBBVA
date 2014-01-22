@@ -3,6 +3,7 @@ package liga.packVistas;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -11,11 +12,19 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.Date;
+
+import liga.packControladoras.C_GestionEquipo;
+
+@SuppressWarnings("serial")
 public class IU_ConvocarJugadores extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnPoner;
 	private JButton btnQuitar;
+	
 
 	/**
 	 * Launch the application.
@@ -34,18 +43,20 @@ public class IU_ConvocarJugadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public IU_ConvocarJugadores() {
+		this.setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JList listConvocables = new JList();
+			JList<String> listConvocables = new JList<String>();
 			listConvocables.setBounds(12, 47, 156, 180);
+			listConvocables.setModel(this.llenarModelo());
 			contentPanel.add(listConvocables);
 		}
 		{
-			JList listAConvocar = new JList();
+			JList<String> listAConvocar = new JList<String>();
 			listAConvocar.setBounds(278, 47, 156, 180);
 			contentPanel.add(listAConvocar);
 		}
@@ -74,6 +85,11 @@ public class IU_ConvocarJugadores extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -92,5 +108,16 @@ public class IU_ConvocarJugadores extends JDialog {
 			btnQuitar.setBounds(200, 107, 44, 25);
 		}
 		return btnQuitar;
+	}
+	
+	private DefaultListModel<String> llenarModelo() {
+		java.util.Date aux = new java.util.Date();
+		Date fecha = new Date(aux.getTime());
+		System.out.println(fecha);
+		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for (int i = 0; i < jugadores.length; i++)
+			modelo.addElement(jugadores[i][1]);
+		return modelo;
 	}
 }

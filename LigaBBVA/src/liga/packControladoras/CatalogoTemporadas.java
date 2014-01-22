@@ -1,6 +1,6 @@
 package liga.packControladoras;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 
 import liga.packGestorBD.ResultadoSQL;
@@ -64,7 +64,7 @@ public class CatalogoTemporadas
 	public int obtenerJornadaAnterior(Date fecha) {
 		int rdo=0;
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 "
-				+ "AND fecha < " + fecha + " ORDER BY fecha DESC");		
+				+ "AND fecha <= " + fecha + " ORDER BY fecha DESC");		
 		if(RdoSQL.next()) rdo=RdoSQL.getInt("numjornada") ;
 		RdoSQL.close();
 		return rdo;
@@ -77,7 +77,7 @@ public class CatalogoTemporadas
 	public int obtenerJornadaAJugar(Date fecha) {
 		int rdo = 0;
 		int temporadaActual = this.obtenerUltimaTemporada();
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 0 AND fecha > " + fecha + " numtemporada = " + temporadaActual + " ORDER BY numjornada ASC");		
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 0 AND fecha >= " + fecha + " numtemporada = " + temporadaActual + " ORDER BY numjornada ASC");		
 		if( RdoSQL.next())
 			rdo = RdoSQL.getInt("numjornada");
 		RdoSQL.close();
