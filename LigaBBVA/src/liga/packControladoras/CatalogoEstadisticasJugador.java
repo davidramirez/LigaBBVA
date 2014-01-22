@@ -19,7 +19,7 @@ public class CatalogoEstadisticasJugador
 	public ArrayList<String> obtenerJugadorFairPlay(int codTemp)
 	{
 		ArrayList<String> jugFairPlay = new ArrayList<String>();
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM EstadisticasJugador AS e NATURAL JOIN Jugador AS j WHERE e.numtemporada='codTemp' AND j.estaretirado='false' ORDER BY e.numsanciones ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM estadisticasjugador AS e INNER JOIN jugador AS j ON e.codjug=j.codjug WHERE e.numtemporada='"+codTemp+"' AND j.estaretirado=0 ORDER BY e.numsanciones ASC");
 		if(RdoSQL.next())
 		{
 			jugFairPlay.add(RdoSQL.get("nombre"));
@@ -35,7 +35,7 @@ public class CatalogoEstadisticasJugador
 	{
 		int[]estadistica=new int[2];
 		ResultadoSQL RdoSQL= SGBD.getSGBD().consultaSQL("SELECT numgoles,"
-				+ "numsanciones FROM estadisticasjugador WHERE codjug=pJugador");
+				+ "numsanciones FROM estadisticasjugador WHERE codjug='"+pJugador+"'");
 		if(RdoSQL.next()){
 			estadistica[0]=RdoSQL.getInt("numgoles");
 			estadistica[1]=RdoSQL.getInt("numsanciones");

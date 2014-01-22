@@ -24,7 +24,8 @@ public class CatalogoTemporadasTest {
 	@Test
 	public void testObtenerTemporadas() {
 		assertNotNull(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas());
-		assertFalse(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas().length==0);
+		assertTrue(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas()[0]==1);
+		
 	}
 
 	@Test
@@ -39,7 +40,7 @@ public class CatalogoTemporadasTest {
 
 	@Test
 	public void testObtenerUltimaTemporada() {
-		fail("Not yet implemented");
+		int codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
 	}
 
 	@Test
