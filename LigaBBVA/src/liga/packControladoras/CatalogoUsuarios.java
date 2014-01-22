@@ -18,7 +18,7 @@ public class CatalogoUsuarios {
 		boolean rdo=false;
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Usuario WHERE Nombre=" + id +"  AND Contrasena=" + pass +"");
 		if (RdoSQL.next()){rdo=true;}
-		
+		RdoSQL.close();
 		return rdo;
 	}
 	
@@ -50,7 +50,7 @@ public class CatalogoUsuarios {
 				rdo="admin";
 			}
 		}
-		
+		RdoSQL.close();
 		return rdo;
 		
 	}
@@ -67,7 +67,7 @@ public class CatalogoUsuarios {
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT PreguntaSeg FROM Usuario WHERE Nombre=" + id +"");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("PreguntaSeg");
-		
+		RdoSQL.close();
 		return rdo;
 	}
 	
@@ -83,7 +83,7 @@ public class CatalogoUsuarios {
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT Contrasena FROM Usuario WHERE Nombre=" + id +" AND RespuestaSeg="+resp+"");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("Contrasena");
-		
+		RdoSQL.close();
 		return rdo;
 	}
 	
