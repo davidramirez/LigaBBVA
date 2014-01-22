@@ -1,7 +1,10 @@
 package liga.packModelo;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+
+import liga.packGestorBD.SGBD;
 
 public class Jornada {
 	
@@ -146,5 +149,22 @@ public class Jornada {
 	//Iterador para poder movernos en el vector de Partidos
 	public Iterator<Partido> getIterador(){
 		return this.getPartidos().getIterator();
+	}
+
+	public void asignarArbitros(ListaArbitros pListaArbitros)
+	{
+		this.getPartidos().asignarArbitros(pListaArbitros);
+	}
+
+	public void almacenarJornada(int pNumTemp)
+	{
+		String fecha = this.getFecha().get(Calendar.YEAR)+"-"+this.getFecha().get(Calendar.MONTH+1)+"-"+this.getFecha().get(Calendar.DATE);
+		SGBD.getSGBD().execSQL("INSERT INTO jornada VALUES ("+this.getNumJornada()+","+fecha+", FALSE, "+pNumTemp+")");
+		this.getPartidos().almacenarPartidos(pNumTemp, this.getNumJornada());
+	}
+
+	private int getNumJornada()
+	{
+		return this.numJornada;
 	}
 }

@@ -43,4 +43,28 @@ public class ListaPartidos {
 		// TODO Auto-generated method stub
 		return this.getLista().iterator();
 	}
+
+	public void asignarArbitros(ListaArbitros pListaArbitros)
+	{
+		Partido unPartido;
+		Iterator<Partido> it = this.getIterator();
+		
+		while(it.hasNext())
+		{
+			unPartido = it.next();
+			unPartido.asignarArbitros(pListaArbitros);
+		}
+	}
+
+	public void almacenarPartidos(int pNumTemp, int pNumJornada)
+	{
+		Iterator<Partido> it = this.getIterator();
+		Partido unPartido;
+		
+		while(it.hasNext())
+		{
+			unPartido = it.next();
+			unPartido.almacenarPartido(pNumTemp, pNumJornada);
+		}
+	}
 }

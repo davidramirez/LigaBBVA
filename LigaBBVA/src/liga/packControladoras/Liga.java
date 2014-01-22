@@ -121,4 +121,56 @@ public class Liga
 	public boolean buscarSiExiste(String pNombreEquipo) {
 		return CatalogoEquipos.getMisEquipos().buscarSiExiste(pNombreEquipo);
 	}
+	
+	/**
+	 * Añadimos un nuevo equipo en la BD
+	 * @param pNombreEquipo el nombre del equipo
+	 * @param pNombreProvincia la provincia de procedencia
+	 * @param pPresupuesto el presupuesto del equipo
+	 */
+	
+	public void anadirEquipo(String pNombreEquipo,String pNombreProvincia, String pPresupuesto) {
+		CatalogoEquipos.getMisEquipos().anadirEquipo(pNombreEquipo, pNombreProvincia, pPresupuesto);
+	}
+	
+	/**
+	 * Se encarga de obtener todos lo nombres de los equipos
+	 * 
+	**/
+	
+	public ArrayList<String> obtenerNombresEquipos() {
+		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
+	}
+	
+
+	/**
+	 * Obtiene los datos relativos a un equipo dado su nombre.
+	 * 
+	 * @param pNombre el nombre del equipo.
+	 */
+	
+	public ArrayList<String> buscarEquipo(String pNombre) {
+		return CatalogoEquipos.getMisEquipos().buscarEquipo(pNombre);
+	}
+	
+	/**
+	 * Se encarga de buscar si existe o no un usuario en el sistema.
+	 * 
+	 * @param pUnUsuario el nombre del usuario que deseamos buscar.
+	 */
+	
+	public boolean buscarUnUsuario(String pUnUsuario) {
+		return CatalogoUsuarios.getMiCatalogoUsuarios().buscarUnUsuario(pUnUsuario);
+	}
+	
+	/**
+	 * Actualizamos el admin y password de un equipo determinado
+	 * 
+	 * @param pUnUsuario el nombre del usuario
+	 * @param pUnaContraseña la contraseña
+	 * @param pNombreUsuario el nombre del anterior usuario.
+	 */
+	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
+		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
+	}
 }

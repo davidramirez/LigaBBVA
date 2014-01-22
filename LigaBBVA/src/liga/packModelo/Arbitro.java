@@ -25,4 +25,16 @@ public class Arbitro {
 		enNeveraHasta = null;
 	}
 
+
+	public Provincia getProvincia()
+	{
+		return this.provincia;
+	}
+
+
+	public String getDNI()
+	{
+		return this.dNI;
+	}
+
 }
