@@ -56,7 +56,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	 */
 	public IU_GestionEquipo(C_GestionEquipo model, String id, String equipo) {
 		idAdmin=id;
-		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo);
+		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo); // Lo guardamos en el controlador para no tener que preocuparnos más.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
 		contentPane = new JPanel();
@@ -81,8 +81,10 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		contentPane.add(getListJugadores());
 		setResizable(false);
 		
+		/* Esta clase será observadora del modelo pasado, es decir, el controlador de la gestión del equipo. */
 		model.addObserver(this);
 		
+		/* Serie de comprobaciones para mostrar o no ciertos botones. */
 		comprobaciones();
 	}
 	private JButton getBtnSalir() {
@@ -126,8 +128,9 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 			btnAnadirJugador = new JButton("Añadir jugador");
 			btnAnadirJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					 IU_AnadirJugador aj = new IU_AnadirJugador();
-					 aj.setVisible(true); 
+					/* Llamamos a la nueva interfaz. */
+					IU_AnadirJugador aj = new IU_AnadirJugador();
+					aj.setVisible(true); 
 				}
 			});
 			btnAnadirJugador.setBounds(428, 236, 189, 25);
@@ -153,6 +156,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 			actualizarLista();
 			listJugadores.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
+					/* Si hay algún jugador seleccionado, se activará el botón de modificar. */
 					if (!arg0.getValueIsAdjusting()) {
 						if (listJugadores.getSelectedIndex() == -1)
 							btnModificarJugador.setEnabled(false);
@@ -165,6 +169,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		return listJugadores;
 	}
 	
+	/* Comprobaciones para activar y desactivar botones dependiendo del número total de jugadores que tenga el equipo. */
 	private void comprobaciones() {
 		int numJugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores().length;
 		if (numJugadores < 19)
@@ -175,6 +180,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		}
 	}
 	
+	/* Llenamos la lista de jugadores. */
 	private void actualizarLista() {
 		jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
@@ -193,6 +199,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 			btnModificarJugador.setEnabled(false);
 			btnModificarJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					/* Llamamos a la nueva interfaz. */
 					int indice = listJugadores.getSelectedIndex();
 					IU_ModificarJugador mj = new IU_ModificarJugador(jugadores[indice][0], jugadores[indice][1], jugadores[indice][2]);
 					mj.setVisible(true);
@@ -203,7 +210,8 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		return btnModificarJugador;
 	}
 
+	/* Cuando se añade o modifica un jugador, se entrará a este método. */
 	public void update(Observable arg0, Object arg1) {
-		this.actualizarLista();
+		this.actualizarLista(); // Actualizamos el JList.
 	}
 }
