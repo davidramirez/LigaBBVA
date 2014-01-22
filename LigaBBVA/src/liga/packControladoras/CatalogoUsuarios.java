@@ -16,7 +16,7 @@ public class CatalogoUsuarios {
 	public boolean identificarse(String id, String pass)
 	{
 		boolean rdo=false;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Usuario WHERE Nombre=" + id +"  AND Contrasena=" + pass +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM usuario WHERE nombre=" + id +"  AND contrasena=" + pass +"");
 		if (RdoSQL.next()){rdo=true;}
 		RdoSQL.close();
 		return rdo;
@@ -32,7 +32,7 @@ public class CatalogoUsuarios {
 		
 		String rdo="";
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Arbitro WHERE NombreUsuario=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM arbitro WHERE nombreusuario=" + id +"");
 		
 		if (RdoSQL.next())
 		{
@@ -40,7 +40,7 @@ public class CatalogoUsuarios {
 		}
 		else
 		{
-			RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Equipo WHERE NombreUsuario=" + id +"");
+			RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM equipo WHERE nombreusuario=" + id +"");
 			if (RdoSQL.next())
 			{
 				rdo="equipo";
@@ -64,9 +64,9 @@ public class CatalogoUsuarios {
 		 */
 		String rdo=null;
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT PreguntaSeg FROM Usuario WHERE Nombre=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT preguntaSeg FROM usuario WHERE nombre=" + id +"");
 		if(RdoSQL.next())
-		rdo=RdoSQL.get("PreguntaSeg");
+		rdo=RdoSQL.get("preguntaseg");
 		RdoSQL.close();
 		return rdo;
 	}
@@ -80,9 +80,9 @@ public class CatalogoUsuarios {
 		
 		String rdo=null;
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT Contrasena FROM Usuario WHERE Nombre=" + id +" AND RespuestaSeg="+resp+"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT contrasena FROM usuario WHERE nombre=" + id +" AND respuestaseg="+resp+"");
 		if(RdoSQL.next())
-		rdo=RdoSQL.get("Contrasena");
+		rdo=RdoSQL.get("contrasena");
 		RdoSQL.close();
 		return rdo;
 	}
@@ -97,7 +97,7 @@ public class CatalogoUsuarios {
 		boolean rdo=false;
 		if(identificarse(id,passAnt))
 		{
-			SGBD.getSGBD().execSQL("UPDATE Usuario SET Contrasena="+ passN+", PreguntaSeg="+preg+", RespuestaSeg="+resp+" WHERE Nombre="+id+"");
+			SGBD.getSGBD().execSQL("UPDATE usuario SET contrasena="+ passN+", preguntaseg="+preg+", respuestaseg="+resp+" WHERE nombre="+id+"");
 			rdo=true;
 		}
 		/*
@@ -117,7 +117,7 @@ public class CatalogoUsuarios {
 	
 	public boolean buscarUnUsuario(String pUnUsuario) {
 		boolean existe = false;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM Usuario WHERE Nombre="+pUnUsuario);
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM usuario WHERE nombre="+pUnUsuario);
 		if(RdoSQL.next()) {
 			//El usuario existe
 			existe = true;

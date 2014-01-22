@@ -29,4 +29,29 @@ public class C_Usuario {
 			Liga.getMiLiga().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
 		}
 	}
+	
+	public boolean identificarse(String id, String pass)
+	{
+		return Liga.getMiLiga().identificarse(id, pass);
+	}
+	
+	public String obtenerTipo(String id)
+	{
+		return Liga.getMiLiga().obtenerTipo(id);
+	}
+	
+	public String obtenerPregunta(String id)
+	{
+		return Liga.getMiLiga().obtenerPregunta(id);
+	}
+	
+	public String recuperarPass(String id, String resp)
+	{
+		return Liga.getMiLiga().recuperarPass(id, resp);
+	}
+	
+	public boolean cambiarPass(String id, String passAnt, String passN, String preg, String resp)
+	{
+		return Liga.getMiLiga().cambiarPass(id, passAnt, passN, preg, resp);
+	}
 }
