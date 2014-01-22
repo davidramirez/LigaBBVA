@@ -204,7 +204,6 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("yeeeeeeeeeeeeeeeha!");
 		this.actualizarLista();
 	}
 }
