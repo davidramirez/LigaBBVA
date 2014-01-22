@@ -31,6 +31,7 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton btnModificar;
 	private JList<String> listJugadores;
 	private String idAdmin;
+	private JButton btnModificarJugador;
 
 	/**
 	 * Launch the application.
@@ -53,6 +54,7 @@ public class IU_GestionEquipo extends JFrame {
 	 */
 	public IU_GestionEquipo(String id, String equipo) {
 		idAdmin=id;
+		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
 		contentPane = new JPanel();
@@ -64,7 +66,7 @@ public class IU_GestionEquipo extends JFrame {
 		contentPane.add(getBtnMercado());
 		contentPane.add(getBtnAnadirJugador());
 		contentPane.add(getBtnGestionarFichajes());
-		contentPane.add(getBtnModificar());
+		contentPane.add(getBtnModificarJugador());
 		
 		JLabel lblListaJugadores = new JLabel("Lista de jugadores");
 		lblListaJugadores.setBounds(12, 29, 169, 15);
@@ -78,20 +80,6 @@ public class IU_GestionEquipo extends JFrame {
 		setResizable(false);
 		
 		comprobaciones();
-	}
-	private JButton getBtnModificar() {
-		if (btnModificar == null) {
-			btnModificar = new JButton("Modificar jugador");
-			btnModificar.setEnabled(false);
-			btnModificar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					/*IU_ModificarJugador mj = new IU_ModificarJugador();
-					 mj.setVisible(true); */
-				}
-			});
-			btnModificar.setBounds(428, 273, 189, 25);
-		}
-		return btnAnadirJugador;
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
@@ -184,5 +172,18 @@ public class IU_GestionEquipo extends JFrame {
 		for (int i = 0; i < jugadores.length; i++)
 			modelo.addElement(jugadores[i][1]);
 		listJugadores.setModel(modelo);
+	}
+	private JButton getBtnModificarJugador() {
+		if (btnModificarJugador == null) {
+			btnModificarJugador = new JButton("ModificarJugador");
+			btnModificarJugador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					IU_ModificarJugador mj = new IU_ModificarJugador("1", "Erik Morán", "5");
+					mj.setVisible(true);
+				}
+			});
+			btnModificarJugador.setBounds(428, 273, 189, 25);
+		}
+		return btnModificarJugador;
 	}
 }
