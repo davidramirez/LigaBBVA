@@ -11,7 +11,7 @@ public class C_FairPlay
 	
 	}
 	
-	public static C_FairPlay getMisEstadisticas() 
+	public static C_FairPlay getMiFairPlay() 
 	{
 		return miFairPlay;
 	}

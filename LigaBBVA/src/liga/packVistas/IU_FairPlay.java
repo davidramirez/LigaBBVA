@@ -1,6 +1,5 @@
 package liga.packVistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,15 +10,19 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import liga.packControladoras.C_FairPlay;
 
 @SuppressWarnings("serial")
 public class IU_FairPlay extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
-	private JTextField textFieldApellidos;
 	private JTextField textFieldEquipo;
 	private JTextField textFieldSanciones;
 	private JTextField textFieldNomEq;
@@ -34,6 +37,7 @@ public class IU_FairPlay extends JFrame {
 				try {
 					IU_FairPlay frame = new IU_FairPlay();
 					frame.setVisible(true);
+						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,35 +74,26 @@ public class IU_FairPlay extends JFrame {
 		lblNombre.setBounds(12, 53, 70, 15);
 		contentPane.add(lblNombre);
 		
-		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(12, 80, 70, 15);
-		contentPane.add(lblApellidos);
-		
 		JLabel lblEquipo = new JLabel("Equipo");
-		lblEquipo.setBounds(12, 107, 70, 15);
+		lblEquipo.setBounds(12, 80, 70, 15);
 		contentPane.add(lblEquipo);
 		
 		JLabel lblSanciones = new JLabel("Sanciones");
-		lblSanciones.setBounds(12, 134, 97, 15);
+		lblSanciones.setBounds(12, 111, 97, 15);
 		contentPane.add(lblSanciones);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(107, 51, 114, 19);
+		textFieldNombre.setBounds(100, 51, 127, 19);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
-		textFieldApellidos = new JTextField();
-		textFieldApellidos.setBounds(107, 78, 114, 19);
-		contentPane.add(textFieldApellidos);
-		textFieldApellidos.setColumns(10);
-		
 		textFieldEquipo = new JTextField();
-		textFieldEquipo.setBounds(107, 107, 114, 19);
+		textFieldEquipo.setBounds(100, 78, 127, 19);
 		contentPane.add(textFieldEquipo);
 		textFieldEquipo.setColumns(10);
 		
 		textFieldSanciones = new JTextField();
-		textFieldSanciones.setBounds(107, 132, 114, 19);
+		textFieldSanciones.setBounds(100, 109, 127, 19);
 		contentPane.add(textFieldSanciones);
 		textFieldSanciones.setColumns(10);
 		
@@ -127,5 +122,21 @@ public class IU_FairPlay extends JFrame {
 		});
 		btnOK.setBounds(350, 211, 117, 25);
 		contentPane.add(btnOK);
-	}
+		
+		int codTemp=C_FairPlay.getMiFairPlay().obtenerUltimaTemporada();
+		ArrayList<String> 	jugFair = C_FairPlay.getMiFairPlay().obtenerJugadorFairPlay(codTemp);
+		ArrayList<String>	eqFair = C_FairPlay.getMiFairPlay().obtenerEquipoFairPlay(codTemp);
+		
+		//Completa los campos del jugador
+		Iterator<String>itr=jugFair.iterator();
+		if(itr.hasNext())textFieldNombre.setText(itr.next());
+		if(itr.hasNext())textFieldNomEq.setText(itr.next());
+		if(itr.hasNext())textFieldSanciones.setText(itr.next());
+		
+		//completa los campos del equipo
+		Iterator<String>itr1=eqFair.iterator();
+		if(itr.hasNext())textFieldNomEq.setText(itr1.next());
+		if(itr.hasNext())textFieldSancionesEq.setText(itr1.next());		
+		}
+	
 }

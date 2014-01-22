@@ -134,6 +134,14 @@ public class IU_Usuario extends JFrame {
 	private JButton getBtnFairplay() {
 		if (btnFairplay == null) {
 			btnFairplay = new JButton("FairPlay");
+			btnFairplay.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent event) {
+					if(event.getSource()==btnFairplay)
+					{
+						new IU_FairPlay().setVisible(true);
+					}
+				}
+			});
 			btnFairplay.setBounds(408, 305, 139, 25);
 		}
 		return btnFairplay;
