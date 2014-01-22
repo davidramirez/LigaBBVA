@@ -26,7 +26,9 @@ public class CatalogoJugadoresTest {
 
 	@Test
 	public void testGetJugadoresConvocables() {
-		fail("Not yet implemented");
+		String[][] jugadores = CatalogoJugadores.getCatalogoJugadores().getListaJugadores("Athletic");
+		assertTrue(jugadores[0][1].toString().equals("Erik Morán"));
+		assertTrue(jugadores.length == 1);
 	}
 
 	@Test
@@ -46,7 +48,12 @@ public class CatalogoJugadoresTest {
 
 	@Test
 	public void testAnadirJugadoresConvocados() {
-		fail("Not yet implemented");
+		String[] jugadores = new String[1];
+		jugadores[0] = "1";
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresConvocados(jugadores, "Athletic", "Real Sociedad", 1, 2);
+		String[][] jugadoresConvocados = CatalogoJugadores.getCatalogoJugadores().getListaJugadores("Athletic");
+		assertTrue(jugadoresConvocados[0][1].toString().equals("Erik Morán"));
+		assertTrue(jugadoresConvocados.length == 1);
 	}
 
 	@Test

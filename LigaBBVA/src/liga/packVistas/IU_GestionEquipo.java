@@ -1,21 +1,25 @@
 package liga.packVistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
 
+import liga.packControladoras.C_GestionEquipo;
+
+import javax.swing.ListSelectionModel;
+
+@SuppressWarnings("serial")
 public class IU_GestionEquipo extends JFrame {
 
 	private JPanel contentPane;
@@ -24,7 +28,8 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton btnMercado;
 	private JButton btnAnadirJugador;
 	private JButton btnGestionarFichajes;
-	private JList listJugadores;
+	private JButton btnModificar;
+	private JList<String> listJugadores;
 	private String idAdmin;
 
 	/**
@@ -34,7 +39,7 @@ public class IU_GestionEquipo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IU_GestionEquipo frame = new IU_GestionEquipo("");
+					IU_GestionEquipo frame = new IU_GestionEquipo("", "Athletic");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +51,7 @@ public class IU_GestionEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo(String id) {
+	public IU_GestionEquipo(String id, String equipo) {
 		idAdmin=id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
@@ -59,21 +64,43 @@ public class IU_GestionEquipo extends JFrame {
 		contentPane.add(getBtnMercado());
 		contentPane.add(getBtnAnadirJugador());
 		contentPane.add(getBtnGestionarFichajes());
+		contentPane.add(getBtnModificar());
 		
 		JLabel lblListaJugadores = new JLabel("Lista de jugadores");
 		lblListaJugadores.setBounds(12, 29, 169, 15);
 		contentPane.add(lblListaJugadores);
 		
-		JLabel lblNombreEquipo = new JLabel("Equipo");
+		JLabel lblNombreEquipo = new JLabel(equipo);
 		lblNombreEquipo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombreEquipo.setBounds(478, 29, 139, 15);
 		contentPane.add(lblNombreEquipo);
 		contentPane.add(getListJugadores());
 		setResizable(false);
+		
+		comprobaciones();
+	}
+	private JButton getBtnModificar() {
+		if (btnModificar == null) {
+			btnModificar = new JButton("Modificar jugador");
+			btnModificar.setEnabled(false);
+			btnModificar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					/*IU_ModificarJugador mj = new IU_ModificarJugador();
+					 mj.setVisible(true); */
+				}
+			});
+			btnModificar.setBounds(428, 273, 189, 25);
+		}
+		return btnAnadirJugador;
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("Salir");
+			btnSalir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					System.exit(0);
+				}
+			});
 			btnSalir.setBounds(428, 420, 189, 25);
 		}
 		return btnSalir;
@@ -105,22 +132,57 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton getBtnAnadirJugador() {
 		if (btnAnadirJugador == null) {
 			btnAnadirJugador = new JButton("Añadir jugador");
-			btnAnadirJugador.setBounds(428, 273, 189, 25);
+			btnAnadirJugador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					 IU_AnadirJugador aj = new IU_AnadirJugador();
+					 aj.setVisible(true); 
+				}
+			});
+			btnAnadirJugador.setBounds(428, 236, 189, 25);
 		}
 		return btnAnadirJugador;
 	}
 	private JButton getBtnGestionarFichajes() {
 		if (btnGestionarFichajes == null) {
 			btnGestionarFichajes = new JButton("Gestionar fichajes");
+			btnGestionarFichajes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			btnGestionarFichajes.setBounds(428, 383, 189, 25);
 		}
 		return btnGestionarFichajes;
 	}
-	private JList getListJugadores() {
+	private JList<String> getListJugadores() {
 		if (listJugadores == null) {
-			listJugadores = new JList();
+			listJugadores = new JList<String>();
+			listJugadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listJugadores.setBounds(12, 56, 300, 389);
+			llenarLista();
+			listJugadores.addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent arg0) {
+					btnModificar.setEnabled(false);	
+				}
+			});
 		}
 		return listJugadores;
+	}
+	
+	private void comprobaciones() {
+		int numJugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores().length;
+		if (numJugadores < 19)
+			this.btnBajaJugador.setEnabled(false);
+		else if (numJugadores > 25) {
+			this.btnAnadirJugador.setEnabled(false);
+			this.btnGestionarFichajes.setEnabled(false);
+		}
+	}
+	
+	private void llenarLista() {
+		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for (int i = 0; i < jugadores.length; i++)
+			modelo.addElement(jugadores[i][1]);
+		listJugadores.setModel(modelo);
 	}
 }

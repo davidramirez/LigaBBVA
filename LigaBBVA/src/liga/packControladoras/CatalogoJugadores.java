@@ -28,14 +28,14 @@ public class CatalogoJugadores {
 		return listaJugadores;
 	}
 	
-	public String[][] getJugadoresConvocables(int temporada, int jornada, String equipo) {
+	public String[][] getJugadoresConvocables(int temporada, int jornadaAnterior, String equipo) {
 		String[][] listaJugadores = getListaJugadores(equipo);
 		String[][] listaJugadoresConvocables = new String[18][3];
 		int i, cont = 0;
 		for (i = 0; i < listaJugadores.length; i++) { // Hay que comprobar cada jugador.
 			int estaEnVenta = Integer.parseInt(listaJugadores[i][3]);
 			if (estaEnVenta == 0) { // Solo puede ser convocado si no esta en venta...
-				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM tarjetas WHERE numtemporada = " + temporada + " AND numjornada = " + jornada + " codjug = " + listaJugadores[i][0] + " AND esamarilla = 0");
+				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM tarjetas WHERE numtemporada = " + temporada + " AND numjornada = " + jornadaAnterior + " codjug = " + listaJugadores[i][0] + " AND esamarilla = 0");
 				RdoSQL.next();
 				if (RdoSQL.getInt("cont") == 0) { // ...ademas de no haber tenido tarjeta roja la jornada anterior.
 					listaJugadoresConvocables[cont][0] = listaJugadores[i][0]; // CodJug.
@@ -107,7 +107,7 @@ public class CatalogoJugadores {
 	
 	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = '" + nombreJugador + "' AND dorsal = " + dorsal + " WHERE codjug = " + codJug);
+			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = '" + nombreJugador + "', dorsal = " + dorsal + " WHERE codjug = " + codJug);
 			return true;
 		}
 		return false;

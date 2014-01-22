@@ -17,20 +17,23 @@ import java.awt.event.ActionEvent;
 import liga.packControladoras.C_GestionEquipo;
 
 @SuppressWarnings("serial")
-public class IU_AnadirJugador extends JDialog {
+public class IU_ModificarJugador extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblNombre;
 	private JLabel lblDorsal;
 	private JTextField textFieldNombre;
 	private JTextField textFieldDorsal;
+	@SuppressWarnings("unused")
+	private String codJug;
 
 	/**
 	 * Create the dialog.
 	 */
-	public IU_AnadirJugador() {
-		setBounds(100, 100, 450, 300);
+	public IU_ModificarJugador(final String codJug, String nombre, String dorsal) {
+		this.codJug = codJug;
 		this.setModal(true);
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -42,8 +45,8 @@ public class IU_AnadirJugador extends JDialog {
 		}
 		contentPanel.add(getLblNombre());
 		contentPanel.add(getLblDorsal());
-		contentPanel.add(getTextFieldNombre());
-		contentPanel.add(getTextFieldDorsal());
+		contentPanel.add(getTextFieldNombre(nombre));
+		contentPanel.add(getTextFieldDorsal(dorsal));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -56,7 +59,7 @@ public class IU_AnadirJugador extends JDialog {
 						if (nombre.isEmpty() || dorsal.isEmpty())
 							JOptionPane.showMessageDialog(null, "Hay algún campo sin rellenar.");
 						else {
-							if (C_GestionEquipo.getC_GestionEquipo().anadirJugador(nombre, dorsal))
+							if (C_GestionEquipo.getC_GestionEquipo().modificarJugador(codJug, nombre, dorsal))
 								dispose();
 							else
 								JOptionPane.showMessageDialog(null, "Ha habido un error.");
@@ -93,19 +96,21 @@ public class IU_AnadirJugador extends JDialog {
 		}
 		return lblDorsal;
 	}
-	private JTextField getTextFieldNombre() {
+	private JTextField getTextFieldNombre(String nombre) {
 		if (textFieldNombre == null) {
 			textFieldNombre = new JTextField();
 			textFieldNombre.setBounds(74, 39, 114, 19);
 			textFieldNombre.setColumns(10);
+			textFieldNombre.setText(nombre);
 		}
 		return textFieldNombre;
 	}
-	private JTextField getTextFieldDorsal() {
+	private JTextField getTextFieldDorsal(String dorsal) {
 		if (textFieldDorsal == null) {
 			textFieldDorsal = new JTextField();
 			textFieldDorsal.setColumns(10);
 			textFieldDorsal.setBounds(74, 66, 114, 19);
+			textFieldDorsal.setText(dorsal);
 		}
 		return textFieldDorsal;
 	}

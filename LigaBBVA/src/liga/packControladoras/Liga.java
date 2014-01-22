@@ -1,6 +1,6 @@
 package liga.packControladoras;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -34,8 +34,16 @@ public class Liga
 		return CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(pNumTemporada);
 	}
 	
+	/*****************************************/
+	/* Métodos para la gestión de jugadores. */
+	/*****************************************/
+	
 	private int obtenerJornadaAnterior(Date fecha) {
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadaAnterior(fecha); 
+	}
+	
+	private int obtenerJornadaAAJugar(Date fecha) {
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadaAJugar(fecha); 
 	}
 	
 	public String[][] getListaJugadores(String equipo) {
@@ -43,7 +51,15 @@ public class Liga
 	}
 	
 	public String[][] getJugadoresConvocables(Date fecha, String equipo) {
-		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(0, obtenerJornadaAnterior(fecha), equipo);
+		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(this.obtenerUltimaTemporada(), this.obtenerJornadaAnterior(fecha), equipo);
+	}
+	
+	public String[][] getJugadoresConvocados(Date fecha, String equipo) {
+		return CatalogoJugadores.getCatalogoJugadores().getListaJugadoresConvocados(this.obtenerUltimaTemporada(), this.obtenerJornadaAAJugar(fecha), equipo);
+	}
+	
+	public String[][] getJugadoresTitulares(Date fecha, String equipo) {
+		return CatalogoJugadores.getCatalogoJugadores().getListaJugadoresTitulares(this.obtenerUltimaTemporada(), this.obtenerJornadaAAJugar(fecha), equipo);
 	}
 	
 	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
@@ -65,6 +81,11 @@ public class Liga
 	public void darDeBajaJugador(String codJug) {
 		CatalogoJugadores.getCatalogoJugadores().darDeBajaJugador(codJug);
 	}
+	
+	/************************************************/
+	/* Fin de métodos para la gestión de jugadores. */
+	/************************************************/
+	
 	public int[] obtenerTemporadas() {
 		
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
