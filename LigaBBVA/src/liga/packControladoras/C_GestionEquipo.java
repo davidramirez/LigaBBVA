@@ -96,5 +96,7 @@ public class C_GestionEquipo extends Observable {
 	
 	public void darDeBajaJugador(String codJug) {
 		Liga.getMiLiga().darDeBajaJugador(codJug);
+		setChanged();
+		notifyObservers();
 	}
 }

@@ -105,6 +105,8 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 			btnBajaJugador.setEnabled(false);
 			btnBajaJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					int indice = listJugadores.getSelectedIndex();
+					C_GestionEquipo.getC_GestionEquipo().darDeBajaJugador(jugadores[indice][0]);
 				}
 			});
 			btnBajaJugador.setBounds(428, 347, 189, 25);
@@ -158,10 +160,13 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 				public void valueChanged(ListSelectionEvent arg0) {
 					/* Si hay algún jugador seleccionado, se activará el botón de modificar. */
 					if (!arg0.getValueIsAdjusting()) {
-						if (listJugadores.getSelectedIndex() == -1)
+						if (listJugadores.getSelectedIndex() == -1) {
 							btnModificarJugador.setEnabled(false);
-				        else
+							comprobaciones();
+						} else {
 				        	btnModificarJugador.setEnabled(true);
+				        	comprobaciones();
+						}
 				    }
 				}
 			});
@@ -171,7 +176,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	
 	/* Comprobaciones para activar y desactivar botones dependiendo del número total de jugadores que tenga el equipo. */
 	private void comprobaciones() {
-		int numJugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores().length;
+		int numJugadores = this.jugadores.length;
 		if (numJugadores < 19)
 			this.btnBajaJugador.setEnabled(false);
 		else if (numJugadores > 25) {
@@ -213,5 +218,6 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	/* Cuando se añade o modifica un jugador, se entrará a este método. */
 	public void update(Observable arg0, Object arg1) {
 		this.actualizarLista(); // Actualizamos el JList.
+		this.comprobaciones();
 	}
 }
