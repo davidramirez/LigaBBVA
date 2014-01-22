@@ -2,15 +2,19 @@ package liga.packVistas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import liga.packControladoras.*;
+import javax.swing.JPasswordField;
 
 public class IU_Inicial extends JFrame {
 	private JTextField txtUsuario;
-	private JTextField txtPass;
+	private JPasswordField txtPass;
 	public IU_Inicial() {
 		getContentPane().setLayout(null);
 		
@@ -27,30 +31,27 @@ public class IU_Inicial extends JFrame {
 		getContentPane().add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		txtPass = new JTextField();
-		txtPass.setBounds(146, 99, 114, 19);
-		getContentPane().add(txtPass);
-		txtPass.setColumns(10);
-		
 		JButton btnIniciarSesin = new JButton("Iniciar sesión");
 		btnIniciarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(C_Usuario.getMiUsuario().identificarse(txtUsuario.getText(), txtPass.getText()))
+				String pass = new String(txtPass.getPassword());
+				if(C_Usuario.getMiUsuario().identificarse(txtUsuario.getText(), pass))
 				{
 					switch(C_Usuario.getMiUsuario().obtenerTipo(txtUsuario.getText()))
 					{
 					case "arbitro":
-						//abrir interfaz árbitro
+						//TODO abrir interfaz árbitro
 					case "equipo":
-						//abrir interfaz equipo
+						IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText());
+						IU_GE.setVisible(true);
 					case "admin":
-						//abrir interfaz admin
+						//TODO abrir interfaz admin
 				
 					}
 				}
 				else
 				{
-					//TODO mensaje de error
+					JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos.");
 				}
 			}
 		});
@@ -60,6 +61,8 @@ public class IU_Inicial extends JFrame {
 		JButton btnCambiarContrasea = new JButton("Cambiar contraseña");
 		btnCambiarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				IU_CambiarPass IU_CP = new IU_CambiarPass();
+				IU_CP.setVisible(true);
 			}
 		});
 		btnCambiarContrasea.setBounds(44, 177, 196, 25);
@@ -68,6 +71,8 @@ public class IU_Inicial extends JFrame {
 		JButton btnRecuperarContrasea = new JButton("Recuperar contraseña");
 		btnRecuperarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				IU_RecPass IU_RP = new IU_RecPass(txtUsuario.getText());
+				IU_RP.setVisible(true);
 			}
 		});
 		btnRecuperarContrasea.setBounds(44, 214, 196, 25);
@@ -76,6 +81,7 @@ public class IU_Inicial extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 		btnSalir.setBounds(315, 240, 117, 25);
@@ -84,6 +90,7 @@ public class IU_Inicial extends JFrame {
 		JButton btnAccesoSinRegistro = new JButton("Acceso sin registro");
 		btnAccesoSinRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO mandar a la interfaz que sea 
 			}
 		});
 		btnAccesoSinRegistro.setBounds(301, 67, 117, 49);
@@ -92,5 +99,9 @@ public class IU_Inicial extends JFrame {
 		JLabel lblBienvenidoALa = new JLabel("Bienvenido a la liga BBVA");
 		lblBienvenidoALa.setBounds(137, 12, 207, 15);
 		getContentPane().add(lblBienvenidoALa);
+		
+		txtPass = new JPasswordField();
+		txtPass.setBounds(141, 99, 122, 19);
+		getContentPane().add(txtPass);
 	}
 }

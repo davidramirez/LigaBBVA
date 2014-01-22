@@ -25,6 +25,7 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton btnAnadirJugador;
 	private JButton btnGestionarFichajes;
 	private JList listJugadores;
+	private String idAdmin;
 
 	/**
 	 * Launch the application.
@@ -33,7 +34,7 @@ public class IU_GestionEquipo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IU_GestionEquipo frame = new IU_GestionEquipo();
+					IU_GestionEquipo frame = new IU_GestionEquipo("");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +46,8 @@ public class IU_GestionEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo() {
+	public IU_GestionEquipo(String id) {
+		idAdmin=id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
 		contentPane = new JPanel();

@@ -2,14 +2,21 @@ package liga.packVistas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import liga.packControladoras.C_Usuario;
+
 public class IU_RecPass extends JFrame {
 	private JTextField txtResp;
-	public IU_RecPass() {
+	private String idUsuario;
+	public IU_RecPass(String id) {
+		
+		idUsuario=id;
 		getContentPane().setLayout(null);
 		
 		JLabel lblPregunta = new JLabel("New label");
@@ -24,6 +31,11 @@ public class IU_RecPass extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String rdo=C_Usuario.getMiUsuario().recuperarPass(idUsuario, txtResp.getText());
+				if(rdo!=null)
+				JOptionPane.showMessageDialog(null,"Tu contraseña es "+rdo+"");
+				else
+				JOptionPane.showMessageDialog(null,"La respuesta es incorrecta.");
 			}
 		});
 		btnValidar.setBounds(160, 180, 117, 25);
@@ -32,6 +44,7 @@ public class IU_RecPass extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 		btnVolver.setBounds(304, 226, 117, 25);
