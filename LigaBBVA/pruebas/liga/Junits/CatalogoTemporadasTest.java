@@ -1,6 +1,7 @@
 package liga.Junits;
 
 import static org.junit.Assert.*;
+import liga.packControladoras.CatalogoTemporadas;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,16 +12,19 @@ public class CatalogoTemporadasTest {
 	@Before
 	public void setUp() throws Exception 
 	{
+		
 	}
 
 	@After
 	public void tearDown() throws Exception 
 	{
+		
 	}
 
 	@Test
 	public void testObtenerTemporadas() {
-		fail("Not yet implemented");
+		assertNotNull(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas());
+		assertFalse(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas().length==0);
 	}
 
 	@Test
