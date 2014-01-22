@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JList;
 
 import liga.packControladoras.C_GestionEquipo;
+import liga.packControladoras.C_Usuario;
 
 import javax.swing.ListSelectionModel;
 
@@ -31,31 +32,14 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	private JButton btnAnadirJugador;
 	private JButton btnGestionarFichajes;
 	private JList<String> listJugadores;
-	private String idAdmin;
 	private JButton btnModificarJugador;
 	private String[][] jugadores;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IU_GestionEquipo frame = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "", "Athletic");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo(C_GestionEquipo model, String id, String equipo) {
-		idAdmin=id;
+	public IU_GestionEquipo(C_GestionEquipo model, String user) {
+		String equipo = C_Usuario.getMiUsuario().obtenerEquipoDe(user);
 		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo); // Lo guardamos en el controlador para no tener que preocuparnos más.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
