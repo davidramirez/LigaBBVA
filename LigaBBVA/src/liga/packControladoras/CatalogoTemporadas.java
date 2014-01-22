@@ -64,8 +64,10 @@ public class CatalogoTemporadas
 	public int obtenerJornadaAnterior(Date fecha) {
 		int rdo = 0;
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha <= " + fecha + " ORDER BY fecha DESC");		
-		if (RdoSQL.next())
-			rdo = RdoSQL.getInt("numjornada") ;
+		if (RdoSQL.next()) {
+			rdo = RdoSQL.getInt("numjornada");
+			System.out.println("yeeeeeeeeeeeeeeeeha!");
+		}
 		RdoSQL.close();
 		return rdo;
 	}

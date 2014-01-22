@@ -133,7 +133,7 @@ public class IU_Conf_Temp extends JFrame {
 		}
 		return lblEquiposElegidos;
 	}
-	private JList getListEquipos() {
+	public JList getListEquipos() {
 		if (listEquipos == null) {
 			listEquipos = new JList();
 		}
@@ -155,7 +155,7 @@ public class IU_Conf_Temp extends JFrame {
 		}
 		return lblrbitrosElegidos;
 	}
-	private JList getListArbitros() {
+	public JList getListArbitros() {
 		if (listArbitros == null) {
 			listArbitros = new JList();
 		}

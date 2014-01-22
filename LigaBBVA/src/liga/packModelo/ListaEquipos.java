@@ -70,5 +70,34 @@ public class ListaEquipos {
 		}
 		return nombres;
 	}
+	
+	public void eliminarEquipoPos(int pPos)
+	{
+		this.getLista().remove(pPos);
+	}
+
+
+	public int getTamano() {
+		return this.getLista().size();
+	}
+
+
+	public boolean esta(String pNombre) {
+		Iterator<Equipo> it = this.getIterador();
+		Equipo e;
+		boolean esta = false;
+		
+		while(it.hasNext() && !esta)
+		{
+			e = it.next();
+			
+			if(e.getNombre().equals(pNombre))
+			{
+				esta = true;
+			}
+		}
+		
+		return esta;
+	}
 
 }

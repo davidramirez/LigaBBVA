@@ -93,4 +93,25 @@ public class CatalogoEquipos {
 		}
 		return infoEquipo;
 	}
+
+	public ArrayList<String[]> obtenerEquipos() {
+		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT e.nombre, e.provincia, u.estaactivo FROM equipo AS e INNER JOIN usuario AS u ON e.nombreusuario = u.nombre");
+		
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		
+		while(r.next())
+		{
+			//creamos una nueva posicion para el array
+			String[] eq = new String[3];
+			eq[0] = r.get("nombre");
+			eq[1] = r.get("provincia");
+			eq[2] = r.get("estaactivo");
+			
+			//añadimos el equipo al array
+			rdo.add(eq);
+		}
+		r.close();
+		
+		return rdo;
+	}
 }

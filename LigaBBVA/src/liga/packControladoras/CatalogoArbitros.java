@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import java.util.ArrayList;
+
 import liga.packEnumeration.Provincia;
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
@@ -30,5 +32,28 @@ public class CatalogoArbitros {
 		}
 		r.close();
 		return lista;
+	}
+
+	public ArrayList<String[]> obtenerArbitros() {
+		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT a.nombre, a.apellidos, a.dni, a.provincia, u.estaactivo FROM arbitro AS a INNER JOIN usuario AS u ON a.nombreusuario = u.nombre");
+		
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		
+		while(r.next())
+		{
+			//creamos una nueva posicion para el array
+			String[] ar = new String[5];
+			ar[0] = r.get("nombre");
+			ar[1] = r.get("apellidos");
+			ar[2] = r.get("dni");
+			ar[3] = r.get("provincia");
+			ar[4] = r.get("estaactivo");
+			
+			//añadimos el arbitro al array
+			rdo.add(ar);
+		}
+		r.close();
+		
+		return rdo;
 	}
 }

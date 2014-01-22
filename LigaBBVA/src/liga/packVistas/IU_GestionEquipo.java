@@ -3,6 +3,8 @@ package liga.packVistas;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ import liga.packControladoras.C_GestionEquipo;
 import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
-public class IU_GestionEquipo extends JFrame {
+public class IU_GestionEquipo extends JFrame implements Observer {
 
 	private JPanel contentPane;
 	private JButton btnSalir;
@@ -28,10 +30,10 @@ public class IU_GestionEquipo extends JFrame {
 	private JButton btnMercado;
 	private JButton btnAnadirJugador;
 	private JButton btnGestionarFichajes;
-	private JButton btnModificar;
 	private JList<String> listJugadores;
 	private String idAdmin;
 	private JButton btnModificarJugador;
+	private String[][] jugadores;
 
 	/**
 	 * Launch the application.
@@ -40,7 +42,7 @@ public class IU_GestionEquipo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IU_GestionEquipo frame = new IU_GestionEquipo("", "Athletic");
+					IU_GestionEquipo frame = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "", "Athletic");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,9 +54,9 @@ public class IU_GestionEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo(String id, String equipo) {
+	public IU_GestionEquipo(C_GestionEquipo model, String id, String equipo) {
 		idAdmin=id;
-		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo);
+		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo); // Lo guardamos en el controlador para no tener que preocuparnos más.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
 		contentPane = new JPanel();
@@ -79,6 +81,10 @@ public class IU_GestionEquipo extends JFrame {
 		contentPane.add(getListJugadores());
 		setResizable(false);
 		
+		/* Esta clase será observadora del modelo pasado, es decir, el controlador de la gestión del equipo. */
+		model.addObserver(this);
+		
+		/* Serie de comprobaciones para mostrar o no ciertos botones. */
 		comprobaciones();
 	}
 	private JButton getBtnSalir() {
@@ -99,6 +105,8 @@ public class IU_GestionEquipo extends JFrame {
 			btnBajaJugador.setEnabled(false);
 			btnBajaJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					int indice = listJugadores.getSelectedIndex();
+					C_GestionEquipo.getC_GestionEquipo().darDeBajaJugador(jugadores[indice][0]);
 				}
 			});
 			btnBajaJugador.setBounds(428, 347, 189, 25);
@@ -122,8 +130,9 @@ public class IU_GestionEquipo extends JFrame {
 			btnAnadirJugador = new JButton("Añadir jugador");
 			btnAnadirJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					 IU_AnadirJugador aj = new IU_AnadirJugador();
-					 aj.setVisible(true); 
+					/* Llamamos a la nueva interfaz. */
+					IU_AnadirJugador aj = new IU_AnadirJugador();
+					aj.setVisible(true); 
 				}
 			});
 			btnAnadirJugador.setBounds(428, 236, 189, 25);
@@ -146,14 +155,18 @@ public class IU_GestionEquipo extends JFrame {
 			listJugadores = new JList<String>();
 			listJugadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listJugadores.setBounds(12, 56, 300, 389);
-			llenarLista();
+			actualizarLista();
 			listJugadores.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
-					if (arg0.getValueIsAdjusting() == false) {
-						if (listJugadores.getSelectedIndex() == -1)
-							btnModificar.setEnabled(false);
-				        else
-				        	btnModificar.setEnabled(true);
+					/* Si hay algún jugador seleccionado, se activará el botón de modificar. */
+					if (!arg0.getValueIsAdjusting()) {
+						if (listJugadores.getSelectedIndex() == -1) {
+							btnModificarJugador.setEnabled(false);
+							comprobaciones();
+						} else {
+				        	btnModificarJugador.setEnabled(true);
+				        	comprobaciones();
+						}
 				    }
 				}
 			});
@@ -161,8 +174,9 @@ public class IU_GestionEquipo extends JFrame {
 		return listJugadores;
 	}
 	
+	/* Comprobaciones para activar y desactivar botones dependiendo del número total de jugadores que tenga el equipo. */
 	private void comprobaciones() {
-		int numJugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores().length;
+		int numJugadores = this.jugadores.length;
 		if (numJugadores < 19)
 			this.btnBajaJugador.setEnabled(false);
 		else if (numJugadores > 25) {
@@ -171,8 +185,9 @@ public class IU_GestionEquipo extends JFrame {
 		}
 	}
 	
-	private void llenarLista() {
-		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
+	/* Llenamos la lista de jugadores. */
+	private void actualizarLista() {
+		jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadores();
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		for (int i = 0; i < jugadores.length; i++) {
 			if (jugadores[i][3].equals("1"))
@@ -182,17 +197,27 @@ public class IU_GestionEquipo extends JFrame {
 		}
 		listJugadores.setModel(modelo);
 	}
+	
 	private JButton getBtnModificarJugador() {
 		if (btnModificarJugador == null) {
 			btnModificarJugador = new JButton("ModificarJugador");
+			btnModificarJugador.setEnabled(false);
 			btnModificarJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					IU_ModificarJugador mj = new IU_ModificarJugador("1", "Erik Morán", "5");
+					/* Llamamos a la nueva interfaz. */
+					int indice = listJugadores.getSelectedIndex();
+					IU_ModificarJugador mj = new IU_ModificarJugador(jugadores[indice][0], jugadores[indice][1], jugadores[indice][2]);
 					mj.setVisible(true);
 				}
 			});
 			btnModificarJugador.setBounds(428, 273, 189, 25);
 		}
 		return btnModificarJugador;
+	}
+
+	/* Cuando se añade o modifica un jugador, se entrará a este método. */
+	public void update(Observable arg0, Object arg1) {
+		this.actualizarLista(); // Actualizamos el JList.
+		this.comprobaciones();
 	}
 }

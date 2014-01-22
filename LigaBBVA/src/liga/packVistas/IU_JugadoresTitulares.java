@@ -14,9 +14,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import liga.packControladoras.C_GestionEquipo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class IU_JugadoresTitulares extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

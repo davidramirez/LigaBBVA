@@ -89,4 +89,41 @@ public class ListaArbitros {
 		}
 	}
 
+	public void eliminarArbitroPos(int pPos)
+	{
+		this.getLista().remove(pPos);
+	}
+
+	public int getTamano() {
+		return this.getLista().size();
+	}
+
+	/**
+	 * comprueba si en la lista hay un arbitro con
+	 * el mismo DNI
+	 * @param pDNI
+	 * @return si existe un arbitro con el mismo dni
+	 */
+	public boolean esta(String pDNI) {
+		Iterator<Arbitro> it = this.getIterator();
+		Arbitro a;
+		boolean esta = false;
+		
+		while(it.hasNext() && !esta)
+		{
+			a = it.next();
+			
+			if(a.getDNI().equals(pDNI))
+			{
+				esta = true;
+			}
+		}
+		
+		return esta;
+	}
+	
+	public Arbitro obtenerArbitroPos(int pPos)
+	{
+		return this.getLista().get(pPos);
+	}
 }
