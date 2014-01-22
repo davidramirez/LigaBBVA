@@ -32,11 +32,11 @@ public class SGBD {
 		Connection conexion = null;
 		 try {
  
-         MysqlDataSource dataSource = new MysqlDataSource();
-         dataSource.setUser("liga");
-         dataSource.setPassword("x6a4Fj8q");
-         dataSource.setDatabaseName("ligabbva");
-         dataSource.setServerName("localhost");
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUser("liga");
+        dataSource.setPassword("x6a4Fj8q");
+        dataSource.setDatabaseName("ligabbva");
+        dataSource.setServerName("localhost");
 
          conexion = dataSource.getConnection();
          
