@@ -19,7 +19,9 @@ public class CatalogoJugadoresTest {
 
 	@Test
 	public void testGetListaJugadores() {
-		fail("Not yet implemented");
+		String[][] jugadores = CatalogoJugadores.getCatalogoJugadores().getListaJugadores("Athletic");
+		assertTrue(jugadores[0][1].toString().equals("Erik Morán"));
+		assertTrue(jugadores.length == 1);
 	}
 
 	@Test
