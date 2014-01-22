@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import liga.packControladoras.*;
 
 public class IU_Inicial extends JFrame {
 	private JTextField txtUsuario;
@@ -34,6 +35,23 @@ public class IU_Inicial extends JFrame {
 		JButton btnIniciarSesin = new JButton("Iniciar sesión");
 		btnIniciarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(C_Usuario.getMiUsuario().identificarse(txtUsuario.getText(), txtPass.getText()))
+				{
+					switch(C_Usuario.getMiUsuario().obtenerTipo(txtUsuario.getText()))
+					{
+					case "arbitro":
+						//abrir interfaz árbitro
+					case "equipo":
+						//abrir interfaz equipo
+					case "admin":
+						//abrir interfaz admin
+				
+					}
+				}
+				else
+				{
+					//TODO mensaje de error
+				}
 			}
 		});
 		btnIniciarSesin.setBounds(44, 141, 196, 25);
