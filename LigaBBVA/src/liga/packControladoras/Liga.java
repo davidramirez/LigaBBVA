@@ -211,4 +211,20 @@ public class Liga
 		// TODO Auto-generated method stub
 		return CatalogoArbitros.getMiCatalogoArbitros().obtenerArbitrosTemporada(pNumTemp);
 	}
+	
+	/**
+	 * Obtiene todos los arbitros de la liga en una matriz
+	 * @return
+	 */
+	public ArrayList<String[]> obtenerArbitros() {
+		return CatalogoArbitros.getMiCatalogoArbitros().obtenerArbitros();
+	}
+	
+	/**
+	 * Obtiene todoslos equipos de la liga en una matriz
+	 * @return
+	 */
+	public ArrayList<String[]> obtenerEquipos() {
+		return CatalogoEquipos.getMisEquipos().obtenerEquipos();
+	}
 }
