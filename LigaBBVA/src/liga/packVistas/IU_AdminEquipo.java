@@ -1,6 +1,5 @@
 package liga.packVistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,6 +12,7 @@ import java.awt.event.ActionEvent;
 
 import liga.packControladoras.C_GestionEquipo;
 
+@SuppressWarnings("serial")
 public class IU_AdminEquipo extends JFrame {
 
 	private JPanel contentPane;
