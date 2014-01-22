@@ -70,9 +70,9 @@ public class CatalogoEquipos {
 	
 	public ArrayList<String> obtenerNombresEquipos() {
 		ArrayList<String> nombresEquipos = new ArrayList<String>();
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * from Equpos");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * from equipo");
 		while(RdoSQL.next()) {
-			nombresEquipos.add(RdoSQL.get("Nombre"));
+			nombresEquipos.add(RdoSQL.get("nombre"));
 		}
 		return nombresEquipos;
 	}
