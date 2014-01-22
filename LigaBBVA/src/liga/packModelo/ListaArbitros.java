@@ -65,5 +65,28 @@ public class ListaArbitros {
 	{
 		return this.getLista().iterator();
 	}
+	
+	public String[] getNombres()
+	{
+		Iterator<Arbitro> it = this.getIterator();
+		Arbitro a;
+		String[] nombres = new String[this.getLista().size()];
+		int i =0;
+		while(it.hasNext())
+		{
+			a = it.next();
+			nombres[i] = a.getNombre();
+			i++;
+		}
+		return nombres;
+	}
+	
+	public void anadirArbitro(Arbitro pArbitro)
+	{
+		if(!this.getLista().contains(pArbitro))
+		{
+			this.getLista().add(pArbitro);
+		}
+	}
 
 }

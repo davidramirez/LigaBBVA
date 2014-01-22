@@ -29,16 +29,16 @@ public class CatalogoTemporadas
 	 */
 	public int[] obtenerTemporadas() 
 	{
-		int[] jugFairPlay =new int[maxTemporadas];
+		int[] pListTemporadas =new int[maxTemporadas];
 		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio DESC");
 		int i=0;
 		while(RdoSQL.next() && i<maxTemporadas)
 		{			
-			jugFairPlay[i]=RdoSQL.getInt("numtemporada");
+			pListTemporadas[i]=RdoSQL.getInt("numtemporada");
 			i++;			
 		}
 		RdoSQL.close();
-		return jugFairPlay;
+		return pListTemporadas;
 	}
 	/**
 	 * Se encarga de obtener las jornadas en la temporada recibida como parámetro.

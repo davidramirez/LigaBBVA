@@ -173,4 +173,16 @@ public class Liga
 	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
 		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
 	}
+	
+	/**
+	 * Obtiene los arbitros de la temporada en forma de objetos del modelo
+	 * @param numUltimaTemporada
+	 * la temporada deseada
+	 * @return
+	 * los arbitros que la conforman
+	 */
+	public ListaArbitros obtenerArbitrosTemporada(int pNumTemp) {
+		// TODO Auto-generated method stub
+		return CatalogoArbitros.getMiCatalogoArbitros().obtenerArbitrosTemporada(pNumTemp);
+	}
 }
