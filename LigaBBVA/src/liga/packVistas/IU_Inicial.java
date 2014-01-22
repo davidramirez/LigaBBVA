@@ -90,7 +90,9 @@ public class IU_Inicial extends JFrame {
 		JButton btnAccesoSinRegistro = new JButton("Acceso sin registro");
 		btnAccesoSinRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO mandar a la interfaz que sea 
+				IU_Usuario IU_US = new IU_Usuario();
+				IU_US.setVisible(true);
+				
 			}
 		});
 		btnAccesoSinRegistro.setBounds(301, 67, 117, 49);
