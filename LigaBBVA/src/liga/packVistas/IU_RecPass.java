@@ -31,11 +31,14 @@ public class IU_RecPass extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String rdo=C_Usuario.getMiUsuario().recuperarPass(idUsuario, txtResp.getText());
-				if(rdo!=null)
-				JOptionPane.showMessageDialog(null,"Tu contraseña es "+rdo+"");
-				else
-				JOptionPane.showMessageDialog(null,"La respuesta es incorrecta.");
+				if(e.getSource()==this)
+				{
+					String rdo=C_Usuario.getMiUsuario().recuperarPass(idUsuario, txtResp.getText());
+					if(rdo!=null)
+					JOptionPane.showMessageDialog(null,"Tu contraseña es "+rdo+"");
+					else
+					JOptionPane.showMessageDialog(null,"La respuesta es incorrecta.");
+				}
 			}
 		});
 		btnValidar.setBounds(160, 180, 117, 25);
@@ -44,6 +47,7 @@ public class IU_RecPass extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==this)
 				dispose();
 			}
 		});
