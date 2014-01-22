@@ -9,7 +9,7 @@ public class C_Usuario {
 	
 	}
 	
-	public static C_Usuario getMisEstadisticas() 
+	public static C_Usuario getMiUsuario() 
 	{
 		return miUsuario;
 	}
