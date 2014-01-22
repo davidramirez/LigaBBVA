@@ -16,7 +16,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadores(String equipo) {
 		String[][] listaJugadores = null;
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT codjug, nombre, dorsal, estaenventa, numsanciones FROM jugador WHERE estaretirado = 0 AND nombreequipo = " + equipo);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT codjug, nombre, dorsal, estaenventa, numsanciones FROM jugador WHERE estaretirado = 0 AND nombreequipo = '" + equipo + "'");
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("codjug");
 			listaJugadores[i][1] = RdoSQL.get("nombre");
@@ -55,7 +55,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadoresConvocados(int temporada, int jornada, String equipo) {
 		String[][] listaJugadores = null;
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT c.codjug as cj, j.nombre as nj, j.dorsal as dj FROM convocado as c, jugador as j WHERE c.numtemporada = " + temporada + " AND c.numjornada " + jornada + " AND c.codjug = j.codjug AND (nomeqlocal = " + equipo + " OR nomeqvisitante = " + equipo);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT c.codjug as cj, j.nombre as nj, j.dorsal as dj FROM convocado as c, jugador as j WHERE c.numtemporada = " + temporada + " AND c.numjornada " + jornada + " AND c.codjug = j.codjug AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "'");
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("cj");
 			listaJugadores[i][1] = RdoSQL.get("nj");
@@ -70,7 +70,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadoresTitulares(int temporada, int jornada, String equipo) {
 		String[][] listaJugadores = null;
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT t.codjug as cj, j.nombre as nj, j.dorsal as dj FROM titular as t, jugador as j WHERE t.numtemporada = " + temporada + " AND t.numjornada " + jornada + " AND t.codjug = j.codjug AND (nomeqlocal = " + equipo + " OR nomeqvisitante = " + equipo);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT t.codjug as cj, j.nombre as nj, j.dorsal as dj FROM titular as t, jugador as j WHERE t.numtemporada = " + temporada + " AND t.numjornada " + jornada + " AND t.codjug = j.codjug AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "'");
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("cj");
 			listaJugadores[i][1] = RdoSQL.get("nj");
@@ -82,7 +82,7 @@ public class CatalogoJugadores {
 	}
 	
 	private boolean estaJugador(String nombreEquipo, String nombreJugador) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE nombreequipo = " + nombreEquipo + " AND nombre = " + nombreJugador);
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE nombreequipo = '" + nombreEquipo + "' AND nombre = '" + nombreJugador + "'");
 		RdoSQL.next();
 		int cont=RdoSQL.getInt("cont");
 		RdoSQL.close();
@@ -93,17 +93,17 @@ public class CatalogoJugadores {
 	
 	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
 		for (int i = 0; i < jugadoresTitulares.length; i++)
-			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", " + equipoLocal + ", " + equipoVisitante + ", " + jugadoresTitulares[i] + ")");
+			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", '" + equipoLocal + "', '" + equipoVisitante + "', " + jugadoresTitulares[i] + ")");
 	}
 	
 	public void anadirJugadoresConvocados(String[] jugadoresConvocados, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
 		for (int i = 0; i < jugadoresConvocados.length; i++)
-			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", " + equipoLocal + ", " + equipoVisitante + ", " + jugadoresConvocados[i] + ")");
+			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES (" + temporada + ", " + jornada + ", '" + equipoLocal + "', '" + equipoVisitante + "', " + jugadoresConvocados[i] + ")");
 	}
 	
 	public boolean anadirJugador(String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("INSERT INTO jugador (nombre, dorsal, nombreequipo) VALUES (" + nombreJugador + ", " + dorsal + ", " + nombreEquipo + ")");
+			SGBD.getSGBD().execSQL("INSERT INTO jugador (nombre, dorsal, nombreequipo) VALUES ('" + nombreJugador + "', " + dorsal + ", '" + nombreEquipo + "')");
 			return true;
 		}
 		return false;
@@ -111,7 +111,7 @@ public class CatalogoJugadores {
 	
 	public boolean modificarJugador(String codJug, String nombreEquipo, String nombreJugador, String dorsal) {
 		if (!this.estaJugador(nombreEquipo, nombreJugador)) {
-			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = " + nombreJugador + " AND dorsal = " + dorsal + " WHERE codjug = " + codJug);
+			SGBD.getSGBD().execSQL("UPDATE jugador SET nombre = '" + nombreJugador + "' AND dorsal = " + dorsal + " WHERE codjug = " + codJug);
 			return true;
 		}
 		return false;

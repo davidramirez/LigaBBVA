@@ -1,6 +1,7 @@
 package liga.Junits;
 
 import static org.junit.Assert.*;
+import liga.packControladoras.CatalogoJugadores;
 
 import org.junit.After;
 import org.junit.Before;
@@ -48,12 +49,12 @@ public class CatalogoJugadoresTest {
 
 	@Test
 	public void testAnadirJugador() {
-		fail("Not yet implemented");
+		assertFalse(CatalogoJugadores.getCatalogoJugadores().anadirJugador("Athletic", "Erik Morán", "5"));
 	}
 
 	@Test
 	public void testModificarJugador() {
-		fail("Not yet implemented");
+		assertFalse(CatalogoJugadores.getCatalogoJugadores().modificarJugador("1", "Athletic", "Erik Morán", "5"));
 	}
 
 	@Test
