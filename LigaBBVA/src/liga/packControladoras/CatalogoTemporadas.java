@@ -110,7 +110,7 @@ public class CatalogoTemporadas
 			rdo[i][1]=RdoSQL.get("NomEqVisitante");
 			i++;
 		}
-		
+		RdoSQL.close();
 		return rdo;
 	}
 	/**
@@ -135,37 +135,39 @@ public class CatalogoTemporadas
 	
 	public void obtenerDatosPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
-		ResultadoSQL Goles=SGBD.getSGBD().consultaSQL("SELECT golesVisitante, golesLocal FROM Partido WHERE "
-				+ "NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+"");
+		ResultadoSQL Goles=SGBD.getSGBD().consultaSQL("SELECT golesvisitante, goleslocal FROM partido WHERE "
+				+ "numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+"");
 		// comprobada, sentencia correcta
 		
-		ResultadoSQL TitularesLocal=SGBD.getSGBD().consultaSQL("SELECT Nombre FROM Jugador NATURAL JOIN Titular NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elLocal+"");
+		ResultadoSQL TitularesLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
-		ResultadoSQL TitularesVisitante=SGBD.getSGBD().consultaSQL("SELECT Nombre FROM Jugador NATURAL JOIN Titular NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elVisit+"");
-	
-		ResultadoSQL GoleadoresLocal=SGBD.getSGBD().consultaSQL("SELECT Nombre FROM Jugador NATURAL JOIN Goles NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elLocal+"");
+		ResultadoSQL TitularesVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elVisit+"");
+	//comprobado, sentencia correcta (titulares)
+		ResultadoSQL GoleadoresLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqLocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
-		ResultadoSQL GoleadoresVisitante=SGBD.getSGBD().consultaSQL("SELECT Nombre FROM Jugador NATURAL JOIN Goles NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elVisit+"");
-	
+		ResultadoSQL GoleadoresVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elVisit+"");
+	//comprobado, sentencia correcta (goleadores)
+		
+		
+		//TODO cambios pendiente
+		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		//cambios pendiente
-		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT Nombre FROM Jugador NATURAL JOIN Sustituciones NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elLocal+"");
-		//cambios pendiente
 		
-		ResultadoSQL TarjetasLocal=SGBD.getSGBD().consultaSQL("SELECT Nombre, EsAmarilla FROM Jugador NATURAL JOIN Tarjetas NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elLocal+"");
+		ResultadoSQL TarjetasLocal=SGBD.getSGBD().consultaSQL("SELECT nombre, esamarilla FROM jugador NATURAL JOIN tarjetas NATURAL JOIN partido "
+				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
 		ResultadoSQL TarjetasVisitante=SGBD.getSGBD().consultaSQL("SELECT Nombre, EsAmarilla FROM Jugador NATURAL JOIN Tarjetas NATURAL JOIN Partido "
 				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elVisit+"");
 	
+		//comprobado, sentencia correcta (tarjetas)
 		
 		
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM EstadisticasJugador AS e NATURAL JOIN Jugador AS j WHERE e.numtemporada='codTemp' AND j.estaretirado='false' ORDER BY e.numsanciones ASC");
 		
 		
 	}
