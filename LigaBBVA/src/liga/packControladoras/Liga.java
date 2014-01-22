@@ -83,8 +83,6 @@ public class Liga
 	}
 	
 	/************************************************/
-	/* Fin de métodos para la gestión de jugadores. */
-	/************************************************/
 	
 	public int[] obtenerTemporadas() {
 		
