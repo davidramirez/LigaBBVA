@@ -37,4 +37,10 @@ public class Arbitro {
 		return this.dNI;
 	}
 
+
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return this.nombre+" "+this.apellidos;
+	}
+
 }

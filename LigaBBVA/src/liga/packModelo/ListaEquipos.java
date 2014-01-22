@@ -50,4 +50,25 @@ public class ListaEquipos {
 		}
 	}
 
+
+	public void anadirEquipo(Equipo equipo) {
+		this.getLista().add(equipo);
+		
+	}
+	
+	public String[] getNombres()
+	{
+		Iterator<Equipo> it = this.getIterador();
+		Equipo e;
+		String[] nombres = new String[this.getLista().size()];
+		int i =0;
+		while(it.hasNext())
+		{
+			e = it.next();
+			nombres[i] = e.getNombre();
+			i++;
+		}
+		return nombres;
+	}
+
 }
