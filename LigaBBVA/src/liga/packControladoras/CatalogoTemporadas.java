@@ -24,10 +24,13 @@ public class CatalogoTemporadas
 	public static CatalogoTemporadas getMiCatalogoTemporadas(){
 		return misTemporadas;
 	}
+	/**
+	 * Se encarga de obtener la lista de todas las temporadas que hay en la BD (un máximo de 100) en orden ascendente
+	 */
 	public int[] obtenerTemporadas() 
 	{
 		int[] jugFairPlay =new int[maxTemporadas];
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio DESC");
 		int i=0;
 		while(RdoSQL.next() && i<maxTemporadas)
 		{			
@@ -37,6 +40,11 @@ public class CatalogoTemporadas
 		RdoSQL.close();
 		return jugFairPlay;
 	}
+	/**
+	 * Se encarga de obtener las jornadas en la temporada recibida como parámetro.
+	 * @param unaTemporada
+	 * @return
+	 */
 	public int[] obtenerJornadasDe(int unaTemporada)
 	{
 		int i=0;
@@ -48,6 +56,11 @@ public class CatalogoTemporadas
 		RdoSQL.close();
 		return jornadas;
 	}
+	/**
+	 * 
+	 * @param fecha
+	 * @return
+	 */
 	public int obtenerJornadaAnterior(Date fecha) {
 		int rdo=0;
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 "
@@ -56,11 +69,18 @@ public class CatalogoTemporadas
 		RdoSQL.close();
 		return rdo;
 	}
-	
+	/**
+	 * Se encarga de obtener la última temporada(la actual)
+	 * @return
+	 */
 	public int obtenerUltimaTemporada(){
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas()[0];
 	}
-	
+	/**
+	 * 
+	 * @param pLaTemporada
+	 * @return
+	 */
 	public int obtenerUltimaJornadaDe(int pLaTemporada)
 	//pre:se obtiene la última jornada de la temporada recibida como parametro.
 	//pos:si existe última jornada en esa temporada se devuelve, si no devuelve 0.
@@ -73,7 +93,12 @@ public class CatalogoTemporadas
 		RdoSQL.close();
 		return laJornada;
 	}
-	
+	/**
+	 * 
+	 * @param laJor
+	 * @param laTemp
+	 * @return
+	 */
 	public String[][] obtenerPartidosDe(int laJor, int laTemp)
 	{
 		String[][] rdo= new String[10][2];
@@ -88,12 +113,21 @@ public class CatalogoTemporadas
 		
 		return rdo;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	private ListaTemporadas getListaTemporadas()
 	{
 		return this.listaTemporadas;
 	}
-	
+	/**
+	 * 
+	 * @param pListaEquipos
+	 * @param pListaArbitros
+	 * @param pFecha
+	 * @param pNumTemp
+	 */
 	public void inicializarTemporada(ListaEquipos pListaEquipos, ListaArbitros pListaArbitros, GregorianCalendar pFecha, int pNumTemp)
 	{
 		this.getListaTemporadas().inicializarTemporada(pListaEquipos, pListaArbitros, pFecha, pNumTemp);

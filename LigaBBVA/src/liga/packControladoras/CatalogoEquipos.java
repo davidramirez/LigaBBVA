@@ -13,6 +13,11 @@ public class CatalogoEquipos {
 	public static CatalogoEquipos getMisEquipos(){
 		return misEquipos;
 	}
+	/**
+	 * Se encarga de obtener el equipo Fairplay en la temporada recibida como parámetro.
+	 * @param pNumTemporada
+	 * @return
+	 */
 	
 	public ArrayList<String> obtenerEquipoFairPlay(int pNumTemporada){
 		
