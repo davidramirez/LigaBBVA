@@ -66,18 +66,21 @@ public class IU_CambiarPass extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String passAnt = new String(txtPassAnt.getPassword());
-				String passN = new String(txtPassN.getPassword());
-				String passRep = new String(txtPassRep.getPassword());
-				if (passN.equals(passRep))
+				if(e.getSource()==this)
 				{
-					if(C_Usuario.getMiUsuario().cambiarPass(txtUsuario.getText(), passAnt, passN, txtPreg.getText(), txtResp.getText()))
-						JOptionPane.showMessageDialog(null,"Se han actualizado tus datos correctamente.");
+					String passAnt = new String(txtPassAnt.getPassword());
+					String passN = new String(txtPassN.getPassword());
+					String passRep = new String(txtPassRep.getPassword());
+					if (passN.equals(passRep))
+					{
+						if(C_Usuario.getMiUsuario().cambiarPass(txtUsuario.getText(), passAnt, passN, txtPreg.getText(), txtResp.getText()))
+							JOptionPane.showMessageDialog(null,"Se han actualizado tus datos correctamente.");
+						else
+							JOptionPane.showMessageDialog(null,"El usuario y la contraseña no coinciden.");
+					}
 					else
-						JOptionPane.showMessageDialog(null,"El usuario y la contraseña no coinciden.");
+					JOptionPane.showMessageDialog(null,"Las nuevas contraseñas no coinciden.");
 				}
-				else
-				JOptionPane.showMessageDialog(null,"Las nuevas contraseñas no coinciden.");
 			}
 		});
 		btnValidar.setBounds(365, 199, 117, 25);
@@ -86,6 +89,7 @@ public class IU_CambiarPass extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==this)
 				dispose();
 			}
 		});

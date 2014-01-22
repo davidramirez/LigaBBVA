@@ -34,24 +34,27 @@ public class IU_Inicial extends JFrame {
 		JButton btnIniciarSesin = new JButton("Iniciar sesión");
 		btnIniciarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String pass = new String(txtPass.getPassword());
-				if(C_Usuario.getMiUsuario().identificarse(txtUsuario.getText(), pass))
+				if(e.getSource()==this)
 				{
-					switch(C_Usuario.getMiUsuario().obtenerTipo(txtUsuario.getText()))
+					String pass = new String(txtPass.getPassword());
+					if(C_Usuario.getMiUsuario().identificarse(txtUsuario.getText(), pass))
 					{
-					case "arbitro":
-						//TODO abrir interfaz árbitro
-					case "equipo":
-						IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText());
-						IU_GE.setVisible(true);
-					case "admin":
-						//TODO abrir interfaz admin
-				
+						switch(C_Usuario.getMiUsuario().obtenerTipo(txtUsuario.getText()))
+						{
+						case "arbitro":
+							//TODO abrir interfaz árbitro
+						case "equipo":
+							IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText());
+							IU_GE.setVisible(true);
+						case "admin":
+							//TODO abrir interfaz admin
+					
+						}
 					}
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos.");
+					else
+					{
+						JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos.");
+					}
 				}
 			}
 		});
@@ -61,8 +64,11 @@ public class IU_Inicial extends JFrame {
 		JButton btnCambiarContrasea = new JButton("Cambiar contraseña");
 		btnCambiarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IU_CambiarPass IU_CP = new IU_CambiarPass();
-				IU_CP.setVisible(true);
+				if(e.getSource()==this)
+				{
+					IU_CambiarPass IU_CP = new IU_CambiarPass();
+					IU_CP.setVisible(true);
+				}
 			}
 		});
 		btnCambiarContrasea.setBounds(44, 177, 196, 25);
@@ -71,8 +77,11 @@ public class IU_Inicial extends JFrame {
 		JButton btnRecuperarContrasea = new JButton("Recuperar contraseña");
 		btnRecuperarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IU_RecPass IU_RP = new IU_RecPass(txtUsuario.getText());
-				IU_RP.setVisible(true);
+				if(e.getSource()==this)
+				{
+					IU_RecPass IU_RP = new IU_RecPass(txtUsuario.getText());
+					IU_RP.setVisible(true);
+				}
 			}
 		});
 		btnRecuperarContrasea.setBounds(44, 214, 196, 25);
@@ -81,6 +90,7 @@ public class IU_Inicial extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==this)
 				dispose();
 			}
 		});
@@ -90,8 +100,11 @@ public class IU_Inicial extends JFrame {
 		JButton btnAccesoSinRegistro = new JButton("Acceso sin registro");
 		btnAccesoSinRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IU_Usuario IU_US = new IU_Usuario();
-				IU_US.setVisible(true);
+				if(e.getSource()==this)
+				{
+					IU_Usuario IU_US = new IU_Usuario();
+					IU_US.setVisible(true);
+				}
 				
 			}
 		});
