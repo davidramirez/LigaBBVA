@@ -51,6 +51,8 @@ public class Liga
 	}
 	
 	public String[][] getJugadoresConvocables(Date fecha, String equipo) {
+		System.out.println(fecha);
+		System.out.println(this.obtenerJornadaAnterior(fecha));
 		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(this.obtenerUltimaTemporada(), this.obtenerJornadaAnterior(fecha), equipo);
 	}
 	

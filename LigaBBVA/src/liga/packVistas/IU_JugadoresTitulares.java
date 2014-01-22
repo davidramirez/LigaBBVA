@@ -2,7 +2,9 @@ package liga.packVistas;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.Date;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -10,6 +12,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import liga.packControladoras.C_GestionEquipo;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class IU_JugadoresTitulares extends JDialog {
 
@@ -40,14 +46,15 @@ public class IU_JugadoresTitulares extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JList listConvocables = new JList();
-			listConvocables.setBounds(12, 47, 156, 180);
-			contentPanel.add(listConvocables);
+			JList<String> listConvocados = new JList<String>();
+			listConvocados.setBounds(12, 47, 156, 180);
+			listConvocados.setModel(this.llenarModelo());
+			contentPanel.add(listConvocados);
 		}
 		{
-			JList listAConvocar = new JList();
-			listAConvocar.setBounds(278, 47, 156, 180);
-			contentPanel.add(listAConvocar);
+			JList<String> listTitulares = new JList<String>();
+			listTitulares.setBounds(278, 47, 156, 180);
+			contentPanel.add(listTitulares);
 		}
 		{
 			JLabel lblJugadoresConvocados = new JLabel("Jugadores convocados");
@@ -74,6 +81,11 @@ public class IU_JugadoresTitulares extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -92,5 +104,14 @@ public class IU_JugadoresTitulares extends JDialog {
 			btnQuitar.setBounds(200, 107, 44, 25);
 		}
 		return btnQuitar;
+	}
+	private DefaultListModel<String> llenarModelo() {
+		java.util.Date aux = new java.util.Date();
+		Date fecha = new Date(aux.getTime());
+		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(fecha);
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for (int i = 0; i < jugadores.length; i++)
+			modelo.addElement(jugadores[i][1]);
+		return modelo;
 	}
 }

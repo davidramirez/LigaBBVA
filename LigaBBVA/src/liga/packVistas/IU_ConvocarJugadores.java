@@ -113,7 +113,6 @@ public class IU_ConvocarJugadores extends JDialog {
 	private DefaultListModel<String> llenarModelo() {
 		java.util.Date aux = new java.util.Date();
 		Date fecha = new Date(aux.getTime());
-		System.out.println(fecha);
 		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		for (int i = 0; i < jugadores.length; i++)

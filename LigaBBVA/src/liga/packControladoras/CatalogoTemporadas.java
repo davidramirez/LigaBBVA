@@ -62,10 +62,10 @@ public class CatalogoTemporadas
 	 * @return
 	 */
 	public int obtenerJornadaAnterior(Date fecha) {
-		int rdo=0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 "
-				+ "AND fecha <= " + fecha + " ORDER BY fecha DESC");		
-		if(RdoSQL.next()) rdo=RdoSQL.getInt("numjornada") ;
+		int rdo = 0;
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha <= " + fecha + " ORDER BY fecha DESC");		
+		if (RdoSQL.next())
+			rdo = RdoSQL.getInt("numjornada") ;
 		RdoSQL.close();
 		return rdo;
 	}
@@ -78,7 +78,7 @@ public class CatalogoTemporadas
 		int rdo = 0;
 		int temporadaActual = this.obtenerUltimaTemporada();
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 0 AND fecha >= " + fecha + " numtemporada = " + temporadaActual + " ORDER BY numjornada ASC");		
-		if( RdoSQL.next())
+		if (RdoSQL.next())
 			rdo = RdoSQL.getInt("numjornada");
 		RdoSQL.close();
 		return rdo;
