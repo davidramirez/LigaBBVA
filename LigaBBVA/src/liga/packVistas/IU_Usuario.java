@@ -15,6 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+import liga.packControladoras.C_Clasificacion;
+import liga.packControladoras.C_Usuario;
+
 @SuppressWarnings("serial")
 public class IU_Usuario extends JFrame {
 
@@ -118,7 +121,9 @@ public class IU_Usuario extends JFrame {
 			btnClasificacin = new JButton("Clasificación");
 			btnClasificacin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					new IU_Clasificacion().setVisible(true);
+					int pTemp=C_Clasificacion.getMiClasificacion().obtenerUltimaTemporada();
+					int pJor=C_Clasificacion.getMiClasificacion().obtenerUltimaJornadaDe(pTemp);
+					new IU_Clasificacion(pTemp,pJor).setVisible(true);
 				}
 			});
 			btnClasificacin.setBounds(216, 342, 139, 25);

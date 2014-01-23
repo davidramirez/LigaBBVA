@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -20,8 +21,11 @@ import javax.swing.JLabel;
 import liga.packControladoras.C_Clasificacion;
 import liga.packControladoras.Liga;
 import liga.packJGA.Clasificacion;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
 public class IU_Clasificacion extends JFrame {
@@ -44,20 +48,23 @@ public class IU_Clasificacion extends JFrame {
 	private Clasificacion[] clasificacion;
 	private int ulTemp;
 	private int ultJor;
+	private ArrayList<Integer>temporadas;
+	private ArrayList<Integer>jornada;
 	
 	
-public IU_Clasificacion() { 
+	
+public IU_Clasificacion(int unaTemporada,int UnaJornada) { 
 	
 
-
+	ulTemp=unaTemporada;
+	ultJor=UnaJornada;
 	initialize();
 }
 private void initialize() {
 	setAlwaysOnTop(true);
 	setResizable(false);
-	setBounds(100, 100, 456, 470);
-	ulTemp=C_Clasificacion.getMiClasificacion().obtenerUltimaTemporada();
-	ultJor=C_Clasificacion.getMiClasificacion().obtenerUltimaJornadaDe(ulTemp);
+	setBounds(100, 100, 456, 470);	
+	
 	clasificacion=C_Clasificacion.getMiClasificacion().obtenerClasificacione(ulTemp,ultJor);	
 	//Array de �String� con los titulos de las columnas 
 	String[] columnNames = {"Posicion", "Nombre del equipo", "Puntos"};
@@ -75,18 +82,47 @@ private void initialize() {
 	getContentPane().add(getLblDescenso());
 	
 	
+	
 }
 	private JComboBox getComboBoxTemporada() {
 		if (comboBoxTemporada == null) {
 			comboBoxTemporada = new JComboBox();
+			comboBoxTemporada.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						getComboBoxJornada().removeAllItems();
+						ulTemp=(int) comboBoxTemporada.getSelectedItem();
+						jornada=C_Clasificacion.getMiClasificacion().obtenerJornadasDe(ulTemp);
+						Iterator <Integer> itr=jornada.iterator();						
+						
+						while(itr.hasNext()){
+							int item=itr.next();	
+							getComboBoxJornada().addItem(item);
+						}
+						
+					}
+				}
+			});
 			comboBoxTemporada.setBounds(10, 11, 141, 20);
+			comboBoxTemporada.removeAllItems();
+			temporadas=C_Clasificacion.getMiClasificacion().obtenerTemporadas();
+			Iterator<Integer> itr =temporadas.iterator();
+			while(itr.hasNext())
+			{
+				int item=itr.next();
+				comboBoxTemporada.addItem(item);				
+				
+			}	
 		}
 		return comboBoxTemporada;
+		
 	}
 	private JComboBox getComboBoxJornada() {
 		if (comboBoxJornada == null) {
 			comboBoxJornada = new JComboBox();
 			comboBoxJornada.setBounds(163, 11, 148, 20);
+			
 		}
 		return comboBoxJornada;
 	}
@@ -95,6 +131,14 @@ private void initialize() {
 			btnMostrar = new JButton("Mostrar");
 			btnMostrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					if(e.getSource()==btnMostrar)
+					{
+						ulTemp=(int) getComboBoxTemporada().getSelectedItem();
+						ultJor=(int) getComboBoxJornada().getSelectedItem();
+						
+						new IU_Clasificacion(ulTemp, ultJor).setVisible(true);;
+						dispose();
+					}
 				}
 			});
 			btnMostrar.setBounds(323, 10, 115, 23);

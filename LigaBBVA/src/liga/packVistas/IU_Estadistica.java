@@ -118,7 +118,7 @@ public class IU_Estadistica extends JFrame {
 						comboBoxTemporadas.addItem(item);
 						
 					}	
-					System.out.println(comboBoxTemporadas.getSelectedIndex());
+					
 				}
 			}
 		});
