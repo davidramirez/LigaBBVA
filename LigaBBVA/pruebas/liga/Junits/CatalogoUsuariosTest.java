@@ -13,7 +13,7 @@ public class CatalogoUsuariosTest {
 	@Before
 	public void setUp() throws Exception {
 		SGBD.getSGBD().execSQL("INSERT INTO usuario VALUES ('prueba', 'contrasena','preg','resp','1')");
-		SGBD.getSGBD().execSQL("INSERT INTO equipo VALUES ('equipoprueba', '1','1000','prueba','Vizcaya')");
+		SGBD.getSGBD().execSQL("INSERT INTO equipo VALUES ('equipoprueba', '1000','prueba','Vizcaya')");
 		
 	}
 
