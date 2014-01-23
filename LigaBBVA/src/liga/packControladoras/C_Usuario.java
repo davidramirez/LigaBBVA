@@ -22,11 +22,11 @@ public class C_Usuario {
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
 	
-	public void actualizarAdminEquipo(String pUnUsuario, String pUnaContraseña, String pNombreUsuario) {
+	public void actualizarAdminEquipo(String pUnUsuario, String pUnaContrasena, String pNombreUsuario) {
 		//Buscamos si existe el usuario en la BD.
 		boolean existe = Liga.getMiLiga().buscarUnUsuario(pUnUsuario);
 		if(!existe) {
-			Liga.getMiLiga().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
+			Liga.getMiLiga().actualizarAdminEquipo(pUnUsuario, pUnaContrasena, pNombreUsuario);
 		}
 	}
 	
