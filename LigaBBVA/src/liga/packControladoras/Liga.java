@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import liga.packModelo.Arbitro;
 import liga.packModelo.ListaArbitros;
 import liga.packModelo.ListaEquipos;
 
@@ -196,8 +197,8 @@ public class Liga
 	 * @param pUnaContraseña la contraseña
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
-	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
-		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
+	public void actualizarUsuario(String pUnUsuario,String pUnaContraseña,String pNombreUsuarioAnterior) {
+		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarUsuario(pUnUsuario, pUnaContraseña, pNombreUsuarioAnterior);
 	}
 	
 	/**
@@ -226,5 +227,25 @@ public class Liga
 	 */
 	public ArrayList<String[]> obtenerEquipos() {
 		return CatalogoEquipos.getMisEquipos().obtenerEquipos();
+	}
+	
+	/**
+	 * Busca la existencia de un árbitro a partir de su dni
+	 * 
+	 * @param pDni el dni del árbitro a buscar.
+	 */
+	
+	public boolean buscarSiExisteArbitro (String pDni) {
+		return CatalogoArbitros.getMiCatalogoArbitros().buscarSiExisteArbitro(pDni);
+	}
+	
+	/**
+	 * Se encarga de actualizar los datos de un árbitro determinado.
+	 * 
+	 * @param pArbitro los datos relativos al árbitro.
+	 */
+	
+	public void actualizarArbitro(Arbitro pArbitro,String pNombreUsuarioAnterior) {
+		CatalogoArbitros.getMiCatalogoArbitros().actualizarArbitro(pArbitro, pNombreUsuarioAnterior);
 	}
 }

@@ -143,7 +143,7 @@ public class CatalogoUsuarios {
 	 * @param pUnaContraseña la contraseña
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
-	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
-		SGBD.getSGBD().execSQL("UPDATE usuario SET nombre='"+pUnUsuario+"',contraseña='"+pUnaContraseña+"' WHERE usuario='"+pNombreUsuario+'"');
+	public void actualizarUsuario(String pUnUsuario,String pUnaContraseña,String pNombreUsuarioAnterior) {
+		SGBD.getSGBD().execSQL("UPDATE usuario SET nombre='"+pUnUsuario+"',contraseña='"+pUnaContraseña+"' WHERE usuario='"+pNombreUsuarioAnterior+'"');
 	}
 }
