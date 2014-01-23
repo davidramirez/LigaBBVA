@@ -24,7 +24,9 @@ private static C_Estadisticas misEstadisticas = new C_Estadisticas();
 		return Liga.getMiLiga().obtenerJornadasDe(pNumTemporada);
 	}
 	
-	
+	public String[] obtenerClasificacion(int pNumTemporada, int pNumJornada){
+		return Liga.getMiLiga().obtenerClasificacion(pNumTemporada, pNumJornada);
+	}
 	public int[] obtenerEstadistica(int elJugador){
 		return Liga.getMiLiga().obtenerEstadisticas(elJugador);
 	}

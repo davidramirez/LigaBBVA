@@ -32,12 +32,12 @@ private static CatalogoClasificacion miCatalogoClasificacion= new CatalogoClasif
 		
 		
 		//La lista para return con la clasificación
-		String[] clasificacion = new String [maxEquipos];
+		String[] clasificacion = new String[maxEquipos];
 		//Obtenemos de la base de datos los equipos ordenados por puntuación y los atributos necesarios para procesar el resto de
 		//criterios de ordenación utilizando la librería JGA, la interfaz Comparator y la clase SORT
 		ArrayList<Clasificacion> listaClasificacion=new ArrayList<Clasificacion>();
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada=pNumTemporada"
-				+ "AND numjornada=pNumJornada ORDER BY puntos ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada='"+pNumTemporada+"'"
+				+ "AND numjornada='"+pNumJornada+"' ORDER BY puntos ASC");
 		while (RdoSQL.next())
 		{
 			listaClasificacion.add(

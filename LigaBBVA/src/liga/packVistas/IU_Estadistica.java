@@ -29,19 +29,23 @@ import java.util.Iterator;
 
 import liga.packControladoras.C_Estadisticas;
 
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class IU_Estadistica extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldClasificacionEq;
 	private JTextField textFieldGoles;
 	private JTextField textFieldSanciones;
-	private JComboBox<String> comboBoxTemporadas;
-	private JComboBox <String> comboJornadas;
+	private JComboBox<Integer> comboBoxTemporadas;
+	private JComboBox <Integer> comboJornadas;
 	private JRadioButton rdbtnEquipo;
 	private JRadioButton rdbtnJugador;
 	private ArrayList<Integer> temporadas;
 	private ArrayList<Integer> jornadas;
-	
+	private String[]equipos;
+	private JComboBox<String> comboBoxNombreEq;
 
 	/**
 	 * Launch the application.
@@ -88,10 +92,11 @@ public class IU_Estadistica extends JFrame {
 					Iterator<Integer> itr =temporadas.iterator();
 					while(itr.hasNext())
 					{
-						String item=String.valueOf(itr.next());
-						comboBoxTemporadas.addItem("Temporada "+item);
-					}
-					
+						int item=itr.next();
+						comboBoxTemporadas.addItem(item);
+						
+					}	
+					System.out.println(comboBoxTemporadas.getSelectedIndex());
 				}
 			}
 		});
@@ -106,8 +111,8 @@ public class IU_Estadistica extends JFrame {
 					Iterator<Integer> itr =temporadas.iterator();
 					while(itr.hasNext())
 					{
-						String item=String.valueOf(itr.next());
-						comboBoxTemporadas.addItem("Temporada "+item);
+						int item=itr.next();
+						comboBoxTemporadas.addItem(item);
 					}					
 				}
 			}
@@ -129,7 +134,21 @@ public class IU_Estadistica extends JFrame {
 		lblNombreEq.setBounds(37, 59, 70, 15);
 		contentPane.add(lblNombreEq);
 		
-		JComboBox comboBoxNombreEq = new JComboBox();
+		comboBoxNombreEq = new JComboBox<String>();
+		comboBoxNombreEq.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED){
+					comboBoxNombreEq.removeAllItems();
+					int temp=(int)comboBoxTemporadas.getSelectedItem();
+					int jor=(int)comboJornadas.getSelectedItem();
+					equipos=C_Estadisticas.getMisEstadisticas().obtenerClasificacion(temp, jor);					
+					
+					for(int i=0;i<equipos.length;i++){
+						comboBoxNombreEq.addItem(equipos[i]);
+					}
+				}
+				}
+		});
 		comboBoxNombreEq.setBounds(114, 54, 174, 24);
 		contentPane.add(comboBoxNombreEq);
 		
@@ -150,31 +169,28 @@ public class IU_Estadistica extends JFrame {
 		lblJornada.setBounds(342, 247, 70, 15);
 		contentPane.add(lblJornada);
 		
-		comboBoxTemporadas = new JComboBox<String>();
-		/**/
-		this.comboBoxTemporadas.setBounds(138, 242, 174, 24);
-		contentPane.add(comboBoxTemporadas);
-		
-		comboJornadas = new JComboBox<String>();
-		comboJornadas.addActionListener(new ActionListener() {
-			
-			
-			public void actionPerformed(ActionEvent e) {
-				if(true){
-					System.out.println(comboBoxTemporadas.getSelectedIndex());
-					jornadas=C_Estadisticas.getMisEstadisticas().obtenerJornadasDe(1);
-								
-								Iterator<Integer>itr=jornadas.iterator();
-								while(itr.hasNext()){
-									
-									String item = String.valueOf(itr.next());
-									comboJornadas.addItem("Jornada "+item);
-								}
+		comboBoxTemporadas = new JComboBox<Integer>();
+		comboBoxTemporadas.setEditable(false);
+		comboBoxTemporadas.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED){
+					comboJornadas.removeAllItems();
+					int temp=(int)comboBoxTemporadas.getSelectedItem();
+					jornadas=C_Estadisticas.getMisEstadisticas().obtenerJornadasDe(temp);					
+					Iterator<Integer> itr =jornadas.iterator();
+					while(itr.hasNext()){
+						comboJornadas.addItem(itr.next());
+					}
 				}
-				
 			}
 		});
-		comboJornadas.setBounds(430, 242, 174, 24);
+		
+		this.comboBoxTemporadas.setBounds(138, 242, 48, 24);
+		contentPane.add(comboBoxTemporadas);
+		
+		comboJornadas = new JComboBox<Integer>();
+		
+		comboJornadas.setBounds(430, 242, 48, 24);
 		contentPane.add(comboJornadas);
 		
 		JLabel lblEquipo = new JLabel("Equipo");

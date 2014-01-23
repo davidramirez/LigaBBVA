@@ -14,17 +14,23 @@ import org.junit.Test;
 public class CatalogoTemporadasTest {
 
 	private ArrayList<Integer> listaPruebas;
+	private int pTemp;
+	private int pJor;
 
 	@Before
 	public void setUp() throws Exception 
 	{
 		listaPruebas=new ArrayList<Integer>();
+		pTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
+		pJor=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaJornadaDe(pTemp);
 	}
 
 	@After
 	public void tearDown() throws Exception 
 	{
 		listaPruebas=null;
+		pTemp=0;
+		pJor=0;
 	}
 
 	@Test
@@ -38,8 +44,8 @@ public class CatalogoTemporadasTest {
 	@Test
 	public void testObtenerJornadasDe()
 	{
-		int codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
-		listaPruebas=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(codTemp);
+		
+		listaPruebas=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pTemp);
 		Iterator<Integer> itr=listaPruebas.iterator();
 		while(itr.hasNext()){
 			System.out.println(itr.next());
@@ -53,13 +59,15 @@ public class CatalogoTemporadasTest {
 
 	@Test
 	public void testObtenerUltimaTemporada() {
-		int codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
-		System.out.println(codTemp);
+		int ult=CatalogoTemporadas.getMiCatalogoTemporadas().getMaxJor();
+		assertTrue(pTemp==ult);
+		System.out.println(pTemp);
 	}
 
 	@Test
-	public void testObtenerUltimaJornadaDe() {
-		fail("Not yet implemented");
+	public void testObtenerUltimaJornadaDe() 
+	{
+		System.out.println(pJor);
 	}
 
 	@Test

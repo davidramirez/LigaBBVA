@@ -16,7 +16,8 @@ public class CatalogoTemporadas
 	private ListaTemporadas listaTemporadas;
 	
  	static final int  maxTemporadas=100;
-	static final int maxJornadas=38; 
+	static final int maxJornadas=5;
+	
 	
 	private  CatalogoTemporadas() 
 	{		
@@ -24,6 +25,14 @@ public class CatalogoTemporadas
 	}
 	public static CatalogoTemporadas getMiCatalogoTemporadas(){
 		return misTemporadas;
+	}
+	
+	/**
+	 * sirve para utilizarlo en los Junits
+	 * @return
+	 */
+	public static int getMaxJor(){
+		return maxJornadas;
 	}
 	/**
 	 * Se encarga de obtener la lista de todas las temporadas que hay en la BD (un máximo de 100) en orden ascendente
@@ -102,7 +111,7 @@ public class CatalogoTemporadas
 	//pos:si existe última jornada en esa temporada se devuelve, si no devuelve 0.
 	{
 		int laJornada=0;		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("Select numjornada FROM jornada WHERE numtemporada='"+pLaTemporada+"' ORDER BY fecha DESC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("Select numjornada FROM jornada WHERE numtemporada='"+pLaTemporada+"' AND numjornada='"+maxJornadas+"'");
 		if(RdoSQL.next()){
 			laJornada=RdoSQL.getInt("numjornada");
 		}
