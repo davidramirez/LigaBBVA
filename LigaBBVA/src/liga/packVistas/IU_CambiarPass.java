@@ -21,8 +21,9 @@ public class IU_CambiarPass extends JFrame {
 	private JPasswordField txtPassN;
 	private JPasswordField txtPassRep;
 	public IU_CambiarPass() {
+		setResizable(false);
 		getContentPane().setLayout(null);
-		
+		setSize(500,300);
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(40, 57, 181, 15);
 		getContentPane().add(lblNombre);
@@ -63,10 +64,10 @@ public class IU_CambiarPass extends JFrame {
 		getContentPane().add(txtResp);
 		txtResp.setColumns(10);
 		
-		JButton btnValidar = new JButton("Validar");
+		final JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==this)
+				if(e.getSource()==btnValidar)
 				{
 					String passAnt = new String(txtPassAnt.getPassword());
 					String passN = new String(txtPassN.getPassword());
@@ -86,10 +87,10 @@ public class IU_CambiarPass extends JFrame {
 		btnValidar.setBounds(365, 199, 117, 25);
 		getContentPane().add(btnValidar);
 		
-		JButton btnVolver = new JButton("Volver");
+		final JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==this)
+				if(e.getSource()== btnVolver)
 				dispose();
 			}
 		});
