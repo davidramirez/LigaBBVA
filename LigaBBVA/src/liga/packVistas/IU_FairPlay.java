@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import liga.packControladoras.CatalogoEstadisticasJugador;
-import liga.packControladoras.CatalogoTemporadas;
 import liga.packControladoras.Liga;
 
 @SuppressWarnings("serial")
