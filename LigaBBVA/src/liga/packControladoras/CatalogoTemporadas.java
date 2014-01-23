@@ -186,7 +186,7 @@ public class CatalogoTemporadas
 		TitularesVisitante.close();
 		
 	//comprobado, sentencia correcta (titulares)
-	}
+	}/*
 		ResultadoSQL GoleadoresLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
 				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqLocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
@@ -212,7 +212,7 @@ public class CatalogoTemporadas
 		
 		
 		
-	}
+	}*/
 	
 	
 }
