@@ -24,6 +24,8 @@ public class IU_JugadoresTitulares extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnPoner;
 	private JButton btnQuitar;
+	private String[][] jugadoresConvocados;
+	private DefaultListModel<String> modeloConvocados = new DefaultListModel<String>();
 
 	/**
 	 * Launch the application.
@@ -50,7 +52,8 @@ public class IU_JugadoresTitulares extends JDialog {
 		{
 			JList<String> listConvocados = new JList<String>();
 			listConvocados.setBounds(12, 47, 156, 180);
-			listConvocados.setModel(this.llenarModelo());
+			this.actualizarModeloConvocados();
+			listConvocados.setModel(this.modeloConvocados);
 			contentPanel.add(listConvocados);
 		}
 		{
@@ -107,13 +110,20 @@ public class IU_JugadoresTitulares extends JDialog {
 		}
 		return btnQuitar;
 	}
-	private DefaultListModel<String> llenarModelo() {
+
+	private void actualizarModeloConvocados() {
 		java.util.Date aux = new java.util.Date();
 		Date fecha = new Date(aux.getTime());
-		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(fecha);
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for (int i = 0; i < jugadores.length; i++)
-			modelo.addElement(jugadores[i][1]);
-		return modelo;
+		this.jugadoresConvocados = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(fecha);
+		for (int i = 0; i < this.jugadoresConvocados.length; i++)
+			this.modeloConvocados.addElement(this.jugadoresConvocados[i][1]);
 	}
+	
+	/*private void actualizarModeloTitulares() {
+		java.util.Date aux = new java.util.Date();
+		Date fecha = new Date(aux.getTime());
+		this.jugadoresTitulares = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
+		for (int i = 0; i < this.jugadoresTitulares.length; i++)
+			this.modeloConvocables.addElement(this.jugadoresTitulares[i][1]);
+	}*/
 }
