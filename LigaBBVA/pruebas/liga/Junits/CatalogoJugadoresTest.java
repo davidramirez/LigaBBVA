@@ -10,6 +10,8 @@ import org.junit.Test;
 
 public class CatalogoJugadoresTest {
 
+	/* Aviso: es necesario tener la base de datos vacía. */
+	
 	@Before
 	public void setUp() throws Exception {
 		SGBD.getSGBD().execSQL("INSERT INTO usuario (nombre, contrasena, preguntaseg, respuestaseg, estaactivo) VALUES ('AthleticUser', '12345', '', '', 1)");
