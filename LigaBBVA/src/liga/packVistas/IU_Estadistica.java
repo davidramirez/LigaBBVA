@@ -47,6 +47,7 @@ public class IU_Estadistica extends JFrame {
 	private ArrayList<Integer> jornadas;
 	private String[][] jugadores;
 	private String[]equipos;
+	private int[] estJug;
 	private JComboBox<String> comboBoxNombreEq;
 	private JComboBox<String> comboboxEquipo;
 	private JComboBox<String> comboBoxJugador;
@@ -81,11 +82,25 @@ public class IU_Estadistica extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		JButton btnVolver = new JButton("Volver");
+		final JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnVolver){
+					dispose();
+				}
+			}
+		});
 		btnVolver.setBounds(487, 335, 117, 25);
 		contentPane.add(btnVolver);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		final JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnAceptar){
+					dispose();
+				}
+			}
+		});
 		btnAceptar.setBounds(361, 335, 117, 25);
 		contentPane.add(btnAceptar);
 		
@@ -145,6 +160,13 @@ public class IU_Estadistica extends JFrame {
 		contentPane.add(lblNombreEq);
 		
 		comboBoxNombreEq = new JComboBox<String>();
+		comboBoxNombreEq.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED){
+					textFieldClasificacionEq.setText(String.valueOf(comboBoxNombreEq.getSelectedIndex()+1));
+				}
+			}
+		});
 		
 		comboBoxNombreEq.setBounds(114, 54, 174, 24);
 		contentPane.add(comboBoxNombreEq);
@@ -191,7 +213,11 @@ public class IU_Estadistica extends JFrame {
 				if(e.getStateChange()==ItemEvent.SELECTED){
 					if(rdbtnEquipo.isSelected())
 					{
+						comboboxEquipo.removeAllItems();
+						comboBoxJugador.removeAllItems();
 						comboBoxNombreEq.removeAllItems();
+						textFieldGoles.setText("");
+						textFieldSanciones.setText("");						
 						tempSelect=(int)comboBoxTemporadas.getSelectedItem();
 						jorSelect=(int)comboJornadas.getSelectedItem();
 						equipos=C_Estadisticas.getMisEstadisticas().obtenerClasificacion(tempSelect, jorSelect);
@@ -202,6 +228,8 @@ public class IU_Estadistica extends JFrame {
 					}
 					else if(rdbtnJugador.isSelected())
 					{
+						comboBoxNombreEq.removeAllItems();
+						textFieldClasificacionEq.setText("");
 						comboboxEquipo.removeAllItems();
 						tempSelect=(int)comboBoxTemporadas.getSelectedItem();
 						jorSelect=(int)comboJornadas.getSelectedItem();
@@ -223,7 +251,7 @@ public class IU_Estadistica extends JFrame {
 		lblEquipo.setBounds(318, 59, 70, 15);
 		contentPane.add(lblEquipo);
 		
-		comboboxEquipo = new JComboBox();
+		comboboxEquipo = new JComboBox<String>();
 		comboboxEquipo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) 
 			{
@@ -231,6 +259,7 @@ public class IU_Estadistica extends JFrame {
 				{
 					String elEq=(String) comboboxEquipo.getSelectedItem();
 					jugadores=C_Estadisticas.getMisEstadisticas().getListaJugadores(elEq);
+					comboBoxJugador.removeAllItems();
 					for(int i=0;i<CatalogoJugadores.getCatalogoJugadores().getNumJugadores(elEq);i++){
 						comboBoxJugador.addItem(jugadores[i][1]);
 					}
@@ -244,7 +273,18 @@ public class IU_Estadistica extends JFrame {
 		lblJugador.setBounds(318, 101, 70, 15);
 		contentPane.add(lblJugador);
 		
-		comboBoxJugador = new JComboBox();
+		comboBoxJugador = new JComboBox<String>();
+		/*comboBoxJugador.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+			if(e.getStateChange()==ItemEvent.SELECTED){
+				int codJug=Integer.parseInt(jugadores[comboBoxJugador.getSelectedIndex()][1]);
+				estJug=C_Estadisticas.getMisEstadisticas().obtenerEstadistica(codJug);	
+				textFieldGoles.setText(String.valueOf(estJug[0]));
+				textFieldSanciones.setText(String.valueOf(estJug[1]));
+				
+			}
+			}
+		});*/
 		comboBoxJugador.setBounds(406, 96, 179, 24);
 		contentPane.add(comboBoxJugador);
 		
