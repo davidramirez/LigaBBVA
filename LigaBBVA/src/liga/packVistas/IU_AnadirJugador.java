@@ -56,10 +56,16 @@ public class IU_AnadirJugador extends JDialog {
 						if (nombre.isEmpty() || dorsal.isEmpty())
 							JOptionPane.showMessageDialog(null, "Hay algún campo sin rellenar.");
 						else {
-							if (C_GestionEquipo.getC_GestionEquipo().anadirJugador(nombre, dorsal))
-								dispose();
-							else
-								JOptionPane.showMessageDialog(null, "Ha habido un error.");
+							if (!dorsal.matches("[0-9]{1,2}")) {
+								JOptionPane.showMessageDialog(null, "El dorsal debe ser un número de máximo 2 cifras.");
+							} else if (!nombre.matches("[A-Za-z ]*")) {
+								JOptionPane.showMessageDialog(null, "El nombre sólo puede contener caracteres y espacios.");
+							} else {
+								if (C_GestionEquipo.getC_GestionEquipo().anadirJugador(nombre, dorsal))
+									dispose();
+								else
+									JOptionPane.showMessageDialog(null, "Ha habido un error.");
+							}
 						}
 					}
 				});
