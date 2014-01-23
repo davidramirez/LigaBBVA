@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import liga.packModelo.Arbitro;
 import liga.packModelo.ListaArbitros;
 import liga.packModelo.ListaEquipos;
 
@@ -203,8 +204,8 @@ public class Liga
 	 * @param pUnaContraseña la contraseña
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
-	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContrasena,String pNombreUsuario) {
-		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContrasena, pNombreUsuario);
+	public void actualizarUsuario(String pUnUsuario,String pUnaContraseña,String pNombreUsuarioAnterior) {
+		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarUsuario(pUnUsuario, pUnaContraseña, pNombreUsuarioAnterior);
 	}
 	
 	/**
@@ -234,4 +235,59 @@ public class Liga
 	public ArrayList<String[]> obtenerEquipos() {
 		return CatalogoEquipos.getMisEquipos().obtenerEquipos();
 	}
+	
+	/**
+	 * Busca la existencia de un árbitro a partir de su dni
+	 * 
+	 * @param pDni el dni del árbitro a buscar.
+	 */
+	
+	public boolean buscarSiExisteArbitro (String pDni) {
+		return CatalogoArbitros.getMiCatalogoArbitros().buscarSiExisteArbitro(pDni);
+	}
+	
+	/**
+	 * Se encarga de actualizar los datos de un árbitro determinado.
+	 * 
+	 * @param pArbitro los datos relativos al árbitro.
+	 */
+	
+	public void actualizarArbitro(Arbitro pArbitro,String pNombreUsuarioAnterior) {
+		CatalogoArbitros.getMiCatalogoArbitros().actualizarArbitro(pArbitro, pNombreUsuarioAnterior);
+	}
+	
+	public String[] obtenerGolesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerGolesPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerTitularesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTitularesPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerGoleadoresPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerGoleadoresPartido(elLocal, elVisit, laJor, laTemp);
+
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerCambiosPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<String[]> obtenerTarjetasLocal(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTarjetasLocal(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<String[]> obtenerTarjetasVisitante(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
+	}
+		
+	
+	
 }
