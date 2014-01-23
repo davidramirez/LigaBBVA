@@ -168,6 +168,15 @@ public class IU_Usuario extends JFrame {
 	private JButton getBtnDatos() {
 		if (btnDatos == null) {
 			btnDatos = new JButton("Datos");
+			btnDatos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(e.getSource()==btnDatos)
+					{
+						IU_DatosPartido IU_DP=new IU_DatosPartido();
+						IU_DP.setVisible(true);
+					}
+				}
+			});
 			btnDatos.setBounds(408, 379, 139, 25);
 		}
 		return btnDatos;
