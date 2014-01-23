@@ -1,7 +1,7 @@
 package liga.Junits;
 
-import static org.junit.Assert.*;
 import liga.packControladoras.CatalogoEstadisticasJugador;
+import liga.packControladoras.CatalogoTemporadas;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,10 @@ public class CatalogoEstadisticasJugadorTest {
 
 	@Test
 	public void testObtenerJugadorFairPlay() {
-		//CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(1);
+		int codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
+		System.out.println(codTemp);
+		//Iterator<String>itr=C_FairPlay.getMiFairPlay().obtenerJugadorFairPlay(codTemp).iterator();
+		System.out.println(CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerJugadorFairPlay(codTemp).iterator().next());
 	}
 
 	@Test

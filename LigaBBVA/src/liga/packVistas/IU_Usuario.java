@@ -2,21 +2,19 @@ package liga.packVistas;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import liga.packControladoras.C_Clasificacion;
-import liga.packControladoras.C_Usuario;
 
 @SuppressWarnings("serial")
 public class IU_Usuario extends JFrame {
@@ -133,6 +131,14 @@ public class IU_Usuario extends JFrame {
 	private JButton getBtnEstadsticas() {
 		if (btnEstadsticas == null) {
 			btnEstadsticas = new JButton("Estadísticas");
+			btnEstadsticas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(e.getSource()==btnEstadsticas)
+					{
+						new IU_Estadistica().setVisible(true);
+					}
+				}
+			});
 			btnEstadsticas.setBounds(216, 379, 139, 25);
 		}
 		return btnEstadsticas;
@@ -143,7 +149,7 @@ public class IU_Usuario extends JFrame {
 			btnFairplay.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
 					if(event.getSource()==btnFairplay)
-					{
+					{											
 						new IU_FairPlay().setVisible(true);
 					}
 				}

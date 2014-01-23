@@ -59,9 +59,9 @@ public class CatalogoTemporadasTest {
 
 	@Test
 	public void testObtenerUltimaTemporada() {
-		int ult=CatalogoTemporadas.getMiCatalogoTemporadas().getMaxJor();
+		int ult=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
 		assertTrue(pTemp==ult);
-		System.out.println(pTemp);
+		System.out.println(ult);
 	}
 
 	@Test

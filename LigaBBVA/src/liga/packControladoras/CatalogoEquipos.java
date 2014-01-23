@@ -23,9 +23,7 @@ public class CatalogoEquipos {
 	public ArrayList<String> obtenerEquipoFairPlay(int pNumTemporada){
 		
 		ArrayList<String> equipoFairPlay = new ArrayList<String>();
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombreeq,SUM(numsanciones) AS sancionesEquipo FROM "
-				+ "equipostemporada AS et INNER JOIN jugador AS j"
-				+ "ON et.nombreeq=j.nombreequipo WHERE et.numtemporada='"+pNumTemporada+"' ORDER BY sancionesEquipo ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombreeq, SUM( numsanciones ) AS sancionesequipo FROM equipostemporada AS e INNER JOIN jugador AS j ON e.nombreeq = j.nombreequipo WHERE numtemporada ='"+pNumTemporada+"' GROUP BY nombreeq ORDER BY sancionesequipo ASC");
 		if(RdoSQL.next())
 		{
 			equipoFairPlay.add(RdoSQL.get("nombreeq"));
