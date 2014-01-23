@@ -274,17 +274,19 @@ public class IU_Estadistica extends JFrame {
 		contentPane.add(lblJugador);
 		
 		comboBoxJugador = new JComboBox<String>();
-		/*comboBoxJugador.addItemListener(new ItemListener() {
+		comboBoxJugador.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 			if(e.getStateChange()==ItemEvent.SELECTED){
-				int codJug=Integer.parseInt(jugadores[comboBoxJugador.getSelectedIndex()][1]);
+				String elEq=(String) comboboxEquipo.getSelectedItem();
+				jugadores=C_Estadisticas.getMisEstadisticas().getListaJugadores(elEq);
+				int codJug=Integer.parseInt(jugadores[comboBoxJugador.getSelectedIndex()][0]);
 				estJug=C_Estadisticas.getMisEstadisticas().obtenerEstadistica(codJug);	
-				textFieldGoles.setText(String.valueOf(estJug[0]));
-				textFieldSanciones.setText(String.valueOf(estJug[1]));
+				textFieldGoles.setText(String.valueOf(estJug[1]));
+				textFieldSanciones.setText(String.valueOf(estJug[0]));
 				
 			}
 			}
-		});*/
+		});
 		comboBoxJugador.setBounds(406, 96, 179, 24);
 		contentPane.add(comboBoxJugador);
 		
