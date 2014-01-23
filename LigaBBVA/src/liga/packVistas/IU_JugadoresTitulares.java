@@ -24,6 +24,8 @@ public class IU_JugadoresTitulares extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnPoner;
 	private JButton btnQuitar;
+	
+	private Date fecha;
 	private String[][] jugadoresConvocados;
 	private DefaultListModel<String> modeloConvocados = new DefaultListModel<String>();
 
@@ -45,6 +47,8 @@ public class IU_JugadoresTitulares extends JDialog {
 	 */
 	public IU_JugadoresTitulares() {
 		setBounds(100, 100, 450, 300);
+		java.util.Date aux = new java.util.Date();
+		this.fecha = new Date(aux.getTime()); // Parche.
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -80,6 +84,11 @@ public class IU_JugadoresTitulares extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						C_GestionEquipo.getC_GestionEquipo().anadirJugadoresTitulares(new String[18], fecha);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -112,9 +121,7 @@ public class IU_JugadoresTitulares extends JDialog {
 	}
 
 	private void actualizarModeloConvocados() {
-		java.util.Date aux = new java.util.Date();
-		Date fecha = new Date(aux.getTime());
-		this.jugadoresConvocados = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(fecha);
+		this.jugadoresConvocados = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(this.fecha);
 		for (int i = 0; i < this.jugadoresConvocados.length; i++)
 			this.modeloConvocados.addElement(this.jugadoresConvocados[i][1]);
 	}

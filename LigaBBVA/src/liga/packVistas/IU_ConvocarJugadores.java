@@ -24,6 +24,8 @@ public class IU_ConvocarJugadores extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnPoner;
 	private JButton btnQuitar;
+	
+	private Date fecha;
 	private String[][] jugadoresConvocables;
 	private DefaultListModel<String> modeloConvocables = new DefaultListModel<String>();
 
@@ -46,6 +48,8 @@ public class IU_ConvocarJugadores extends JDialog {
 	public IU_ConvocarJugadores() {
 		this.setModal(true);
 		C_GestionEquipo.getC_GestionEquipo().setEquipo("Athletic"); // Parche.
+		java.util.Date aux = new java.util.Date();
+		this.fecha = new Date(aux.getTime()); // Parche.
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +88,7 @@ public class IU_ConvocarJugadores extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						//C_GestionEquipo.getC_GestionEquipo().
+						C_GestionEquipo.getC_GestionEquipo().anadirJugadoresConvocados(new String[18], fecha);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -119,9 +123,7 @@ public class IU_ConvocarJugadores extends JDialog {
 	}
 	
 	private void actualizarModeloConvocables() {
-		java.util.Date aux = new java.util.Date();
-		Date fecha = new Date(aux.getTime());
-		this.jugadoresConvocables = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
+		this.jugadoresConvocables = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(this.fecha);
 		for (int i = 0; i < this.jugadoresConvocables.length; i++)
 			this.modeloConvocables.addElement(this.jugadoresConvocables[i][1]);
 	}
