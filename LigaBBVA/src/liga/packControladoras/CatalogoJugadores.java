@@ -89,7 +89,7 @@ public class CatalogoJugadores {
 	
 	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
 		for (int i = 0; i < jugadoresTitulares.length; i++)
-			SGBD.getSGBD().execSQL("INSERT INTO convocado (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES ('" + temporada + "', '" + jornada + "', '" + equipoLocal + "', '" + equipoVisitante + "', '" + jugadoresTitulares[i] + "')");
+			SGBD.getSGBD().execSQL("INSERT INTO titular (numtemporada, numjornada, nomeqlocal, nomeqvisitante, codjug) VALUES ('" + temporada + "', '" + jornada + "', '" + equipoLocal + "', '" + equipoVisitante + "', '" + jugadoresTitulares[i] + "')");
 	}
 	
 	public void anadirJugadoresConvocados(String[] jugadoresConvocados, String equipoLocal, String equipoVisitante, int temporada, int jornada) {

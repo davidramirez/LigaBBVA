@@ -69,16 +69,16 @@ public class Liga
 		return CatalogoJugadores.getCatalogoJugadores().getListaJugadoresTitulares(this.obtenerUltimaTemporada(), this.obtenerJornadaAAJugar(fecha), equipo);
 	}
 	
-	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha, String equipo) {
-		int temporada = this.obtenerUltimaTemporada(), jornada = this.obtenerJornadaAAJugar(fecha);
-		String[] equipos = this.obtenerEquiposJornada(temporada, jornada, equipo);
-		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresTitulares, equipos[1], equipos[2], temporada, jornada);
-	}
-	
 	public void anadirJugadoresConvocados(String[] jugadoresConvocados, Date fecha, String equipo) {
 		int temporada = this.obtenerUltimaTemporada(), jornada = this.obtenerJornadaAAJugar(fecha);
 		String[] equipos = this.obtenerEquiposJornada(temporada, jornada, equipo);
-		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresConvocados, equipos[1], equipos[2], temporada, jornada);
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresConvocados(jugadoresConvocados, equipos[0], equipos[1], temporada, jornada);
+	}
+	
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha, String equipo) {
+		int temporada = this.obtenerUltimaTemporada(), jornada = this.obtenerJornadaAAJugar(fecha);
+		String[] equipos = this.obtenerEquiposJornada(temporada, jornada, equipo);
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresTitulares, equipos[0], equipos[1], temporada, jornada);
 	}
 	
 	public boolean anadirJugador(String equipo, String nombreJugador, String dorsal) {

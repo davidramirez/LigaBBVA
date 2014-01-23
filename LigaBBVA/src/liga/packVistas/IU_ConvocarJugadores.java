@@ -52,10 +52,15 @@ public class IU_ConvocarJugadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public IU_ConvocarJugadores() {
+		this.modeloConvocables.clear();
+		this.modeloAConvocar.clear();
+		
 		this.setModal(true);
+		
 		C_GestionEquipo.getC_GestionEquipo().setEquipo("Athletic"); // Parche.
 		java.util.Date aux = new java.util.Date();
 		this.fecha = new Date(aux.getTime()); // Parche.
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -121,7 +126,7 @@ public class IU_ConvocarJugadores extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						int jugadoresSeleccionados = modeloAConvocar.capacity();
+						int jugadoresSeleccionados = modeloAConvocar.getSize();
 						if (jugadoresSeleccionados > 10 && jugadoresSeleccionados < 19) {
 							String[] jugadoresAConvocar = new String[jugadoresSeleccionados];
 							for (int i = 0; i < jugadoresSeleccionados; i++) {
@@ -183,8 +188,9 @@ public class IU_ConvocarJugadores extends JDialog {
 	
 	private void actualizarModeloConvocables() {
 		this.jugadoresConvocables = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(this.fecha);
-		for (int i = 0; i < this.jugadoresConvocables.length; i++)
+		for (int i = 0; i < this.jugadoresConvocables.length; i++) {
 			if (this.jugadoresConvocables[i][0] != null)
 				this.modeloConvocables.addElement(this.jugadoresConvocables[i][0] + " " + this.jugadoresConvocables[i][1]);
+		}
 	}
 }

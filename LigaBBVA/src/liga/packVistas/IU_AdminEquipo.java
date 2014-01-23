@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import liga.packControladoras.C_GestionEquipo;
+import liga.packControladoras.C_Usuario;
 
 @SuppressWarnings("serial")
 public class IU_AdminEquipo extends JFrame {
@@ -24,7 +25,7 @@ public class IU_AdminEquipo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IU_AdminEquipo frame = new IU_AdminEquipo();
+					IU_AdminEquipo frame = new IU_AdminEquipo("AthleticUser");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +37,10 @@ public class IU_AdminEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IU_AdminEquipo() {
+	public IU_AdminEquipo(String usuario) {
+		String equipo = C_Usuario.getMiUsuario().obtenerEquipoDe(usuario);
+		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo); // Lo guardamos en el controlador para no tener que preocuparnos más.
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,7 +51,7 @@ public class IU_AdminEquipo extends JFrame {
 		JButton btnGestionarJugadores = new JButton("Gestionar Jugadores");
 		btnGestionarJugadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IU_GestionEquipo ge = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "AthleticUser");
+				IU_GestionEquipo ge = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo());
 				ge.setVisible(true);
 				dispose();
 			}

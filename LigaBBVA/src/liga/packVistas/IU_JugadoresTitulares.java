@@ -52,9 +52,16 @@ public class IU_JugadoresTitulares extends JDialog {
 	 * Create the dialog.
 	 */
 	public IU_JugadoresTitulares() {
-		setBounds(100, 100, 450, 300);
+		this.modeloConvocados.clear();
+		this.modeloTitulares.clear();
+		
+		this.setModal(true);
+		
+		C_GestionEquipo.getC_GestionEquipo().setEquipo("Athletic"); // Parche.
 		java.util.Date aux = new java.util.Date();
 		this.fecha = new Date(aux.getTime()); // Parche.
+		
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -119,7 +126,7 @@ public class IU_JugadoresTitulares extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int jugadoresSeleccionados = modeloTitulares.capacity();
+						int jugadoresSeleccionados = modeloTitulares.getSize();
 						if (jugadoresSeleccionados == 11) {
 							String[] jugadoresTitulares = new String[jugadoresSeleccionados];
 							for (int i = 0; i < jugadoresSeleccionados; i++) {
@@ -181,7 +188,9 @@ public class IU_JugadoresTitulares extends JDialog {
 
 	private void actualizarModeloConvocados() {
 		this.jugadoresConvocados = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocados(this.fecha);
-		for (int i = 0; i < this.jugadoresConvocados.length; i++)
-			this.modeloConvocados.addElement(this.jugadoresConvocados[i][1]);
+		for (int i = 0; i < this.jugadoresConvocados.length; i++) {
+			if (this.jugadoresConvocados[i][0] != null)
+				this.modeloConvocados.addElement(this.jugadoresConvocados[i][0] + " " + this.jugadoresConvocados[i][1]);
+		}
 	}
 }
