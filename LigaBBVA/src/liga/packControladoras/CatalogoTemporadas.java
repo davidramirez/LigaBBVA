@@ -160,7 +160,7 @@ public class CatalogoTemporadas
 	
 
 	
-	public String[] obtenerDatosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	public String[] obtenerGolesPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		String[] rdo = new String [2];
 		ResultadoSQL Goles=SGBD.getSGBD().consultaSQL("SELECT golesvisitante, goleslocal FROM partido WHERE "
