@@ -49,8 +49,7 @@ public class Liga
 	}
 	
 	private String[] obtenerEquiposJornada(int temporada, int jornada, String equipo) {
-		String[] equipos = new String[2];
-		return equipos;
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerEquiposJornada(temporada, jornada, equipo);
 	}
 	
 	public String[][] getListaJugadores(String equipo) {
