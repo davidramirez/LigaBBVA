@@ -128,7 +128,7 @@ public class CatalogoUsuarios {
 	public String obtenerEquipoDe(String id)
 	{
 		String rdo=null;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombre FROM equipo WHERE nombreusuario=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombre FROM equipo WHERE nombreusuario='" + id +"'");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("nombre");
 		RdoSQL.close();

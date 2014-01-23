@@ -47,7 +47,7 @@ public class IU_AdminEquipo extends JFrame {
 		JButton btnGestionarJugadores = new JButton("Gestionar Jugadores");
 		btnGestionarJugadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IU_GestionEquipo ge = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "Athletic");
+				IU_GestionEquipo ge = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo(), "AthleticUser");
 				ge.setVisible(true);
 				dispose();
 			}
