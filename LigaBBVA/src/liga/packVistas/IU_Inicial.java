@@ -66,8 +66,8 @@ public class IU_Inicial extends JFrame {
 							//TODO abrir interfaz árbitro
 						case "equipo":
 							String nombreEq=C_Usuario.getMiUsuario().obtenerEquipoDe(txtUsuario.getText());
-							IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText(),nombreEq);
-							IU_GE.setVisible(true);
+							//IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText(),nombreEq);
+							//IU_GE.setVisible(true);
 						case "admin":
 							//TODO abrir interfaz admin
 					
@@ -101,8 +101,16 @@ public class IU_Inicial extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnRecuperarContrasea)
 				{
-					IU_RecPass IU_RP = new IU_RecPass(txtUsuario.getText());
+					String pregunta = C_Usuario.getMiUsuario().obtenerPregunta(txtUsuario.getText());
+					if(pregunta!=null)
+					{
+					IU_RecPass IU_RP = new IU_RecPass(txtUsuario.getText(),pregunta);
 					IU_RP.setVisible(true);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null,"No has introducido un nombre de usuario válido.");
+					}
 				}
 			}
 		});
