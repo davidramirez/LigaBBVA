@@ -1,7 +1,5 @@
 package liga.packVistas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,8 +14,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import liga.packControladoras.C_FairPlay;
+import liga.packControladoras.CatalogoEstadisticasJugador;
 import liga.packControladoras.CatalogoTemporadas;
+import liga.packControladoras.Liga;
 
 @SuppressWarnings("serial")
 public class IU_FairPlay extends JFrame {
@@ -31,11 +30,17 @@ public class IU_FairPlay extends JFrame {
 	private ArrayList<String>jugFair;
 	private ArrayList<String>eqFair;
 	private int codTemp;
+	private String nomjug;
+	private String nomEq;
+	private String numsan;
+	private String equipo;
+	private String sancionesEq;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,13 +53,29 @@ public class IU_FairPlay extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public IU_FairPlay() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		codTemp=Liga.getMiLiga().obtenerUltimaTemporada();
+		jugFair=Liga.getMiLiga().obtenerJugadorFairplay(codTemp);
+		Iterator<String> itr=jugFair.iterator();
+		
+		if(itr.hasNext())nomjug=itr.next();
+		if(itr.hasNext())nomEq=itr.next();
+		if(itr.hasNext())numsan=itr.next();
+		
+		eqFair=Liga.getMiLiga().obtenerEquipoFairPlay(codTemp);
+		Iterator<String> itr1=eqFair.iterator();
+		
+		if(itr1.hasNext())equipo=itr1.next();
+		if(itr1.hasNext())sancionesEq=itr1.next();
+		
+		
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 513, 275);
 		setResizable(false);
 		contentPane = new JPanel();
@@ -88,19 +109,27 @@ public class IU_FairPlay extends JFrame {
 		contentPane.add(lblSanciones);
 		
 		textFieldNombre = new JTextField();
+		textFieldNombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		textFieldNombre.setBounds(100, 51, 127, 19);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
+		textFieldNombre.setText(nomjug);
 		
 		textFieldEquipo = new JTextField();
 		textFieldEquipo.setBounds(100, 78, 127, 19);
 		contentPane.add(textFieldEquipo);
 		textFieldEquipo.setColumns(10);
+		textFieldEquipo.setText(nomEq);
 		
 		textFieldSanciones = new JTextField();
 		textFieldSanciones.setBounds(100, 109, 127, 19);
 		contentPane.add(textFieldSanciones);
 		textFieldSanciones.setColumns(10);
+		textFieldSanciones.setText(numsan);
 		
 		JLabel lblNombreEq = new JLabel("Nombre");
 		lblNombreEq.setBounds(250, 53, 70, 15);
@@ -113,39 +142,25 @@ public class IU_FairPlay extends JFrame {
 		textFieldNomEq.setBounds(353, 51, 114, 19);
 		contentPane.add(textFieldNomEq);
 		textFieldNomEq.setColumns(10);
+		textFieldNomEq.setText(equipo);
 		
 		textFieldSancionesEq = new JTextField();
 		textFieldSancionesEq.setBounds(353, 78, 114, 19);
 		contentPane.add(textFieldSancionesEq);
 		textFieldSancionesEq.setColumns(10);
+		textFieldSancionesEq.setText(sancionesEq);
 		
 		JButton btnOK = new JButton("OK");
 		btnOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
 		});
 		btnOK.setBounds(350, 211, 117, 25);
-		contentPane.add(btnOK);
-		codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
-		jugFair = C_FairPlay.getMiFairPlay().obtenerJugadorFairPlay(codTemp);
+		contentPane.add(btnOK);		
 
 	}
 	
-	public void iniciar(){
-	codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();	
-	jugFair = C_FairPlay.getMiFairPlay().obtenerJugadorFairPlay(codTemp);
-	eqFair = C_FairPlay.getMiFairPlay().obtenerEquipoFairPlay(codTemp);
 	
-	/*Completa los campos del jugador
-	Iterator<String>itr=jugFair.iterator();
-	if(itr.hasNext()){textFieldNombre.setText(itr.next());}
-	if(itr.hasNext()){textFieldNomEq.setText(itr.next());}
-	if(itr.hasNext()){textFieldSanciones.setText(itr.next());}
-	
-	//completa los campos del equipo
-	Iterator<String>itr1=eqFair.iterator();
-	if(itr.hasNext()){textFieldNomEq.setText(itr1.next());}
-	if(itr.hasNext()){textFieldSancionesEq.setText(itr1.next());}*/
-	}
 	
 }

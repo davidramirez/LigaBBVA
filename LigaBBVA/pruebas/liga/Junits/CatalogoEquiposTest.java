@@ -17,11 +17,13 @@ public class CatalogoEquiposTest {
 
 	@After
 	public void tearDown() throws Exception {
+		ultTemp=0;
 	}
 
 	@Test
 	public void testObtenerEquipoFairPlay() {
 		CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(ultTemp);
+		System.out.println(CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(ultTemp));
 	}
 
 	@Test
