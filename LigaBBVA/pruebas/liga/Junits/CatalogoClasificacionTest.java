@@ -34,7 +34,9 @@ public class CatalogoClasificacionTest {
 	public void testObtenerClasificacion() 
 	{
 		String pEq=clasificacion[0];		
-		assertEquals(pEq,"Athletic");
+		assertEquals(pEq,"Athletic");//Depende de los datos
+		/*Probado, funcionamiento correcto, con la interfaz
+		 */
 
 	}
 	
@@ -42,6 +44,8 @@ public class CatalogoClasificacionTest {
 	public void testobtenerClasificacione()
 	{
 		Clasificacion[] clasE=CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacione(temp, jor);
+		/*Probado, funcionamiento correcto, con la interfaz
+		 */
 	}
 	
 	

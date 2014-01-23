@@ -38,7 +38,7 @@ public class CatalogoTemporadasTest {
 		listaPruebas=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
 		assertNotNull(listaPruebas);
 		assertTrue(listaPruebas.size()!=0);
-		
+		//Además probado con la interfaz
 	}
 
 	@Test
@@ -50,6 +50,7 @@ public class CatalogoTemporadasTest {
 		while(itr.hasNext()){
 			System.out.println(itr.next());
 		}
+		//Ademas probado interfaz
 	}
 
 	@Test
@@ -62,12 +63,15 @@ public class CatalogoTemporadasTest {
 		int ult=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
 		assertTrue(pTemp==ult);
 		System.out.println(ult);
+		
 	}
 
 	@Test
 	public void testObtenerUltimaJornadaDe() 
 	{
+		assertEquals(pJor, 5);//depende de los datos de la BD, probado con la interfaz
 		System.out.println(pJor);
+		
 	}
 
 	@Test

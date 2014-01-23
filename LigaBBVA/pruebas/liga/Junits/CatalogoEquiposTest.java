@@ -24,6 +24,7 @@ public class CatalogoEquiposTest {
 	public void testObtenerEquipoFairPlay() {
 		CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(ultTemp);
 		System.out.println(CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(ultTemp));
+		//Finally comprobado con la interfaz
 	}
 
 	@Test
