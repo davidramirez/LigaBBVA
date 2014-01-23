@@ -118,9 +118,13 @@ public class C_GestionEquipo extends Observable {
 	
 	public void anadirJugadoresConvocados(String[] jugadoresConvocados, Date fecha) {
 		Liga.getMiLiga().anadirJugadoresConvocados(jugadoresConvocados, fecha, this.miEquipo);
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha) {
 		Liga.getMiLiga().anadirJugadoresTitulares(jugadoresTitulares, fecha, this.miEquipo);
+		setChanged();
+		notifyObservers();
 	}
 }
