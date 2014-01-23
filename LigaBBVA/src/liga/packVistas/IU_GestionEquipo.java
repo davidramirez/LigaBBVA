@@ -1,6 +1,5 @@
 package liga.packVistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -18,7 +17,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JList;
 
 import liga.packControladoras.C_GestionEquipo;
-import liga.packControladoras.C_Usuario;
 
 import javax.swing.ListSelectionModel;
 
@@ -38,9 +36,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	/**
 	 * Create the frame.
 	 */
-	public IU_GestionEquipo(C_GestionEquipo model, String user) {
-		String equipo = C_Usuario.getMiUsuario().obtenerEquipoDe(user);
-		C_GestionEquipo.getC_GestionEquipo().setEquipo(equipo); // Lo guardamos en el controlador para no tener que preocuparnos más.
+	public IU_GestionEquipo(C_GestionEquipo model) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 633, 483);
 		contentPane = new JPanel();
@@ -58,7 +54,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		lblListaJugadores.setBounds(12, 29, 169, 15);
 		contentPane.add(lblListaJugadores);
 		
-		JLabel lblNombreEquipo = new JLabel(equipo);
+		JLabel lblNombreEquipo = new JLabel(C_GestionEquipo.getC_GestionEquipo().getEquipo());
 		lblNombreEquipo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombreEquipo.setBounds(478, 29, 139, 15);
 		contentPane.add(lblNombreEquipo);
@@ -162,7 +158,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 		int numJugadores = this.jugadores.length;
 		if (numJugadores < 19)
 			this.btnBajaJugador.setEnabled(false);
-		else if (numJugadores > 25) {
+		else if (numJugadores > 24) {
 			this.btnAnadirJugador.setEnabled(false);
 			this.btnGestionarFichajes.setEnabled(false);
 		}

@@ -17,6 +17,10 @@ public class C_GestionEquipo extends Observable {
 		return miC_GestionEquipo;
 	}
 	
+	public String getEquipo() {
+		return this.miEquipo;
+	}
+	
 	public void setEquipo(String equipo) {
 		this.miEquipo = equipo;
 	}
