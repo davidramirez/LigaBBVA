@@ -1,6 +1,6 @@
+package liga.packControladoras;
 import java.util.Observable;
 
-import liga.packControladoras.Liga;
 import liga.packModelo.Arbitro;
 
 public class C_Arbitro {
