@@ -257,7 +257,6 @@ public class Liga
 		CatalogoArbitros.getMiCatalogoArbitros().actualizarArbitro(pArbitro, pNombreUsuarioAnterior);
 	}
 	
-<<<<<<< HEAD
 	/**
 	 * Actualiza los datos de un equipo
 	 * 
@@ -269,7 +268,7 @@ public class Liga
 	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
 		CatalogoEquipos.getMisEquipos().actualizarDatosEquipo(pUnNombreEquipo, pUnaProvincia, pElEquipo);
 	}
-=======
+
 	public String[] obtenerGolesPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerGolesPartido(elLocal, elVisit, laJor, laTemp);
@@ -304,5 +303,5 @@ public class Liga
 		
 	
 	
->>>>>>> branch 'master' of https://github.com/davidramirez/LigaBBVA.git
+
 }
