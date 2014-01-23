@@ -59,7 +59,7 @@ public class IU_Calendario extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(NORMAL);
+				dispose();
 			}
 		});
 		btnSalir.setBounds(317, 237, 117, 25);

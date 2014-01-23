@@ -35,7 +35,6 @@ public class IU_AdminEquipo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				IU_GestionEquipo ge = new IU_GestionEquipo(C_GestionEquipo.getC_GestionEquipo());
 				ge.setVisible(true);
-				dispose();
 			}
 		});
 		btnGestionarJugadores.setBounds(125, 12, 211, 25);
@@ -46,7 +45,6 @@ public class IU_AdminEquipo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				IU_Calendario ca = new IU_Calendario();
 				ca.setVisible(true);
-				dispose();
 			}
 		});
 		btnGestionarCalendario.setBounds(125, 49, 211, 25);
@@ -55,7 +53,7 @@ public class IU_AdminEquipo extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(NORMAL);
+				dispose();
 			}
 		});
 		btnSalir.setBounds(169, 237, 117, 25);
