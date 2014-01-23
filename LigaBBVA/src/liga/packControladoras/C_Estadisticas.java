@@ -30,4 +30,8 @@ private static C_Estadisticas misEstadisticas = new C_Estadisticas();
 	public int[] obtenerEstadistica(int elJugador){
 		return Liga.getMiLiga().obtenerEstadisticas(elJugador);
 	}
+	
+	public String[][] getListaJugadores(String unEquipo){
+		return Liga.getMiLiga().getListaJugadores(unEquipo);
+	}
 }

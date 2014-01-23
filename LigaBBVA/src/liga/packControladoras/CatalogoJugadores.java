@@ -117,7 +117,7 @@ public class CatalogoJugadores {
 		SGBD.getSGBD().execSQL("UPDATE jugador SET estaretirado = 1 WHERE codjug = '" + codJug + "'");
 	}
 	
-	private int getNumJugadores(String equipo) {
+	public int getNumJugadores(String equipo) {
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM jugador WHERE estaretirado = 0 AND nombreequipo = '" + equipo + "'");
 		RdoSQL.next();
 		int num = RdoSQL.getInt("cont");
