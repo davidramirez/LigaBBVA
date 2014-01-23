@@ -158,25 +158,29 @@ public class CatalogoTemporadas
 		this.getListaTemporadas().inicializarTemporada(pListaEquipos, pListaArbitros, pFecha, pNumTemp);
 	}
 	
-	public void obtenerDatosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+
+	
+	public String[] obtenerGolesPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		String[] rdo = new String [2];
 		ResultadoSQL Goles=SGBD.getSGBD().consultaSQL("SELECT golesvisitante, goleslocal FROM partido WHERE "
-				+ "numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+"");
+				+ "numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"'");
 		Goles.next();
 		rdo[0]= Goles.get("goleslocal");
 		rdo[1]= Goles.get("golesvisitante");
 		// comprobada, sentencia correcta
 		Goles.close();
+		return rdo;
 	}
-	public void obtenerTitularesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	public ArrayList<ArrayList<String>> obtenerTitularesPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		ArrayList<ArrayList<String>> rdo = new ArrayList<ArrayList<String>>();
 		ResultadoSQL TitularesLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
 		
 		ResultadoSQL TitularesVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elVisit+"");
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
+		
 		while (TitularesLocal.next()&&TitularesVisitante.next())
 		{
 			rdo.get(0).add(TitularesLocal.get("nombre"));
@@ -184,35 +188,78 @@ public class CatalogoTemporadas
 		}
 		TitularesLocal.close();
 		TitularesVisitante.close();
-		
+		return rdo;
 	//comprobado, sentencia correcta (titulares)
-	}/*
+	}
+	public ArrayList<ArrayList<String>> obtenerGoleadoresPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<ArrayList<String>> rdo = new ArrayList<ArrayList<String>>();
+		
 		ResultadoSQL GoleadoresLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqLocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
-		
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqLocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
 		ResultadoSQL GoleadoresVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elVisit+"");
-	//comprobado, sentencia correcta (goleadores)
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
+	
+		while (GoleadoresLocal.next()&&GoleadoresVisitante.next())
+		{
+			rdo.get(0).add(GoleadoresLocal.get("nombre"));
+			rdo.get(1).add(GoleadoresVisitante.get("nombre"));
+		}
 		
+		GoleadoresLocal.close();
+		GoleadoresVisitante.close();
 		
-		//TODO cambios pendiente
+		//comprobado, sentencia correcta (goleadores)
+		return rdo;
+	}
+		
+	public ArrayList<ArrayList<String>> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<ArrayList<String>> rdo = new ArrayList<ArrayList<String>>();
+		//TODO cambios pendienteoleadores
 		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
 		//cambios pendiente
-		
+		return rdo;
+	}	
+	
+	
+	public ArrayList<String[]> obtenerTarjetasLocal(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+	
 		ResultadoSQL TarjetasLocal=SGBD.getSGBD().consultaSQL("SELECT nombre, esamarilla FROM jugador NATURAL JOIN tarjetas NATURAL JOIN partido "
-				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
 		
-		ResultadoSQL TarjetasVisitante=SGBD.getSGBD().consultaSQL("SELECT Nombre, EsAmarilla FROM Jugador NATURAL JOIN Tarjetas NATURAL JOIN Partido "
-				+ "WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+" AND NomEqLocal="+elLocal+" AND NomEqVisitante="+elVisit+" AND NombreEquipo="+elVisit+"");
-	
+		
 		//comprobado, sentencia correcta (tarjetas)
+		String[] aux = new String[2];
+		while (TarjetasLocal.next())
+		{
+			aux[0]=TarjetasLocal.get("nombre");
+			aux[1]=TarjetasLocal.get("esamarilla");
+					
+			rdo.add(aux);
+		}
 		
-		
-		
-		
-		
-	}*/
+		return rdo;
+	}
+	public ArrayList<String[]> obtenerTarjetasVisitante(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		ResultadoSQL TarjetasVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre, esamarilla FROM jugador NATURAL JOIN tarjetas NATURAL JOIN partido "
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
 	
-	
+		
+		String[] aux = new String[2];
+		while (TarjetasVisitante.next())
+		{
+			aux[0]=TarjetasVisitante.get("nombre");
+			aux[1]=TarjetasVisitante.get("esamarilla");
+					
+			rdo.add(aux);
+		}
+		
+		return rdo;
+	}
 }

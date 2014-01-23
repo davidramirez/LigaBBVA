@@ -248,6 +248,7 @@ public class Liga
 		CatalogoArbitros.getMiCatalogoArbitros().actualizarArbitro(pArbitro, pNombreUsuarioAnterior);
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * Actualiza los datos de un equipo
 	 * 
@@ -259,4 +260,40 @@ public class Liga
 	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
 		CatalogoEquipos.getMisEquipos().actualizarDatosEquipo(pUnNombreEquipo, pUnaProvincia, pElEquipo);
 	}
+=======
+	public String[] obtenerGolesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerGolesPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerTitularesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTitularesPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerGoleadoresPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerGoleadoresPartido(elLocal, elVisit, laJor, laTemp);
+
+	}
+	
+	public ArrayList<ArrayList<String>> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerCambiosPartido(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<String[]> obtenerTarjetasLocal(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTarjetasLocal(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<String[]> obtenerTarjetasVisitante(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
+	}
+		
+	
+	
+>>>>>>> branch 'master' of https://github.com/davidramirez/LigaBBVA.git
 }
