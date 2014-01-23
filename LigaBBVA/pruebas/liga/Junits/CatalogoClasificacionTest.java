@@ -1,5 +1,7 @@
 package liga.Junits;
 
+import static org.junit.Assert.*;
+import liga.packControladoras.CatalogoClasificacion;
 import liga.packControladoras.Liga;
 
 import org.junit.After;
@@ -10,14 +12,14 @@ public class CatalogoClasificacionTest {
 	
 	private int temp;
 	private int jor;
-	private String[] clasificacion;
+	String[] clasificacion;
 	
 	@Before
 	public void setUp() throws Exception 
 	{
 		 temp=Liga.getMiLiga().obtenerUltimaTemporada();
 		 jor=Liga.getMiLiga().obtenerUltimaJornadaDe(temp);
-		 clasificacion=Liga.getMiLiga().obtenerClasificacion(temp, jor);
+		 clasificacion=CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacion(temp, jor);
 	}
 
 	@After
@@ -30,7 +32,9 @@ public class CatalogoClasificacionTest {
 	@Test
 	public void testObtenerClasificacion() 
 	{
-		System.out.println(clasificacion[0]);
+		String pEq=clasificacion[0];		
+		assertEquals(pEq,"Athletic");
+
 	}
 
 }

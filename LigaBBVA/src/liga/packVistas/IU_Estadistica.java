@@ -46,6 +46,8 @@ public class IU_Estadistica extends JFrame {
 	private ArrayList<Integer> jornadas;
 	private String[]equipos;
 	private JComboBox<String> comboBoxNombreEq;
+	private int tempSelect;
+	private int jorSelect;
 
 	/**
 	 * Launch the application.
@@ -135,20 +137,7 @@ public class IU_Estadistica extends JFrame {
 		contentPane.add(lblNombreEq);
 		
 		comboBoxNombreEq = new JComboBox<String>();
-		comboBoxNombreEq.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange()==ItemEvent.SELECTED){
-					comboBoxNombreEq.removeAllItems();
-					int temp=(int)comboBoxTemporadas.getSelectedItem();
-					int jor=(int)comboJornadas.getSelectedItem();
-					equipos=C_Estadisticas.getMisEstadisticas().obtenerClasificacion(temp, jor);					
-					
-					for(int i=0;i<equipos.length;i++){
-						comboBoxNombreEq.addItem(equipos[i]);
-					}
-				}
-				}
-		});
+		
 		comboBoxNombreEq.setBounds(114, 54, 174, 24);
 		contentPane.add(comboBoxNombreEq);
 		
@@ -175,8 +164,8 @@ public class IU_Estadistica extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED){
 					comboJornadas.removeAllItems();
-					int temp=(int)comboBoxTemporadas.getSelectedItem();
-					jornadas=C_Estadisticas.getMisEstadisticas().obtenerJornadasDe(temp);					
+					tempSelect=(int)comboBoxTemporadas.getSelectedItem();
+					jornadas=C_Estadisticas.getMisEstadisticas().obtenerJornadasDe(tempSelect);					
 					Iterator<Integer> itr =jornadas.iterator();
 					while(itr.hasNext()){
 						comboJornadas.addItem(itr.next());
@@ -189,6 +178,20 @@ public class IU_Estadistica extends JFrame {
 		contentPane.add(comboBoxTemporadas);
 		
 		comboJornadas = new JComboBox<Integer>();
+		comboJornadas.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED){
+					comboBoxNombreEq.removeAllItems();
+					tempSelect=(int)comboBoxTemporadas.getSelectedItem();
+					jorSelect=(int)comboJornadas.getSelectedItem();
+					equipos=C_Estadisticas.getMisEstadisticas().obtenerClasificacion(tempSelect, jorSelect);
+					
+					for(int i=0;i<equipos.length;i++){
+						comboBoxNombreEq.addItem(equipos[i]);
+					}
+				}
+			}
+		});
 		
 		comboJornadas.setBounds(430, 242, 48, 24);
 		contentPane.add(comboJornadas);
