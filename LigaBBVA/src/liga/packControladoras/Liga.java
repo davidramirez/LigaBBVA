@@ -48,6 +48,11 @@ public class Liga
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadaAJugar(fecha); 
 	}
 	
+	private String[] obtenerEquiposJornada(int temporada, int jornada, String equipo) {
+		String[] equipos = new String[2];
+		return equipos;
+	}
+	
 	public String[][] getListaJugadores(String equipo) {
 		return CatalogoJugadores.getCatalogoJugadores().getListaJugadores(equipo);
 	}
@@ -64,12 +69,16 @@ public class Liga
 		return CatalogoJugadores.getCatalogoJugadores().getListaJugadoresTitulares(this.obtenerUltimaTemporada(), this.obtenerJornadaAAJugar(fecha), equipo);
 	}
 	
-	public void anadirJugadoresTitulares(String[] jugadoresTitulares, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
-		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresTitulares, equipoLocal, equipoVisitante, temporada, jornada);
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha, String equipo) {
+		int temporada = this.obtenerUltimaTemporada(), jornada = this.obtenerJornadaAAJugar(fecha);
+		String[] equipos = this.obtenerEquiposJornada(temporada, jornada, equipo);
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresTitulares, equipos[1], equipos[2], temporada, jornada);
 	}
 	
-	public void anadirJugadoresConvocados(String[] jugadoresConvocados, String equipoLocal, String equipoVisitante, int temporada, int jornada) {
-		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresConvocados(jugadoresConvocados, equipoLocal, equipoVisitante, temporada, jornada);
+	public void anadirJugadoresConvocados(String[] jugadoresConvocados, Date fecha, String equipo) {
+		int temporada = this.obtenerUltimaTemporada(), jornada = this.obtenerJornadaAAJugar(fecha);
+		String[] equipos = this.obtenerEquiposJornada(temporada, jornada, equipo);
+		CatalogoJugadores.getCatalogoJugadores().anadirJugadoresTitulares(jugadoresConvocados, equipos[1], equipos[2], temporada, jornada);
 	}
 	
 	public boolean anadirJugador(String equipo, String nombreJugador, String dorsal) {

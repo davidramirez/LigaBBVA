@@ -16,7 +16,7 @@ public class CatalogoUsuarios {
 	public boolean identificarse(String id, String pass)
 	{
 		boolean rdo=false;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM usuario WHERE nombre=" + id +"  AND contrasena=" + pass +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM usuario WHERE nombre='" + id +"'  AND contrasena='" + pass +"'");
 		if (RdoSQL.next()){rdo=true;}
 		RdoSQL.close();
 		return rdo;
@@ -32,7 +32,7 @@ public class CatalogoUsuarios {
 		
 		String rdo="";
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM arbitro WHERE nombreusuario=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM arbitro WHERE nombreusuario='" + id +"'");
 		
 		if (RdoSQL.next())
 		{
@@ -40,7 +40,7 @@ public class CatalogoUsuarios {
 		}
 		else
 		{
-			RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM equipo WHERE nombreusuario=" + id +"");
+			RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM equipo WHERE nombreusuario='" + id +"'");
 			if (RdoSQL.next())
 			{
 				rdo="equipo";
@@ -64,7 +64,7 @@ public class CatalogoUsuarios {
 		 */
 		String rdo=null;
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT preguntaSeg FROM usuario WHERE nombre=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT preguntaSeg FROM usuario WHERE nombre='" + id +"'");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("preguntaseg");
 		RdoSQL.close();
@@ -80,7 +80,7 @@ public class CatalogoUsuarios {
 		
 		String rdo=null;
 		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT contrasena FROM usuario WHERE nombre=" + id +" AND respuestaseg="+resp+"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT contrasena FROM usuario WHERE nombre='" + id +"' AND respuestaseg='"+resp+"'");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("contrasena");
 		RdoSQL.close();
@@ -97,7 +97,7 @@ public class CatalogoUsuarios {
 		boolean rdo=false;
 		if(identificarse(id,passAnt))
 		{
-			SGBD.getSGBD().execSQL("UPDATE usuario SET contrasena="+ passN+", preguntaseg="+preg+", respuestaseg="+resp+" WHERE nombre="+id+"");
+			SGBD.getSGBD().execSQL("UPDATE usuario SET contrasena='"+ passN+"', preguntaseg='"+preg+"', respuestaseg='"+resp+"' WHERE nombre='"+id+"'");
 			rdo=true;
 		}
 		/*

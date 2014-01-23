@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.sql.Date;
 
-import liga.packVistas.IU_GestionEquipo;
-
 public class C_GestionEquipo extends Observable {
 	private static C_GestionEquipo miC_GestionEquipo = new C_GestionEquipo();	
 	private String miEquipo = null;
@@ -116,5 +114,13 @@ public class C_GestionEquipo extends Observable {
 		Liga.getMiLiga().darDeBajaJugador(codJug);
 		setChanged();
 		notifyObservers();
+	}
+	
+	public void anadirJugadoresConvocados(String[] jugadoresConvocados, Date fecha) {
+		Liga.getMiLiga().anadirJugadoresConvocados(jugadoresConvocados, fecha, this.miEquipo);
+	}
+	
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha) {
+		Liga.getMiLiga().anadirJugadoresTitulares(jugadoresTitulares, fecha, this.miEquipo);
 	}
 }
