@@ -262,4 +262,14 @@ public class CatalogoTemporadas
 		
 		return rdo;
 	}
+	
+	public String[] obtenerEquiposJornada(int temporada, int jornada, String equipo) {
+		String[] equipos = new String[2];
+		ResultadoSQL equiposJornada = SGBD.getSGBD().consultaSQL("SELECT nomeqlocal, nomeqvisitante FROM partido WHERE numtemporada = '" + temporada + "' AND numjornada = '" + jornada + "' AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "')");
+		if (equiposJornada.next()) {
+			equipos[0] = equiposJornada.get("nomeqlocal");
+			equipos[1] = equiposJornada.get("nomeqvisitante");
+		}
+		return equipos;
+	}
 }
