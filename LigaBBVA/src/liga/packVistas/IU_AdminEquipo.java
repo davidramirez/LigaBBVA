@@ -42,6 +42,13 @@ public class IU_AdminEquipo extends JFrame {
 		contentPane.add(btnGestionarJugadores);
 		
 		JButton btnGestionarCalendario = new JButton("Gestionar Calendario");
+		btnGestionarCalendario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IU_Calendario ca = new IU_Calendario();
+				ca.setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarCalendario.setBounds(125, 49, 211, 25);
 		contentPane.add(btnGestionarCalendario);
 		
