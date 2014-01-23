@@ -2,36 +2,36 @@ package liga.packEnumeration;
 
 public enum Provincia {
 	
-	Álava,
+	alava,
 	Albacete,
 	Alicante,
-	Almería,
+	Almeria,
 	Asturias,
-	Ávila,
+	avila,
 	Badajoz,
 	Barcelona,
 	Burgos,
-	Cáceres,
-	Cádiz,
+	Caceres,
+	Cadiz,
 	Cantabria,
-	Castellón,
+	Castellon,
 	Ciudad_Real,
-	Córdoba,
+	Cordoba,
 	La_Coruña,
 	Cuenca,
 	Gerona,
 	Granada,
 	Guadalajara,
-	Guipúzcoa,
+	Guipuzcoa,
 	Huelva,
 	Huesca,
 	Islas_Baleares,
-	Jaén,
-	León,
-	Lérida,
+	Jaen,
+	Leon,
+	Lerida,
 	Lugo,
 	Madrid,
-	Málaga,
+	Malaga,
 	Murcia,
 	Navarra,
 	Orense,
@@ -56,7 +56,7 @@ public enum Provincia {
 	/**
 	 * A la hora de recoger los valores de este enumerado introducidos en un jComboox, el
 	 * valor devuelto es un String.
-	 * Con este método obtenemos fácilmente ese valor como Provincia a partir del string dado
+	 * Con este metodo obtenemos facilmente ese valor como Provincia a partir del string dado
 	 * @param pProvincia
 	 * el valor string de un elemento de este enuerado
 	 * @return

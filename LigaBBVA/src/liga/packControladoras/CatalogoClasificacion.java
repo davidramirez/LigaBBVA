@@ -32,19 +32,21 @@ private static CatalogoClasificacion miCatalogoClasificacion= new CatalogoClasif
 		
 		
 		//La lista para return con la clasificación
-		String[] clasificacion = new String [maxEquipos];
+		String[] clasificacion = new String[maxEquipos];
 		//Obtenemos de la base de datos los equipos ordenados por puntuación y los atributos necesarios para procesar el resto de
 		//criterios de ordenación utilizando la librería JGA, la interfaz Comparator y la clase SORT
 		ArrayList<Clasificacion> listaClasificacion=new ArrayList<Clasificacion>();
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada=pNumTemporada"
-				+ "AND numjornada=pNumJornada ORDER BY puntos ASC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada='"+pNumTemporada+"'"
+				+ "AND numjornada='"+pNumJornada+"' ORDER BY puntos DESC");
 		while (RdoSQL.next())
 		{
+			
 			listaClasificacion.add(
 		    new Clasificacion(RdoSQL.get("nombreeq"), 
 					RdoSQL.getInt("puntos"),
 					RdoSQL.getInt("golesafavor"),
 					RdoSQL.getInt("golesencontra")));
+			
 		}
 		//Se ordena según los goles a favor los equipos que tienen los mismos puntos.
 		Iterable<Clasificacion> pOrden1=Sort.sort(listaClasificacion,new CompararGolesAfavor());

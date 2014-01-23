@@ -1,6 +1,7 @@
 package liga.Junits;
 
 import static org.junit.Assert.*;
+import liga.packControladoras.CatalogoEstadisticasJugador;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,12 +19,13 @@ public class CatalogoEstadisticasJugadorTest {
 
 	@Test
 	public void testObtenerJugadorFairPlay() {
-		fail("Not yet implemented");
+		//CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(1);
 	}
 
 	@Test
 	public void testObtenerEstadisticasJugador() {
-		fail("Not yet implemented");
+		int[] estadistica =CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(1);
+		System.out.println(estadistica[1]);
 	}
 
 }

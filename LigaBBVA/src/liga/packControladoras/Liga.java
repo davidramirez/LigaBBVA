@@ -52,8 +52,6 @@ public class Liga
 	}
 	
 	public String[][] getJugadoresConvocables(Date fecha, String equipo) {
-		System.out.println(fecha);
-		System.out.println(this.obtenerJornadaAnterior(fecha));
 		return CatalogoJugadores.getCatalogoJugadores().getJugadoresConvocables(this.obtenerUltimaTemporada(), this.obtenerJornadaAnterior(fecha), equipo);
 	}
 	
@@ -87,7 +85,7 @@ public class Liga
 	
 	/************************************************/
 	
-	public int[] obtenerTemporadas() {
+	public ArrayList<Integer> obtenerTemporadas() {
 		
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
 	}
@@ -101,7 +99,7 @@ public class Liga
 	public int[] obtenerEstadisticas(int elJugador){
 		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(elJugador);
 	}
-	public int[] obtenerJornadasDe(int pNumTemporada){
+	public ArrayList<Integer> obtenerJornadasDe(int pNumTemporada){
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pNumTemporada);
 	}
 	

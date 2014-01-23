@@ -1,6 +1,10 @@
 package liga.Junits;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import liga.packControladoras.CatalogoTemporadas;
 
 import org.junit.After;
@@ -9,27 +13,43 @@ import org.junit.Test;
 
 public class CatalogoTemporadasTest {
 
+	private ArrayList<Integer> listaPruebas;
+	private int pTemp;
+	private int pJor;
+
 	@Before
 	public void setUp() throws Exception 
 	{
-		
+		listaPruebas=new ArrayList<Integer>();
+		pTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
+		pJor=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaJornadaDe(pTemp);
 	}
 
 	@After
 	public void tearDown() throws Exception 
 	{
-		
+		listaPruebas=null;
+		pTemp=0;
+		pJor=0;
 	}
 
 	@Test
 	public void testObtenerTemporadas() {
-		assertNotNull(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas());
-		assertFalse(CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas().length==0);
+		listaPruebas=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
+		assertNotNull(listaPruebas);
+		assertTrue(listaPruebas.size()!=0);
+		
 	}
 
 	@Test
-	public void testObtenerJornadasDe() {
-		fail("Not yet implemented");
+	public void testObtenerJornadasDe()
+	{
+		
+		listaPruebas=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pTemp);
+		Iterator<Integer> itr=listaPruebas.iterator();
+		while(itr.hasNext()){
+			System.out.println(itr.next());
+		}
 	}
 
 	@Test
@@ -39,12 +59,15 @@ public class CatalogoTemporadasTest {
 
 	@Test
 	public void testObtenerUltimaTemporada() {
-		fail("Not yet implemented");
+		int ult=CatalogoTemporadas.getMiCatalogoTemporadas().getMaxJor();
+		assertTrue(pTemp==ult);
+		System.out.println(pTemp);
 	}
 
 	@Test
-	public void testObtenerUltimaJornadaDe() {
-		fail("Not yet implemented");
+	public void testObtenerUltimaJornadaDe() 
+	{
+		System.out.println(pJor);
 	}
 
 	@Test

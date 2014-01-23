@@ -21,7 +21,7 @@ public class C_FairPlay
 	}
 	
 	public ArrayList<String> obtenerJugadorFairPlay(int codTemp){
-		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerJugadorFairPlay(codTemp);
+		return Liga.getMiLiga().obtenerJugadorFairplay(codTemp);
 	}
 	
 	public ArrayList<String> obtenerEquipoFairPlay(int pNumTemporada){
