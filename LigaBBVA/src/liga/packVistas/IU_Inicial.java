@@ -65,9 +65,8 @@ public class IU_Inicial extends JFrame {
 						case "arbitro":
 							//TODO abrir interfaz árbitro
 						case "equipo":
-							String nombreEq=C_Usuario.getMiUsuario().obtenerEquipoDe(txtUsuario.getText());
-							//IU_GestionEquipo IU_GE = new IU_GestionEquipo(txtUsuario.getText(),nombreEq);
-							//IU_GE.setVisible(true);
+							IU_AdminEquipo IU_GE = new IU_AdminEquipo(txtUsuario.getText());
+							IU_GE.setVisible(true);
 						case "admin":
 							//TODO abrir interfaz admin
 					

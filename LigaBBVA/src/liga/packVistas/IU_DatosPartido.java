@@ -1,10 +1,14 @@
 package liga.packVistas;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+
+import liga.packControladoras.C_DatosPartido;
 
 public class IU_DatosPartido extends JFrame {
 	private JComboBox cmbTemp;
@@ -44,6 +48,9 @@ public class IU_DatosPartido extends JFrame {
 	private JScrollPane scrollPane_5;
 	private JScrollPane scrollPane_6;
 	private JScrollPane scrollPane_7;
+	
+	
+	
 	public IU_DatosPartido() {
 		getContentPane().setLayout(null);
 		getContentPane().add(getCmbTemp());
@@ -75,6 +82,55 @@ public class IU_DatosPartido extends JFrame {
 		getContentPane().add(getLabel_4());
 		getContentPane().add(getScrollPane_4());
 		getContentPane().add(getTxtCambiosVisit());
+		
+		ArrayList<Integer> temporadas = C_DatosPartido.getMisDatos().obtenerTemporadas();
+		
+		
+		int tempSeleccionada=0;
+		int jorSeleccionada=0;
+		String eqLocal="";
+		String eqVisitante="";
+		
+		String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		ArrayList<ArrayList<String>> titulares = C_DatosPartido.getMisDatos().obtenerTitularesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		ArrayList<ArrayList<String>> cambios= C_DatosPartido.getMisDatos().obtenerCambiosPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		ArrayList<String[]> tarjetasVisitante = C_DatosPartido.getMisDatos().obtenerTarjetasVisitante(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		
+		this.txtLocal.setText(eqLocal);
+		this.txtVisitante.setText(eqVisitante);
+		this.txtGolesLocal.setText(goles[0]);
+		this.txtGolesVisit.setText(goles[1]);
+		
+		for (int i = 0;i<titulares.get(0).size();i++)
+		{
+			titLocal.setText(titLocal.getText()+"\n"+titulares.get(0).get(i));
+		}
+		
+		for (int i = 0;i<titulares.get(1).size();i++)
+		{
+			titVisitante.setText(titVisitante.getText()+"\n"+titulares.get(1).get(i));
+		}
+		
+		for (int i=0; i< tarjetasLocal.size();i++)
+		{
+			sancionadosLocal.setText(sancionadosLocal.getText()+"\n"+tarjetasLocal.get(i)[0]);
+			if(tarjetasLocal.get(i)[1].equals("1"))
+			{
+				sancionadosLocal.setText(sancionadosLocal.getText()+", amarilla");
+			}
+			else
+			{
+				sancionadosLocal.setText(sancionadosLocal.getText()+", roja");
+			}
+		}
+		
 	}
 
 	private JComboBox getCmbTemp() {
