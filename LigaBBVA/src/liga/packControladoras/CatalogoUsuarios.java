@@ -128,7 +128,7 @@ public class CatalogoUsuarios {
 	public String obtenerEquipoDe(String id)
 	{
 		String rdo=null;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombre FROM equipo WHERE nombreusuario=" + id +"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nombre FROM equipo WHERE nombreusuario='" + id +"'");
 		if(RdoSQL.next())
 		rdo=RdoSQL.get("nombre");
 		RdoSQL.close();
@@ -143,7 +143,7 @@ public class CatalogoUsuarios {
 	 * @param pUnaContraseña la contraseña
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
-	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
-		SGBD.getSGBD().execSQL("UPDATE usuario SET nombre='"+pUnUsuario+"',contraseña='"+pUnaContraseña+"' WHERE usuario='"+pNombreUsuario+'"');
+	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContrasena,String pNombreUsuario) {
+		SGBD.getSGBD().execSQL("UPDATE usuario SET nombre='"+pUnUsuario+"',contrasena='"+pUnaContrasena+"' WHERE usuario='"+pNombreUsuario+'"');
 	}
 }

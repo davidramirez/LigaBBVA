@@ -196,8 +196,8 @@ public class Liga
 	 * @param pUnaContraseña la contraseña
 	 * @param pNombreUsuario el nombre del anterior usuario.
 	 */
-	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContraseña,String pNombreUsuario) {
-		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContraseña, pNombreUsuario);
+	public void actualizarAdminEquipo(String pUnUsuario,String pUnaContrasena,String pNombreUsuario) {
+		CatalogoUsuarios.getMiCatalogoUsuarios().actualizarAdminEquipo(pUnUsuario, pUnaContrasena, pNombreUsuario);
 	}
 	
 	/**
