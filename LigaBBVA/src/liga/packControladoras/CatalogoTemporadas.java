@@ -160,16 +160,33 @@ public class CatalogoTemporadas
 	
 	public void obtenerDatosPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
+		String[] rdo = new String [2];
 		ResultadoSQL Goles=SGBD.getSGBD().consultaSQL("SELECT golesvisitante, goleslocal FROM partido WHERE "
 				+ "numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+"");
+		Goles.next();
+		rdo[0]= Goles.get("goleslocal");
+		rdo[1]= Goles.get("golesvisitante");
 		// comprobada, sentencia correcta
-		
+		Goles.close();
+	}
+	public void obtenerTitularesPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<ArrayList<String>> rdo = new ArrayList<ArrayList<String>>();
 		ResultadoSQL TitularesLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
 				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
 		ResultadoSQL TitularesVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN titular NATURAL JOIN partido "
 				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqlocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elVisit+"");
+		while (TitularesLocal.next()&&TitularesVisitante.next())
+		{
+			rdo.get(0).add(TitularesLocal.get("nombre"));
+			rdo.get(1).add(TitularesVisitante.get("nombre"));
+		}
+		TitularesLocal.close();
+		TitularesVisitante.close();
+		
 	//comprobado, sentencia correcta (titulares)
+	}
 		ResultadoSQL GoleadoresLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
 				+ "WHERE numtemporada="+laTemp+" AND numjornada="+laJor+" AND nomeqLocal="+elLocal+" AND nomeqvisitante="+elVisit+" AND nombreequipo="+elLocal+"");
 		
