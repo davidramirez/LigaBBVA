@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import liga.packModelo.Arbitro;
+import liga.packModelo.Equipo;
 import liga.packModelo.ListaArbitros;
 import liga.packModelo.ListaEquipos;
 
@@ -174,7 +175,7 @@ public class Liga
 	 * @param pNombre el nombre del equipo.
 	 */
 	
-	public ArrayList<String> buscarEquipo(String pNombre) {
+	public ArrayList<String> obtenerDatosEquipo(String pNombre) {
 		return CatalogoEquipos.getMisEquipos().buscarEquipo(pNombre);
 	}
 	
@@ -245,5 +246,17 @@ public class Liga
 	
 	public void actualizarArbitro(Arbitro pArbitro,String pNombreUsuarioAnterior) {
 		CatalogoArbitros.getMiCatalogoArbitros().actualizarArbitro(pArbitro, pNombreUsuarioAnterior);
+	}
+	
+	/**
+	 * Actualiza los datos de un equipo
+	 * 
+	 * @param pUnNombreEquipo el nombre del equipo que se desea cambiar
+	 * @param pUnaProvincia la provincia que se desea cambiar
+	 * @param pElEquipo Los datos anteriores del equipo a cambiar.
+	 */
+	
+	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
+		CatalogoEquipos.getMisEquipos().actualizarDatosEquipo(pUnNombreEquipo, pUnaProvincia, pElEquipo);
 	}
 }

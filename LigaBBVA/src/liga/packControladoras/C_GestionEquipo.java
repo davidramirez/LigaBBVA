@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import liga.packModelo.Equipo;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.sql.Date;
@@ -43,7 +45,7 @@ public class C_GestionEquipo extends Observable {
 	**/
 	
 	public ArrayList<String> obtenerNombresEquipos() {
-		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
+		return Liga.getMiLiga().obtenerNombresEquipos();
 	}
 	
 	/**
@@ -52,8 +54,24 @@ public class C_GestionEquipo extends Observable {
 	 * @param pNombre el nombre del equipo.
 	 */
 	
-	public ArrayList<String> buscarEquipo(String pNombre) {
-		return Liga.getMiLiga().buscarEquipo(pNombre);
+	public ArrayList<String> obtenerDatosEquipo(String pNombre) {
+		return Liga.getMiLiga().obtenerDatosEquipo(pNombre);
+	}
+	
+	/**
+	 * Actualiza los datos de un equipo
+	 * 
+	 * @param pUnNombreEquipo el nombre del equipo que se desea cambiar
+	 * @param pUnaProvincia la provincia que se desea cambiar
+	 * @param pElEquipo Los datos anteriores del equipo a cambiar.
+	 */
+	
+	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
+		boolean existe = Liga.getMiLiga().buscarSiExiste(pUnNombreEquipo);
+		if(!existe) {
+			//El equipo no existe en la bd, podemos actualizarlo.
+			Liga.getMiLiga().actualizarDatosEquipo(pUnNombreEquipo, pUnaProvincia, pElEquipo);
+		}
 	}
 	
 	/*****************************************/

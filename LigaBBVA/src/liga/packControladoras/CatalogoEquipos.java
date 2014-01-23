@@ -1,6 +1,7 @@
 package liga.packControladoras;
 
 import java.util.ArrayList;
+import liga.packModelo.Equipo;
 
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
@@ -113,5 +114,17 @@ public class CatalogoEquipos {
 		r.close();
 		
 		return rdo;
+	}
+	
+	/**
+	 * Actualiza los datos de un equipo
+	 * 
+	 * @param pUnNombreEquipo el nombre del equipo que se desea cambiar
+	 * @param pUnaProvincia la provincia que se desea cambiar
+	 * @param pElEquipo Los datos anteriores del equipo a cambiar.
+	 */
+	
+	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
+		SGBD.getSGBD().execSQL("UPDATE Equipo set nombre='"+pUnNombreEquipo+"',provincia='"+pUnaProvincia+"' WHERE nombre='"+pElEquipo.getNombre()+"'");
 	}
 }
