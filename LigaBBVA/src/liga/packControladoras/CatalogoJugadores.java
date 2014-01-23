@@ -52,7 +52,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadoresConvocados(int temporada, int jornada, String equipo) {
 		int i = 0, numJugadores = this.getNumJugadoresConvocados(temporada, jornada, equipo);
 		String[][] listaJugadores = new String[numJugadores][3];
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT c.codjug as cj, j.nombre as nj, j.dorsal as dj FROM convocado as c, jugador as j WHERE c.numtemporada = '" + temporada + "' AND c.numjornada '" + jornada + "' AND c.codjug = j.codjug AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "'");
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT c.codjug as cj, j.nombre as nj, j.dorsal as dj FROM convocado as c, jugador as j WHERE c.numtemporada = '" + temporada + "' AND c.numjornada = '" + jornada + "' AND c.codjug = j.codjug AND j.nombreequipo = '" + equipo + "'");
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("cj");
 			listaJugadores[i][1] = RdoSQL.get("nj");
@@ -66,7 +66,7 @@ public class CatalogoJugadores {
 	public String[][] getListaJugadoresTitulares(int temporada, int jornada, String equipo) {
 		String[][] listaJugadores = new String[11][3];
 		int i = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT t.codjug as cj, j.nombre as nj, j.dorsal as dj FROM titular as t, jugador as j WHERE t.numtemporada = '" + temporada + "' AND t.numjornada '" + jornada + "' AND t.codjug = j.codjug AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "'");
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT t.codjug as cj, j.nombre as nj, j.dorsal as dj FROM titular as t, jugador as j WHERE t.numtemporada = '" + temporada + "' AND t.numjornada = '" + jornada + "' AND t.codjug = j.codjug AND j.nombreequipo = '" + equipo + "'");
 		while (RdoSQL.next()) {
 			listaJugadores[i][0] = RdoSQL.get("cj");
 			listaJugadores[i][1] = RdoSQL.get("nj");
@@ -126,9 +126,10 @@ public class CatalogoJugadores {
 	}
 	
 	private int getNumJugadoresConvocados(int temporada, int jornada, String equipo) {
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM convocado as c, jugador as j WHERE c.numtemporada = '" + temporada + "' AND c.numjornada '" + jornada + "' AND c.codjug = j.codjug AND (nomeqlocal = '" + equipo + "' OR nomeqvisitante = '" + equipo + "'");
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM convocado as c, jugador as j WHERE c.numtemporada = '" + temporada + "' AND c.numjornada = '" + jornada + "' AND c.codjug = j.codjug AND j.nombreequipo = '" + equipo + "'");
 		RdoSQL.next();
 		int num = RdoSQL.getInt("cont");
+		System.out.println(num);
 		RdoSQL.close();
 		return num;
 	}
