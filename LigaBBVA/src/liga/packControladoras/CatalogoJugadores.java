@@ -129,7 +129,6 @@ public class CatalogoJugadores {
 		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM convocado as c, jugador as j WHERE c.numtemporada = '" + temporada + "' AND c.numjornada = '" + jornada + "' AND c.codjug = j.codjug AND j.nombreequipo = '" + equipo + "'");
 		RdoSQL.next();
 		int num = RdoSQL.getInt("cont");
-		System.out.println(num);
 		RdoSQL.close();
 		return num;
 	}
