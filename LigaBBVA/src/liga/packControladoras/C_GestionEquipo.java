@@ -1,10 +1,10 @@
 package liga.packControladoras;
 
+import liga.packModelo.Equipo;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.sql.Date;
-
-import liga.packVistas.IU_GestionEquipo;
 
 public class C_GestionEquipo extends Observable {
 	private static C_GestionEquipo miC_GestionEquipo = new C_GestionEquipo();	
@@ -43,7 +43,7 @@ public class C_GestionEquipo extends Observable {
 	**/
 	
 	public ArrayList<String> obtenerNombresEquipos() {
-		return CatalogoEquipos.getMisEquipos().obtenerNombresEquipos();
+		return Liga.getMiLiga().obtenerNombresEquipos();
 	}
 	
 	/**
@@ -52,8 +52,24 @@ public class C_GestionEquipo extends Observable {
 	 * @param pNombre el nombre del equipo.
 	 */
 	
-	public ArrayList<String> buscarEquipo(String pNombre) {
-		return Liga.getMiLiga().buscarEquipo(pNombre);
+	public ArrayList<String> obtenerDatosEquipo(String pNombre) {
+		return Liga.getMiLiga().obtenerDatosEquipo(pNombre);
+	}
+	
+	/**
+	 * Actualiza los datos de un equipo
+	 * 
+	 * @param pUnNombreEquipo el nombre del equipo que se desea cambiar
+	 * @param pUnaProvincia la provincia que se desea cambiar
+	 * @param pElEquipo Los datos anteriores del equipo a cambiar.
+	 */
+	
+	public void actualizarDatosEquipo(String pUnNombreEquipo,String pUnaProvincia, Equipo pElEquipo) {
+		boolean existe = Liga.getMiLiga().buscarSiExiste(pUnNombreEquipo);
+		if(!existe) {
+			//El equipo no existe en la bd, podemos actualizarlo.
+			Liga.getMiLiga().actualizarDatosEquipo(pUnNombreEquipo, pUnaProvincia, pElEquipo);
+		}
 	}
 	
 	/*****************************************/
@@ -98,5 +114,13 @@ public class C_GestionEquipo extends Observable {
 		Liga.getMiLiga().darDeBajaJugador(codJug);
 		setChanged();
 		notifyObservers();
+	}
+	
+	public void anadirJugadoresConvocados(String[] jugadoresConvocados, Date fecha) {
+		Liga.getMiLiga().anadirJugadoresConvocados(jugadoresConvocados, fecha, this.miEquipo);
+	}
+	
+	public void anadirJugadoresTitulares(String[] jugadoresTitulares, Date fecha) {
+		Liga.getMiLiga().anadirJugadoresTitulares(jugadoresTitulares, fecha, this.miEquipo);
 	}
 }

@@ -56,4 +56,30 @@ public class CatalogoArbitros {
 		
 		return rdo;
 	}
+	
+	/**
+	 * Busca la existencia de un árbitro a partir de su dni
+	 * 
+	 * @param pDni el dni del árbitro a buscar.
+	 */
+	
+	public boolean buscarSiExisteArbitro (String pDni) {
+		boolean existe = false;
+		ResultadoSQL rdo = SGBD.getSGBD().consultaSQL("SELECT * from Arbitro WHERE dni='"+pDni+"'");
+		if(rdo.next()) {
+			//El árbitro existe
+			existe = true;
+		}
+		return existe;
+	}
+	
+	/**
+	 * Se encarga de actualizar los datos de un árbitro determinado.
+	 * 
+	 * @param pArbitro los datos relativos al árbitro.
+	 */
+	
+	public void actualizarArbitro(Arbitro pArbitro,String pNombreUsuarioAnterior) {
+		SGBD.getSGBD().execSQL("UPDATE arbitro SET nombre='"+pArbitro.getNombre()+"',apellidos='"+pArbitro.getApellidos()+"',provincia='"+pArbitro.getProvincia()+"',fechaNacimiento="+pArbitro.getFechaNacimiento()+",dni='"+pArbitro.getDNI()+"' WHERE nombreUsuario='"+pNombreUsuarioAnterior+"'");
+	}
 }

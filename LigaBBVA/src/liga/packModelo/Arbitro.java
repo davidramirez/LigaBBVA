@@ -42,5 +42,13 @@ public class Arbitro {
 		// TODO Auto-generated method stub
 		return this.nombre+" "+this.apellidos;
 	}
+	
+	public String getApellidos() {
+		return this.apellidos;
+	}
+	
+	public GregorianCalendar getFechaNacimiento() {
+		return this.fechaNacimiento;
+	}
 
 }
