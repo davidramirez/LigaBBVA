@@ -19,6 +19,7 @@ public class CatalogoEstadisticasJugadorTest {
 
 	@Test
 	public void testObtenerJugadorFairPlay() {
+		//Funcionando, probado con interfaz
 		int codTemp=CatalogoTemporadas.getMiCatalogoTemporadas().obtenerUltimaTemporada();
 		System.out.println(codTemp);
 		//Iterator<String>itr=C_FairPlay.getMiFairPlay().obtenerJugadorFairPlay(codTemp).iterator();
