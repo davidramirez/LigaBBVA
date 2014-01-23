@@ -35,7 +35,7 @@ public class CatalogoJugadores {
 		for (i = 0; i < listaJugadores.length; i++) { // Hay que comprobar cada jugador.
 			int estaEnVenta = Integer.parseInt(listaJugadores[i][3]);
 			if (estaEnVenta == 0) { // Solo puede ser convocado si no esta en venta...
-				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM tarjetas WHERE numtemporada = '" + temporada + "' AND numjornada = '" + jornadaAnterior + "' codjug = '" + listaJugadores[i][0] + "' AND esamarilla = 0");
+				ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT COUNT(*) as cont FROM tarjetas WHERE numtemporada = '" + temporada + "' AND numjornada = '" + jornadaAnterior + "' AND codjug = '" + listaJugadores[i][0] + "' AND esamarilla = 0");
 				RdoSQL.next();
 				if (RdoSQL.getInt("cont") == 0) { // ...ademas de no haber tenido tarjeta roja la jornada anterior.
 					listaJugadoresConvocables[cont][0] = listaJugadores[i][0]; // CodJug.

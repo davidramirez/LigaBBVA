@@ -24,7 +24,10 @@ public class IU_ConvocarJugadores extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnPoner;
 	private JButton btnQuitar;
-	
+	private String[][] jugadoresConvocables;
+	private String[][] jugadoresConvocados = new String[18][3];
+	private DefaultListModel<String> modeloConvocables = new DefaultListModel<String>();
+	private DefaultListModel<String> modeloConvocados = new DefaultListModel<String>();
 
 	/**
 	 * Launch the application.
@@ -44,6 +47,7 @@ public class IU_ConvocarJugadores extends JDialog {
 	 */
 	public IU_ConvocarJugadores() {
 		this.setModal(true);
+		C_GestionEquipo.getC_GestionEquipo().setEquipo("Athletic"); // Parche.
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,7 +56,8 @@ public class IU_ConvocarJugadores extends JDialog {
 		{
 			JList<String> listConvocables = new JList<String>();
 			listConvocables.setBounds(12, 47, 156, 180);
-			listConvocables.setModel(this.llenarModelo());
+			this.actualizarModeloConvocables();
+			listConvocables.setModel(this.modeloConvocables);
 			contentPanel.add(listConvocables);
 		}
 		{
@@ -110,13 +115,19 @@ public class IU_ConvocarJugadores extends JDialog {
 		return btnQuitar;
 	}
 	
-	private DefaultListModel<String> llenarModelo() {
+	private void actualizarModeloConvocables() {
 		java.util.Date aux = new java.util.Date();
 		Date fecha = new Date(aux.getTime());
-		String[][] jugadores = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for (int i = 0; i < jugadores.length; i++)
-			modelo.addElement(jugadores[i][1]);
-		return modelo;
+		this.jugadoresConvocables = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
+		for (int i = 0; i < this.jugadoresConvocables.length; i++)
+			this.modeloConvocables.addElement(this.jugadoresConvocables[i][1]);
+	}
+	
+	private void actualizarModeloConvocados() {
+		java.util.Date aux = new java.util.Date();
+		Date fecha = new Date(aux.getTime());
+		this.jugadoresConvocables = C_GestionEquipo.getC_GestionEquipo().getJugadoresConvocables(fecha);
+		for (int i = 0; i < this.jugadoresConvocables.length; i++)
+			this.modeloConvocables.addElement(this.jugadoresConvocables[i][1]);
 	}
 }

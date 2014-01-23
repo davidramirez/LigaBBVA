@@ -86,7 +86,6 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 	private JButton getBtnBajaJugador() {
 		if (btnBajaJugador == null) {
 			btnBajaJugador = new JButton("Dar de baja jugador");
-			btnBajaJugador.setEnabled(false);
 			btnBajaJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int indice = listJugadores.getSelectedIndex();
