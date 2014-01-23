@@ -5,15 +5,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JFrame; 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+
+import liga.packControladoras.C_Clasificacion;
+import liga.packControladoras.Liga;
+import liga.packJGA.Clasificacion;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class IU_Clasificacion extends JFrame {
@@ -33,7 +41,11 @@ public class IU_Clasificacion extends JFrame {
 	private JLabel lblChampions;
 	private JLabel lblEuropaLeague;
 	private JLabel lblDescenso;
-
+	private Clasificacion[] clasificacion;
+	private int ulTemp;
+	private int ultJor;
+	
+	
 public IU_Clasificacion() { 
 	
 
@@ -44,36 +56,11 @@ private void initialize() {
 	setAlwaysOnTop(true);
 	setResizable(false);
 	setBounds(100, 100, 456, 470);
-	/*Controlador con = Controlador.getControlador();
-	con.actualizarClasificacion();
-	
-
-	//Array bidimensional de objetos con los datos de la tabla 
-	Object[][] data = { 
-		{1,con.devoverEquipoPos(0), con.devoverEquipoPuntos(0)}, 
-		{2,con.devoverEquipoPos(1), con.devoverEquipoPuntos(1)}, 
-		{3,con.devoverEquipoPos(2), con.devoverEquipoPuntos(2)}, 
-		{4,con.devoverEquipoPos(3), con.devoverEquipoPuntos(3)},
-		{5,con.devoverEquipoPos(4), con.devoverEquipoPuntos(4)},
-		{6,con.devoverEquipoPos(5), con.devoverEquipoPuntos(5)},
-		{7,con.devoverEquipoPos(6), con.devoverEquipoPuntos(6)},
-		{8,con.devoverEquipoPos(7), con.devoverEquipoPuntos(7)},
-		{9,con.devoverEquipoPos(8), con.devoverEquipoPuntos(8)},
-		{10,con.devoverEquipoPos(9), con.devoverEquipoPuntos(9)},
-		{11,con.devoverEquipoPos(10), con.devoverEquipoPuntos(10)},
-		{12,con.devoverEquipoPos(11), con.devoverEquipoPuntos(11)},
-		{13,con.devoverEquipoPos(12), con.devoverEquipoPuntos(12)},
-		{14,con.devoverEquipoPos(13), con.devoverEquipoPuntos(13)},
-		{15,con.devoverEquipoPos(14), con.devoverEquipoPuntos(14)},
-		{16,con.devoverEquipoPos(15), con.devoverEquipoPuntos(15)},
-		{17,con.devoverEquipoPos(16), con.devoverEquipoPuntos(16)},
-		{18,con.devoverEquipoPos(17), con.devoverEquipoPuntos(17)},
-		{19,con.devoverEquipoPos(18), con.devoverEquipoPuntos(18)},
-		{20,con.devoverEquipoPos(19), con.devoverEquipoPuntos(19)}
-	};*/
-	
+	ulTemp=C_Clasificacion.getMiClasificacion().obtenerUltimaTemporada();
+	ultJor=C_Clasificacion.getMiClasificacion().obtenerUltimaJornadaDe(ulTemp);
+	clasificacion=C_Clasificacion.getMiClasificacion().obtenerClasificacione(ulTemp,ultJor);	
 	//Array de �String� con los titulos de las columnas 
-	String[] columnNames = {"Posici�n", "Nombre del equipo", "Puntos"};
+	String[] columnNames = {"Posicion", "Nombre del equipo", "Puntos"};
 	getContentPane().setLayout(null);
 	
 	getContentPane().add(getComboBoxTemporada());
@@ -86,6 +73,8 @@ private void initialize() {
 	getContentPane().add(getLblChampions());
 	getContentPane().add(getLblEuropaLeague());
 	getContentPane().add(getLblDescenso());
+	
+	
 }
 	private JComboBox getComboBoxTemporada() {
 		if (comboBoxTemporada == null) {
@@ -104,6 +93,10 @@ private void initialize() {
 	private JButton getBtnMostrar() {
 		if (btnMostrar == null) {
 			btnMostrar = new JButton("Mostrar");
+			btnMostrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			btnMostrar.setBounds(323, 10, 115, 23);
 		}
 		return btnMostrar;
@@ -126,12 +119,15 @@ private void initialize() {
 			tableChampions = new JTable();
 			tableChampions.setBorder(new CompoundBorder());
 			tableChampions.setBackground(Color.GREEN);
+			try
+			{
 			tableChampions.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
+						
+					{1, clasificacion[0].getNombreEquipo(), clasificacion[0].getPuntos()},
+					{2, clasificacion[1].getNombreEquipo(), clasificacion[1].getPuntos()},
+					{3, clasificacion[2].getNombreEquipo(), clasificacion[2].getPuntos()},
+					{4, clasificacion[3].getNombreEquipo(), clasificacion[3].getPuntos()},
 				},
 				new String[] {
 					"Posici\u00F3n", "Equipo", "Puntos"
@@ -146,6 +142,18 @@ private void initialize() {
 					return columnTypes[columnIndex];
 				}
 			});
+			}
+			catch (NullPointerException n)
+			{
+				
+				JOptionPane.showMessageDialog(null,"Numero de equipos insuficientes",n.toString(),JOptionPane.ERROR_MESSAGE);
+				
+				
+			}
+			catch(StackOverflowError s)
+			{
+				s.printStackTrace();
+			}
 			tableChampions.setBounds(12, 12, 404, 64);
 		}
 		return tableChampions;
@@ -154,59 +162,83 @@ private void initialize() {
 		if (tableEuropa == null) {
 			tableEuropa = new JTable();
 			tableEuropa.setBackground(Color.YELLOW);
+			try
+			{
 			tableEuropa.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null},
-					{null, null, null},
+					{5, clasificacion[4].getNombreEquipo(), clasificacion[4].getPuntos()},
+					{6, clasificacion[5].getNombreEquipo(), clasificacion[5].getPuntos()},
 				},
 				new String[] {
 					"New column", "New column", "New column"
 				}
-			));
+			));			
 			tableEuropa.setBounds(12, 75, 404, 32);
+			}
+			catch(NullPointerException n)
+			{
+				JOptionPane.showMessageDialog(null,"Numero de equipos insuficientes",n.toString(),JOptionPane.ERROR_MESSAGE);
+				
+			}
 		}
 		return tableEuropa;
 	}
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			try{
 			table.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
+					{7, clasificacion[6].getNombreEquipo(), clasificacion[6].getPuntos()},
+					{8, clasificacion[7].getNombreEquipo(), clasificacion[7].getPuntos()},
+					{9, clasificacion[8].getNombreEquipo(), clasificacion[8].getPuntos()},
+					{10, clasificacion[9].getNombreEquipo(), clasificacion[9].getPuntos()},
+					{11, clasificacion[10].getNombreEquipo(), clasificacion[10].getPuntos()},
+					{12, clasificacion[11].getNombreEquipo(), clasificacion[11].getPuntos()},
+					{13, clasificacion[12].getNombreEquipo(), clasificacion[12].getPuntos()},
+					{14, clasificacion[13].getNombreEquipo(), clasificacion[13].getPuntos()},
+					{15, clasificacion[14].getNombreEquipo(), clasificacion[14].getPuntos()},
+					{16, clasificacion[15].getNombreEquipo(), clasificacion[15].getPuntos()},
+					{17, clasificacion[16].getNombreEquipo(), clasificacion[16].getPuntos()},
 				},
 				new String[] {
 					"New column", "New column", "New column"
 				}
 			));
+			}			
+			catch(NullPointerException n)
+			{
+				JOptionPane.showMessageDialog(null,"Numero de equipos insuficientes",n.toString(),JOptionPane.ERROR_MESSAGE);
+			}
+			}
 			table.setBounds(12, 107, 404, 176);
-		}
+			
+		
 		return table;
 	}
+
 	private JTable getTableDescenso() {
 		if (tableDescenso == null) {
 			tableDescenso = new JTable();
 			tableDescenso.setBackground(Color.RED);
+			try
+			{
 			tableDescenso.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
+					{18, clasificacion[17].getNombreEquipo(), clasificacion[17].getPuntos()},
+					{19, clasificacion[18].getNombreEquipo(), clasificacion[18].getPuntos()},
+					{20, clasificacion[19].getNombreEquipo(), clasificacion[19].getPuntos()},
 				},
 				new String[] {
 					"New column", "New column", "New column"
 				}
 			));
 			tableDescenso.setBounds(12, 283, 404, 48);
+			}
+			catch(NullPointerException n)
+			{
+				JOptionPane.showMessageDialog(null,"Numero de equipos insuficientes",n.toString(),JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		return tableDescenso;
 	}
@@ -255,4 +287,5 @@ private void initialize() {
 		}
 		return lblDescenso;
 	}
+	
 }

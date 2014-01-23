@@ -1,6 +1,8 @@
 package liga.Junits;
 
 import static org.junit.Assert.*;
+import liga.packControladoras.CatalogoEquipos;
+import liga.packControladoras.Liga;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,6 +10,7 @@ import org.junit.Test;
 
 public class CatalogoEquiposTest {
 
+	int ultTemp=Liga.getMiLiga().obtenerUltimaTemporada();
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -18,7 +21,7 @@ public class CatalogoEquiposTest {
 
 	@Test
 	public void testObtenerEquipoFairPlay() {
-		fail("Not yet implemented");
+		CatalogoEquipos.getMisEquipos().obtenerEquipoFairPlay(ultTemp);
 	}
 
 	@Test

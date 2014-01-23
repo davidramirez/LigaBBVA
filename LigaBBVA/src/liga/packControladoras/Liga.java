@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import liga.packJGA.Clasificacion;
 import liga.packModelo.Arbitro;
 import liga.packModelo.Equipo;
 import liga.packModelo.ListaArbitros;
@@ -298,6 +299,10 @@ public class Liga
 	public ArrayList<String[]> obtenerTarjetasVisitante(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
+	}
+	public Clasificacion[] obtenerClasificacione(int ulTemp, int ultJor) {
+		// TODO Auto-generated method stub
+		return CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacione(ulTemp, ultJor);
 	}
 		
 	

@@ -20,11 +20,11 @@ public class Clasificacion
 			}
 			
 			public int getGolesAFavor(){
-				return this.getGolesAFavor();
+				return this.golesAFavor;
 			}
 			
 			public int getGolesEnContra(){
-				return this.getGolesEnContra();
+				return this.golesEncontra;
 			}
 			public int getPuntos(){
 				return this.puntos;

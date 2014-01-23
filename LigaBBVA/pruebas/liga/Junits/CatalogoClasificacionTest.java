@@ -3,6 +3,7 @@ package liga.Junits;
 import static org.junit.Assert.*;
 import liga.packControladoras.CatalogoClasificacion;
 import liga.packControladoras.Liga;
+import liga.packJGA.Clasificacion;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,5 +37,12 @@ public class CatalogoClasificacionTest {
 		assertEquals(pEq,"Athletic");
 
 	}
-
+	
+	@Test	
+	public void testobtenerClasificacione()
+	{
+		Clasificacion[] clasE=CatalogoClasificacion.getMiCatalogoClasificacion().obtenerClasificacione(temp, jor);
+	}
+	
+	
 }

@@ -118,6 +118,7 @@ public class IU_Usuario extends JFrame {
 			btnClasificacin = new JButton("Clasificación");
 			btnClasificacin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					new IU_Clasificacion().setVisible(true);
 				}
 			});
 			btnClasificacin.setBounds(216, 342, 139, 25);

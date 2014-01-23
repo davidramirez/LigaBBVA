@@ -63,5 +63,36 @@ private static CatalogoClasificacion miCatalogoClasificacion= new CatalogoClasif
 		RdoSQL.close();
 		return clasificacion;
 	}
+	public Clasificacion[] obtenerClasificacione(int pNumTemp,int pNumJor){
+		
+		ArrayList<Clasificacion> listaClasificacion=new ArrayList<Clasificacion>();
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT * FROM clasificacion WHERE numtemporada='"+pNumTemp+"'"
+				+ "AND numjornada='"+pNumJor+"' ORDER BY puntos DESC");
+		while (RdoSQL.next())
+		{
+			
+			listaClasificacion.add(
+		    new Clasificacion(RdoSQL.get("nombreeq"), 
+					RdoSQL.getInt("puntos"),
+					RdoSQL.getInt("golesafavor"),
+					RdoSQL.getInt("golesencontra")));
+			
+		}
+		//Se ordena según los goles a favor los equipos que tienen los mismos puntos.
+				Iterable<Clasificacion> pOrden1=Sort.sort(listaClasificacion,new CompararGolesAfavor());
+				//Se ordena en función de los goles en contra los equipos que además de los mismos puntos tienen los mismos goles a favor.
+				pOrden1=Sort.sort(pOrden1,new CompararGolesEnContra());
+				//creamos el iterador de donde coger los equipos
+				
+		Clasificacion[] listaRdo=new Clasificacion[maxEquipos];		
+		Iterator<Clasificacion>itr=pOrden1.iterator();
+		for(int i=0;i< maxEquipos && itr.hasNext();i++)
+		{
+			Clasificacion pEquipo=itr.next();
+			listaRdo[i]=pEquipo;
+		}
+		RdoSQL.close();
+		return listaRdo;
+	}
 
 }
