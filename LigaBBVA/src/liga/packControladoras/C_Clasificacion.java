@@ -1,5 +1,7 @@
 package liga.packControladoras;
 
+import java.util.ArrayList;
+
 public class C_Clasificacion
 {
 	private static C_Clasificacion miClasificacion= new C_Clasificacion();
@@ -18,7 +20,7 @@ public class C_Clasificacion
 		return Liga.getMiLiga().obtenerUltimaTemporada();
 	}
 	
-	public int[] obtenerTemporadas()
+	public ArrayList<Integer> obtenerTemporadas()
 	{
 		return Liga.getMiLiga().obtenerTemporadas();
 	}
@@ -32,7 +34,7 @@ public class C_Clasificacion
 		return Liga.getMiLiga().obtenerClasificacion(pNumTemporada, pNumJornada);
 	}
 	
-	public int[] obtenerJornadasDe(int pNumTemporada)
+	public ArrayList<Integer> obtenerJornadasDe(int pNumTemporada)
 	{
 		return Liga.getMiLiga().obtenerJornadasDe(pNumTemporada);
 	}

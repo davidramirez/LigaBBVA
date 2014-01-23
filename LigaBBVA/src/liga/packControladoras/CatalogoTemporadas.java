@@ -1,6 +1,7 @@
 package liga.packControladoras;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import liga.packGestorBD.ResultadoSQL;
@@ -27,15 +28,14 @@ public class CatalogoTemporadas
 	/**
 	 * Se encarga de obtener la lista de todas las temporadas que hay en la BD (un máximo de 100) en orden ascendente
 	 */
-	public int[] obtenerTemporadas() 
+	public ArrayList<Integer> obtenerTemporadas() 
 	{
-		int[] pListTemporadas =new int[maxTemporadas];
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio DESC");
-		int i=0;
-		while(RdoSQL.next() && i<maxTemporadas)
+		ArrayList<Integer> pListTemporadas =new ArrayList<Integer>();
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT numtemporada FROM temporada ORDER BY fechainicio ASC");
+		
+		while(RdoSQL.next() )
 		{			
-			pListTemporadas[i]=RdoSQL.getInt("numtemporada");
-			i++;			
+			pListTemporadas.add(RdoSQL.getInt("numtemporada"));			
 		}
 		RdoSQL.close();
 		return pListTemporadas;
@@ -45,13 +45,13 @@ public class CatalogoTemporadas
 	 * @param unaTemporada
 	 * @return
 	 */
-	public int[] obtenerJornadasDe(int unaTemporada)
+	public ArrayList<Integer> obtenerJornadasDe(int unaTemporada)
 	{
-		int i=0;
-		int[] jornadas= new int[maxJornadas];
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornadas WHERE numtemporada=unatemporada");
-		while(RdoSQL.next() && i< maxJornadas){
-			jornadas[i]=RdoSQL.getInt("numjornada");
+		
+		ArrayList<Integer> jornadas= new ArrayList<Integer>();
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE numtemporada='"+unaTemporada+"'");
+		while(RdoSQL.next() ){
+			jornadas.add(RdoSQL.getInt("numjornada"));
 		}
 		RdoSQL.close();
 		return jornadas;
@@ -63,7 +63,7 @@ public class CatalogoTemporadas
 	 */
 	public int obtenerJornadaAnterior(Date fecha) {
 		int rdo = 0;
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha <= " + fecha + " ORDER BY fecha DESC");		
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 1 AND fecha <= '" + fecha + "' ORDER BY fecha DESC");		
 		if (RdoSQL.next()) {
 			rdo = RdoSQL.getInt("numjornada");
 		}
@@ -78,7 +78,7 @@ public class CatalogoTemporadas
 	public int obtenerJornadaAJugar(Date fecha) {
 		int rdo = 0;
 		int temporadaActual = this.obtenerUltimaTemporada();
-		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 0 AND fecha >= " + fecha + " numtemporada = " + temporadaActual + " ORDER BY numjornada ASC");		
+		ResultadoSQL RdoSQL = SGBD.getSGBD().consultaSQL("SELECT numjornada FROM jornada WHERE estajugada = 0 AND fecha >= '" + fecha + "' numtemporada = '" + temporadaActual + "' ORDER BY numjornada ASC");		
 		if (RdoSQL.next())
 			rdo = RdoSQL.getInt("numjornada");
 		RdoSQL.close();
@@ -89,7 +89,8 @@ public class CatalogoTemporadas
 	 * @return
 	 */
 	public int obtenerUltimaTemporada(){
-		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas()[0];
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas().get(CatalogoTemporadas.getMiCatalogoTemporadas()
+				.obtenerTemporadas().size()-1);
 	}
 	/**
 	 * 
@@ -101,7 +102,7 @@ public class CatalogoTemporadas
 	//pos:si existe última jornada en esa temporada se devuelve, si no devuelve 0.
 	{
 		int laJornada=0;		
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("Select numjornada FROM jornada WHERE numtemporada=pLaTemporada ORDER BY Fecha DESC");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("Select numjornada FROM jornada WHERE numtemporada='"+pLaTemporada+"' ORDER BY fecha DESC");
 		if(RdoSQL.next()){
 			laJornada=RdoSQL.getInt("numjornada");
 		}
@@ -118,7 +119,7 @@ public class CatalogoTemporadas
 	{
 		String[][] rdo= new String[10][2];
 		int i=0;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT NomEqLocal, NomEqVisitante FROM Partido WHERE NumTemporada="+laTemp+" AND NumJornada="+laJor+"");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT NomEqLocal, NomEqVisitante FROM Partido WHERE NumTemporada='"+laTemp+"' AND NumJornada='"+laJor+"'");
 		while (RdoSQL.next())
 		{
 			rdo[i][0]=RdoSQL.get("NomEqLocal");

@@ -86,7 +86,7 @@ public class Liga
 	
 	/************************************************/
 	
-	public int[] obtenerTemporadas() {
+	public ArrayList<Integer> obtenerTemporadas() {
 		
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerTemporadas();
 	}
@@ -100,7 +100,7 @@ public class Liga
 	public int[] obtenerEstadisticas(int elJugador){
 		return CatalogoEstadisticasJugador.getMiCatalogoEstJug().obtenerEstadisticasJugador(elJugador);
 	}
-	public int[] obtenerJornadasDe(int pNumTemporada){
+	public ArrayList<Integer> obtenerJornadasDe(int pNumTemporada){
 		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerJornadasDe(pNumTemporada);
 	}
 	

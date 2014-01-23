@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxEditor;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
@@ -19,12 +20,28 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.Box;
 
+import net.sf.jga.fn.arithmetic.ValueOf;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import liga.packControladoras.C_Estadisticas;
+
 public class IU_Estadistica extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldClasificacionEq;
 	private JTextField textFieldGoles;
 	private JTextField textFieldSanciones;
+	private JComboBox<String> comboBoxTemporadas;
+	private JComboBox <String> comboJornadas;
+	private JRadioButton rdbtnEquipo;
+	private JRadioButton rdbtnJugador;
+	private ArrayList<Integer> temporadas;
+	private ArrayList<Integer> jornadas;
+	
 
 	/**
 	 * Launch the application.
@@ -62,11 +79,39 @@ public class IU_Estadistica extends JFrame {
 		btnAceptar.setBounds(361, 335, 117, 25);
 		contentPane.add(btnAceptar);
 		
-		JRadioButton rdbtnEquipo = new JRadioButton("Equipo");
+		rdbtnEquipo = new JRadioButton("Equipo");
+		rdbtnEquipo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==rdbtnEquipo )
+				{
+					temporadas=C_Estadisticas.getMisEstadisticas().obtenerTemporadas();
+					Iterator<Integer> itr =temporadas.iterator();
+					while(itr.hasNext())
+					{
+						String item=String.valueOf(itr.next());
+						comboBoxTemporadas.addItem("Temporada "+item);
+					}
+					
+				}
+			}
+		});
 		rdbtnEquipo.setBounds(27, 21, 149, 23);
 		contentPane.add(rdbtnEquipo);
 		
-		JRadioButton rdbtnJugador = new JRadioButton("Jugador");
+		rdbtnJugador = new JRadioButton("Jugador");
+		rdbtnJugador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==rdbtnJugador){
+					temporadas=C_Estadisticas.getMisEstadisticas().obtenerTemporadas();
+					Iterator<Integer> itr =temporadas.iterator();
+					while(itr.hasNext())
+					{
+						String item=String.valueOf(itr.next());
+						comboBoxTemporadas.addItem("Temporada "+item);
+					}					
+				}
+			}
+		});
 		rdbtnJugador.setBounds(318, 21, 149, 23);
 		contentPane.add(rdbtnJugador);
 		
@@ -105,13 +150,32 @@ public class IU_Estadistica extends JFrame {
 		lblJornada.setBounds(342, 247, 70, 15);
 		contentPane.add(lblJornada);
 		
-		JComboBox comboBoxTemporada = new JComboBox();
-		comboBoxTemporada.setBounds(138, 242, 174, 24);
-		contentPane.add(comboBoxTemporada);
+		comboBoxTemporadas = new JComboBox<String>();
+		/**/
+		this.comboBoxTemporadas.setBounds(138, 242, 174, 24);
+		contentPane.add(comboBoxTemporadas);
 		
-		JComboBox comboBoxJornada = new JComboBox();
-		comboBoxJornada.setBounds(430, 242, 174, 24);
-		contentPane.add(comboBoxJornada);
+		comboJornadas = new JComboBox<String>();
+		comboJornadas.addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				if(true){
+					System.out.println(comboBoxTemporadas.getSelectedIndex());
+					jornadas=C_Estadisticas.getMisEstadisticas().obtenerJornadasDe(1);
+								
+								Iterator<Integer>itr=jornadas.iterator();
+								while(itr.hasNext()){
+									
+									String item = String.valueOf(itr.next());
+									comboJornadas.addItem("Jornada "+item);
+								}
+				}
+				
+			}
+		});
+		comboJornadas.setBounds(430, 242, 174, 24);
+		contentPane.add(comboJornadas);
 		
 		JLabel lblEquipo = new JLabel("Equipo");
 		lblEquipo.setBounds(318, 59, 70, 15);
