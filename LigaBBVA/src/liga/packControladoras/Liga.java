@@ -349,4 +349,8 @@ public class Liga
 	public ArrayList<String[]> BuscarSiguientePartido (int pNumpP, String pElArbitroActua, Date pFecha) {
 		return CatalogoArbitros.getMiCatalogoArbitros().BuscarSiguientePartido(pNumpP, pElArbitroActua, pFecha);
 	}
+	public String[][] obtenerPartidosDe(int laJor, int laTemp) {
+		// TODO Auto-generated method stub
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerPartidosDe(laJor, laTemp);
+	}
 }
