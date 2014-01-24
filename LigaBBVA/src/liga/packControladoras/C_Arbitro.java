@@ -1,4 +1,5 @@
 package liga.packControladoras;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import liga.packModelo.Arbitro;
@@ -31,5 +32,33 @@ public class C_Arbitro {
 				Liga.getMiLiga().actualizarUsuario(pUnUsuario, pUnaContrasena, pNombreUsuarioAnterior);
 			}
 		}
+	}
+	
+	
+	/**
+	 * Obtiene la lista de los nombres de los aŕbitros de la temporada actual
+	 * 
+	 * @param temporadaActual Los datos realtivos a la temporada actual.
+	 */
+	
+	public ArrayList<String[]> obtenerNombreArbitros(int temporadaActual) {
+		return Liga.getMiLiga().obtenerNombreArbitros(temporadaActual);
+	}
+	
+	/**
+	 * Obtiene los datos relativos a un árbitro a partir de su dni
+	 * 
+	 * @param elArbitroSeleccionado el dni del árbitro seleccionado.
+	 */
+	public String ObtenerDatosArbitro(String elArbitroSeleccionado) {
+		return Liga.getMiLiga().ObtenerDatosArbitro(elArbitroSeleccionado);
+	}
+	
+	/**
+	 * Obtiene los árbitros de una provincia que NO están en la temporada actual.
+	 * 
+	 */
+	public ArrayList<String[]> ObtenerArbitroPorProvincia(String provincia, int temporadaActual) {
+		return Liga.getMiLiga().ObtenerArbitroPorProvincia(provincia, temporadaActual);
 	}
 }
