@@ -213,12 +213,27 @@ public class CatalogoTemporadas
 		return rdo;
 	}
 		
-	public ArrayList<String> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	public ArrayList<String> obtenerCambiosLocal(String elLocal, String elVisit, int laJor, int laTemp)
 	{
 		ArrayList<String> rdo = new ArrayList<String>();
 	
 		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
 				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
+		
+		while (CambiosLocal.next())
+		{
+			rdo.add(CambiosLocal.get(""))
+		}
+		
+		
+		return rdo;
+	}	
+	
+	
+	public ArrayList<String> obtenerCambiosVisitante(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		ArrayList<String> rdo = new ArrayList<String>();
+	
 		ResultadoSQL CambiosVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
 				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
 		
@@ -227,7 +242,6 @@ public class CatalogoTemporadas
 		
 		return rdo;
 	}	
-	
 	
 	public ArrayList<String[]> obtenerTarjetasLocal(String elLocal, String elVisit, int laJor, int laTemp)
 	{
