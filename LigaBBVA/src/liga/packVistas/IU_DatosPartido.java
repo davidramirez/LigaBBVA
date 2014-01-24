@@ -125,14 +125,14 @@ public class IU_DatosPartido extends JFrame {
 			for (int i=0; i< tarjetasLocal.size();i++)
 			{
 			
-				sancionadosLocal.setText(sancionadosLocal.getText()+tarjetasLocal.get(i)[0]+"\n");
+				getSancionadosLocal().setText(getSancionadosLocal().getText()+tarjetasLocal.get(i)[0]+"\n");
 				if(tarjetasLocal.get(i)[1].equals("1"))
 				{
-					sancionadosLocal.setText(sancionadosLocal.getText()+", amarilla");
+					getSancionadosLocal().setText(getSancionadosLocal().getText()+", amarilla");
 				}
 				else
 				{
-					sancionadosLocal.setText(sancionadosLocal.getText()+", roja");
+					getSancionadosLocal().setText(getSancionadosLocal().getText()+", roja");
 				}
 			}
 		}
@@ -143,14 +143,14 @@ public class IU_DatosPartido extends JFrame {
 			getTxtTarjVisit().setText(Integer.toString(tarjetasVisitante.size()));
 			for (int i=0; i< tarjetasVisitante.size();i++)
 			{
-				sancionadosVisit.setText(sancionadosVisit.getText()+tarjetasVisitante.get(i)[0]+"\n");
+				getSancionadosVisit().setText(getSancionadosVisit().getText()+tarjetasVisitante.get(i)[0]+"\n");
 				if(tarjetasVisitante.get(i)[1].equals("1"))
 				{
-					sancionadosVisit.setText(sancionadosVisit.getText()+", amarilla");
+					getSancionadosVisit().setText(getSancionadosVisit().getText()+", amarilla");
 				}
 				else
 				{
-					sancionadosVisit.setText(sancionadosVisit.getText()+", roja");
+					getSancionadosVisit().setText(getSancionadosVisit().getText()+", roja");
 				}
 			}
 		}
@@ -162,12 +162,13 @@ public class IU_DatosPartido extends JFrame {
 			for (int i=0;i<goleadores.get(0).size();i++)
 			{
 				
-				goleadoresLocal.setText(goleadoresLocal.getText()+goleadores.get(0).get(i)+"\n");
+				getGoleadoresLocal().setText(getGoleadoresLocal().getText()+goleadores.get(0).get(i)+"\n");
 			}
 			if(!goleadores.isEmpty())
 			for (int i=0;i<goleadores.get(1).size();i++)
 			{
-				goleadoresVisit.setText(goleadoresVisit.getText()+goleadores.get(1).get(i)+"\n");
+				
+				getGoleadoresVisit().setText(getGoleadoresVisit().getText()+goleadores.get(1).get(i)+"\n");
 			}
 		}
 		
@@ -175,12 +176,12 @@ public class IU_DatosPartido extends JFrame {
 		{
 			for (int i = 0;i<titulares.get(0).size();i++)
 			{
-				titLocal.setText(titLocal.getText()+"\n"+titulares.get(0).get(i));
+				getTitLocal().setText(getTitLocal().getText()+"\n"+titulares.get(0).get(i));
 			}
 			
 			for (int i = 0;i<titulares.get(1).size();i++)
 			{
-				titVisitante.setText(titVisitante.getText()+"\n"+titulares.get(1).get(i));
+				getTitVisitante().setText(getTitVisitante().getText()+"\n"+titulares.get(1).get(i));
 			}
 		}
 		
@@ -190,7 +191,7 @@ public class IU_DatosPartido extends JFrame {
 		{
 			for (int i=0; i< cambiosLoc.size();i++)
 			{
-				cambiosLocal.setText(cambiosLocal.getText()+cambiosLoc.get(i)+"\n");
+				getCambiosLocal().setText(getCambiosLocal().getText()+cambiosLoc.get(i)+"\n");
 			}
 		}
 		
@@ -198,7 +199,7 @@ public class IU_DatosPartido extends JFrame {
 		{
 			for (int i=0; i< cambiosVisit.size();i++)
 			{
-				cambiosVisitante.setText(cambiosVisitante.getText()+cambiosVisit.get(i)+"\n");
+				getCambiosVisitante().setText(getCambiosVisitante().getText()+cambiosVisit.get(i)+"\n");
 			}
 		}
 	}
