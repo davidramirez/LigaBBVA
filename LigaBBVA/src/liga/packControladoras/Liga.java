@@ -333,4 +333,9 @@ public class Liga
 	public ArrayList<String[]> ObtenerArbitroPorProvincia(String provincia, int temporadaActual) {
 		return CatalogoArbitros.getMiCatalogoArbitros().ObtenerArbitroPorProvincia(provincia, temporadaActual);
 	}
+	
+	public String[][] obtenerPartidosDe(int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerPartidosDe(laJor, laTemp);
+	}
 }

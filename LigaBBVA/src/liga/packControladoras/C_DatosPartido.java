@@ -58,6 +58,25 @@ public class C_DatosPartido {
 		return Liga.getMiLiga().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
 	}
 		
+	public ArrayList<String> obtenerPartidosDe(int laJor, int laTemp)
+	{
+		ArrayList<String> rdo = new ArrayList<String>();
+		String[][] partidos = Liga.getMiLiga().obtenerPartidosDe(laJor, laTemp);
+		
+		for(int i=0; i<20;i++)
+		{
+			rdo.add(partidos[i][0]+"-"+partidos[i][1]);
+		}
+		
+		return rdo;
+	}
+
+	public String[] transformarPartido(String partido)
+	{
+		String delimiter="-";
+		String[] rdo = partido.split(delimiter);
+		return rdo;
+	}
 
 	
 	

@@ -1,6 +1,7 @@
 package liga.packVistas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -10,10 +11,13 @@ import javax.swing.JScrollPane;
 
 import liga.packControladoras.C_DatosPartido;
 
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class IU_DatosPartido extends JFrame {
-	private JComboBox cmbTemp;
-	private JComboBox cmbJor;
-	private JComboBox cmbPart;
+	private JComboBox comboBoxTemporada;
+	private JComboBox comboBoxJornada;
+	private JComboBox comboBoxPartido;
 	private JLabel lblEquipoLocal;
 	private JTextArea txtLocal;
 	private JLabel lblAlineacin;
@@ -51,11 +55,14 @@ public class IU_DatosPartido extends JFrame {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public IU_DatosPartido() {
+		setResizable(false);
+		setSize(450,680);
 		getContentPane().setLayout(null);
-		getContentPane().add(getCmbTemp());
-		getContentPane().add(getCmbJor());
-		getContentPane().add(getCmbPart());
+		getContentPane().add(getComboBoxTemporada());
+		getContentPane().add(getComboBoxJornada());
+		getContentPane().add(getComboBoxPartido());
 		getContentPane().add(getLblEquipoLocal());
 		getContentPane().add(getTxtLocal());
 		getContentPane().add(getLblAlineacin());
@@ -82,31 +89,33 @@ public class IU_DatosPartido extends JFrame {
 		getContentPane().add(getLabel_4());
 		getContentPane().add(getScrollPane_4());
 		getContentPane().add(getTxtCambiosVisit());
+	
 		
-		ArrayList<Integer> temporadas = C_DatosPartido.getMisDatos().obtenerTemporadas();
 		
 		
-		int tempSeleccionada=0;
-		int jorSeleccionada=0;
-		String eqLocal="";
-		String eqVisitante="";
+	}
+	
+	private void introducirDatosPartido(int laJor, int laTemp, String elLocal, String elVisit)
+	{
+String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVisit, laJor, laTemp);
 		
-		String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<ArrayList<String>> titulares = C_DatosPartido.getMisDatos().obtenerTitularesPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> titulares = C_DatosPartido.getMisDatos().obtenerTitularesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<ArrayList<String>> cambios= C_DatosPartido.getMisDatos().obtenerCambiosPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> cambios= C_DatosPartido.getMisDatos().obtenerCambiosPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<String[]> tarjetasVisitante = C_DatosPartido.getMisDatos().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<String[]> tarjetasVisitante = C_DatosPartido.getMisDatos().obtenerTarjetasVisitante(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
-		
-		this.txtLocal.setText(eqLocal);
-		this.txtVisitante.setText(eqVisitante);
+		this.txtLocal.setText(elLocal);
+		this.txtVisitante.setText(elVisit);
 		this.txtGolesLocal.setText(goles[0]);
 		this.txtGolesVisit.setText(goles[1]);
+		this.txtTarjLocal.setText(Integer.toString(tarjetasLocal.size()));
+		this.txtTarjVisit.setText(Integer.toString(tarjetasVisitante.size()));
+		
 		
 		for (int i = 0;i<titulares.get(0).size();i++)
 		{
@@ -130,29 +139,89 @@ public class IU_DatosPartido extends JFrame {
 				sancionadosLocal.setText(sancionadosLocal.getText()+", roja");
 			}
 		}
-		
 	}
 
-	private JComboBox getCmbTemp() {
-		if (cmbTemp == null) {
-			cmbTemp = new JComboBox();
-			cmbTemp.setBounds(12, 12, 120, 24);
+	private JComboBox getComboBoxTemporada() {
+		if (comboBoxTemporada == null) 
+		{
+			comboBoxTemporada = new JComboBox();
+			comboBoxTemporada.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						getComboBoxJornada().removeAllItems();
+						getComboBoxPartido().removeAllItems();
+						int temp=(int) comboBoxTemporada.getSelectedItem();
+						ArrayList<Integer>jornada=C_DatosPartido.getMisDatos().obtenerJornadasDe(temp);
+						Iterator <Integer> itr=jornada.iterator();						
+						
+						while(itr.hasNext())
+						{
+							int item=itr.next();	
+							getComboBoxJornada().addItem(item);
+						}
+					}
+			}
+			});
+			comboBoxTemporada.setBounds(12, 12, 120, 24);
+			comboBoxTemporada.removeAllItems();
+			ArrayList<Integer> temporadas = C_DatosPartido.getMisDatos().obtenerTemporadas();
+			for(int j=0; j<temporadas.size();j++)
+			{
+				this.getComboBoxTemporada().addItem(temporadas.get(j));
+			}
+			
+			
 		}
-		return cmbTemp;
+		
+		return comboBoxTemporada;
 	}
-	private JComboBox getCmbJor() {
-		if (cmbJor == null) {
-			cmbJor = new JComboBox();
-			cmbJor.setBounds(145, 12, 120, 24);
+	private JComboBox getComboBoxJornada() {
+		if (comboBoxJornada == null) {
+			comboBoxJornada = new JComboBox();
+			comboBoxJornada.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						getComboBoxPartido().removeAllItems();
+						int temp=(int) comboBoxTemporada.getSelectedItem();
+						int jorn=(int) comboBoxJornada.getSelectedItem();
+						ArrayList<String> partidos = C_DatosPartido.getMisDatos().obtenerPartidosDe(jorn, temp);
+						Iterator<String> itr =partidos.iterator();						
+						
+						while(itr.hasNext())
+						{
+							String item=itr.next();	
+							getComboBoxPartido().addItem(item);
+						}
+					}
+					
+				}
+			});
+			comboBoxJornada.setBounds(145, 12, 120, 24);
+			comboBoxJornada.removeAllItems();
 		}
-		return cmbJor;
+		return comboBoxJornada;
 	}
-	private JComboBox getCmbPart() {
-		if (cmbPart == null) {
-			cmbPart = new JComboBox();
-			cmbPart.setBounds(277, 12, 155, 24);
+	private JComboBox getComboBoxPartido() {
+		if (comboBoxPartido == null) {
+			comboBoxPartido = new JComboBox();
+			comboBoxPartido.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						String[] equipos = C_DatosPartido.getMisDatos().transformarPartido((String) comboBoxPartido.getSelectedItem());
+						introducirDatosPartido((int) comboBoxJornada.getSelectedItem(), (int) comboBoxTemporada.getSelectedItem(),equipos[0],equipos[1]);
+						
+					}
+				}
+			});
+			comboBoxPartido.setBounds(277, 12, 155, 24);
 		}
-		return cmbPart;
+		return comboBoxPartido;
 	}
 	private JLabel getLblEquipoLocal() {
 		if (lblEquipoLocal == null) {

@@ -213,13 +213,18 @@ public class CatalogoTemporadas
 		return rdo;
 	}
 		
-	public ArrayList<ArrayList<String>> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	public ArrayList<String> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
 	{
-		ArrayList<ArrayList<String>> rdo = new ArrayList<ArrayList<String>>();
-		//TODO cambios pendienteoleadores
+		ArrayList<String> rdo = new ArrayList<String>();
+	
 		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
 				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elLocal+"'");
-		//cambios pendiente
+		ResultadoSQL CambiosVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN sustituciones NATURAL JOIN partido "
+				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
+		
+		while (CambiosLocal)
+		
+		
 		return rdo;
 	}	
 	
