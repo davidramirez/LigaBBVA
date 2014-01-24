@@ -111,7 +111,7 @@ public class ResultadoSQL {
 			
 			Date fecha = this.rdo.getDate(pNomAtributo);
 			//transformamos la fecha obtenida a un objeto GregorianCalendar
-			return new GregorianCalendar((fecha.getYear()+1900),fecha.getMonth(),fecha.getDate());
+			return (new GregorianCalendar((fecha.getYear()),fecha.getMonth(),fecha.getDate()));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -66,7 +66,7 @@ public class C_Conf_Temp {
 		boolean valida = true;
 		
 		//puede ser incorrecta si la lista de equipos no tiene 20
-		if(this.listaEquipos.getTamano() != 20)
+		if(this.listaEquipos.getTamano() != 20 || this.listaEquipos == null)
 		{
 			JOptionPane.showMessageDialog(null, "Debe seleccionar exactamente 20 equipos para la temporada", "Error", JOptionPane.ERROR_MESSAGE);
 			valida = false;
@@ -75,7 +75,7 @@ public class C_Conf_Temp {
 		//puede serlo si no hay al menos 10 arbitros
 		if(this.listaArbitros.getTamano() < 10)
 		{
-			JOptionPane.showMessageDialog(null, "Debe seleccionar al menos 1 árbitros para la temporada", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe seleccionar al menos 10 árbitros para la temporada", "Error", JOptionPane.ERROR_MESSAGE);
 			valida = false;
 		}
 		
@@ -86,6 +86,16 @@ public class C_Conf_Temp {
 			if(this.vista.getComboFecha().getDate().before(this.fechaFinUltTemp))
 			{
 				JOptionPane.showMessageDialog(null, "La fecha de inicio de la temporada debe ser posterior a la de fin de la temporada anterior", "Error", JOptionPane.ERROR_MESSAGE);
+				valida = false;
+			}
+		}
+		
+		//o porque la fecha elegida no pertenece a agosto (mes nº 7 para Date)
+		if(this.vista.getComboFecha().getDate() != null)
+		{
+			if(this.vista.getComboFecha().getDate().getMonth() != 7)
+			{
+				JOptionPane.showMessageDialog(null, "La fecha de inicio de la temporada debe pertenecer al mes de agosto", "Error", JOptionPane.ERROR_MESSAGE);
 				valida = false;
 			}
 		}
@@ -108,6 +118,7 @@ public class C_Conf_Temp {
 		if(seleccionado >= 0)
 		{
 			this.listaEquipos.eliminarEquipoPos(seleccionado);
+			this.vista.setEquipos(this.listaEquipos.getNombres());
 		}
 		
 	}
@@ -118,6 +129,7 @@ public class C_Conf_Temp {
 		if(seleccionado >= 0)
 		{
 			this.listaArbitros.eliminarArbitroPos(seleccionado);
+			this.vista.setArbitros(this.listaArbitros.getNombres());
 		}
 		
 	}
@@ -125,6 +137,7 @@ public class C_Conf_Temp {
 	@SuppressWarnings("deprecation")
 	public Date obtenerFechaFinUltimaTemporada() {
 		numUltimaTemporada = Liga.getMiLiga().obtenerUltimaTemporada();
+		
 		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT fechafin FROM temporada WHERE numtemporada ='"+numUltimaTemporada+"'");
 		if(r.next()){
 			GregorianCalendar fecha = r.getDate("fechafin");
@@ -265,7 +278,7 @@ public class C_Conf_Temp {
 		while(it.hasNext())
 		{
 			eq = it.next();
-			if(!this.listaEquipos.esta(eq[2]))
+			if(!this.listaEquipos.esta(eq[0]))
 			{
 				//si el arbitro no estaba seleccionado, lo añadimos a la lista
 				this.equiposSeleccionables.anadirEquipo(new Equipo(eq[0], Provincia.buscarComponente(eq[1])));
@@ -273,6 +286,13 @@ public class C_Conf_Temp {
 		}
 		
 		
-		return this.arbitrosSeleccionables.getNombres();
+		return this.equiposSeleccionables.getNombres();
+	}
+
+	public void inicializarListas()
+	{
+		this.listaArbitros = new ListaArbitros();
+		this.listaEquipos = new ListaEquipos();
+		this.numUltimaTemporada = 0;
 	}
 }

@@ -1,6 +1,7 @@
 package liga.packVistas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -10,10 +11,13 @@ import javax.swing.JScrollPane;
 
 import liga.packControladoras.C_DatosPartido;
 
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class IU_DatosPartido extends JFrame {
-	private JComboBox cmbTemp;
-	private JComboBox cmbJor;
-	private JComboBox cmbPart;
+	private JComboBox comboBoxTemporada;
+	private JComboBox comboBoxJornada;
+	private JComboBox comboBoxPartido;
 	private JLabel lblEquipoLocal;
 	private JTextArea txtLocal;
 	private JLabel lblAlineacin;
@@ -42,7 +46,7 @@ public class IU_DatosPartido extends JFrame {
 	private JLabel label_3;
 	private JTextArea sancionadosVisit;
 	private JLabel label_4;
-	private JTextArea cambiosVisit;
+	private JTextArea cambiosVisitante;
 	private JTextArea txtCambiosVisit;
 	private JScrollPane scrollPane_4;
 	private JScrollPane scrollPane_5;
@@ -51,11 +55,14 @@ public class IU_DatosPartido extends JFrame {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public IU_DatosPartido() {
+		setResizable(false);
+		setSize(450,680);
 		getContentPane().setLayout(null);
-		getContentPane().add(getCmbTemp());
-		getContentPane().add(getCmbJor());
-		getContentPane().add(getCmbPart());
+		getContentPane().add(getComboBoxTemporada());
+		getContentPane().add(getComboBoxJornada());
+		getContentPane().add(getComboBoxPartido());
 		getContentPane().add(getLblEquipoLocal());
 		getContentPane().add(getTxtLocal());
 		getContentPane().add(getLblAlineacin());
@@ -82,77 +89,203 @@ public class IU_DatosPartido extends JFrame {
 		getContentPane().add(getLabel_4());
 		getContentPane().add(getScrollPane_4());
 		getContentPane().add(getTxtCambiosVisit());
+	
 		
-		ArrayList<Integer> temporadas = C_DatosPartido.getMisDatos().obtenerTemporadas();
 		
 		
-		int tempSeleccionada=0;
-		int jorSeleccionada=0;
-		String eqLocal="";
-		String eqVisitante="";
+	}
+	
+	private void introducirDatosPartido(int laJor, int laTemp, String elLocal, String elVisit)
+	{
 		
-		String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> titulares = C_DatosPartido.getMisDatos().obtenerTitularesPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<ArrayList<String>> titulares = C_DatosPartido.getMisDatos().obtenerTitularesPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> cambios= C_DatosPartido.getMisDatos().obtenerCambiosPartido(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<String> cambiosLoc= C_DatosPartido.getMisDatos().obtenerCambiosLocal(elLocal, elVisit, laJor, laTemp);
+
+		ArrayList<String> cambiosVisit= C_DatosPartido.getMisDatos().obtenerCambiosVisitante(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<String[]> tarjetasVisitante = C_DatosPartido.getMisDatos().obtenerTarjetasVisitante(eqLocal, eqVisitante, jorSeleccionada, tempSeleccionada);
+		ArrayList<String[]> tarjetasVisitante = C_DatosPartido.getMisDatos().obtenerTarjetasVisitante(elLocal, elVisit, laJor, laTemp);
 		
-		this.txtLocal.setText(eqLocal);
-		this.txtVisitante.setText(eqVisitante);
-		this.txtGolesLocal.setText(goles[0]);
-		this.txtGolesVisit.setText(goles[1]);
+		getTxtLocal().setText(elLocal);
+		getTxtVisitante().setText(elVisit);
+		getTxtGolesLocal().setText(goles[0]);
+		getTxtGolesVisit().setText(goles[1]);
 		
-		for (int i = 0;i<titulares.get(0).size();i++)
+		if(tarjetasLocal!=null)
 		{
-			titLocal.setText(titLocal.getText()+"\n"+titulares.get(0).get(i));
-		}
-		
-		for (int i = 0;i<titulares.get(1).size();i++)
-		{
-			titVisitante.setText(titVisitante.getText()+"\n"+titulares.get(1).get(i));
-		}
-		
-		for (int i=0; i< tarjetasLocal.size();i++)
-		{
-			sancionadosLocal.setText(sancionadosLocal.getText()+"\n"+tarjetasLocal.get(i)[0]);
-			if(tarjetasLocal.get(i)[1].equals("1"))
+			
+			getTxtTarjLocal().setText(Integer.toString(tarjetasLocal.size()));
+	
+			for (int i=0; i< tarjetasLocal.size();i++)
 			{
-				sancionadosLocal.setText(sancionadosLocal.getText()+", amarilla");
-			}
-			else
-			{
-				sancionadosLocal.setText(sancionadosLocal.getText()+", roja");
+			
+				getSancionadosLocal().setText(getSancionadosLocal().getText()+tarjetasLocal.get(i)[0]+"\n");
+				if(tarjetasLocal.get(i)[1].equals("1"))
+				{
+					getSancionadosLocal().setText(getSancionadosLocal().getText()+", amarilla");
+				}
+				else
+				{
+					getSancionadosLocal().setText(getSancionadosLocal().getText()+", roja");
+				}
 			}
 		}
 		
+		if(tarjetasVisitante!=null)
+		{
+		
+			getTxtTarjVisit().setText(Integer.toString(tarjetasVisitante.size()));
+			for (int i=0; i< tarjetasVisitante.size();i++)
+			{
+				getSancionadosVisit().setText(getSancionadosVisit().getText()+tarjetasVisitante.get(i)[0]+"\n");
+				if(tarjetasVisitante.get(i)[1].equals("1"))
+				{
+					getSancionadosVisit().setText(getSancionadosVisit().getText()+", amarilla");
+				}
+				else
+				{
+					getSancionadosVisit().setText(getSancionadosVisit().getText()+", roja");
+				}
+			}
+		}
+		
+		
+		if(goleadores!=null)
+		{
+			if(!goleadores.isEmpty())
+			for (int i=0;i<goleadores.get(0).size();i++)
+			{
+				
+				getGoleadoresLocal().setText(getGoleadoresLocal().getText()+goleadores.get(0).get(i)+"\n");
+			}
+			if(!goleadores.isEmpty())
+			for (int i=0;i<goleadores.get(1).size();i++)
+			{
+				
+				getGoleadoresVisit().setText(getGoleadoresVisit().getText()+goleadores.get(1).get(i)+"\n");
+			}
+		}
+		
+		if(!titulares.isEmpty())
+		{
+			for (int i = 0;i<titulares.get(0).size();i++)
+			{
+				getTitLocal().setText(getTitLocal().getText()+"\n"+titulares.get(0).get(i));
+			}
+			
+			for (int i = 0;i<titulares.get(1).size();i++)
+			{
+				getTitVisitante().setText(getTitVisitante().getText()+"\n"+titulares.get(1).get(i));
+			}
+		}
+		
+		
+
+		if (!cambiosLoc.isEmpty())
+		{
+			for (int i=0; i< cambiosLoc.size();i++)
+			{
+				getCambiosLocal().setText(getCambiosLocal().getText()+cambiosLoc.get(i)+"\n");
+			}
+		}
+		
+		if (!cambiosVisit.isEmpty())
+		{
+			for (int i=0; i< cambiosVisit.size();i++)
+			{
+				getCambiosVisitante().setText(getCambiosVisitante().getText()+cambiosVisit.get(i)+"\n");
+			}
+		}
 	}
 
-	private JComboBox getCmbTemp() {
-		if (cmbTemp == null) {
-			cmbTemp = new JComboBox();
-			cmbTemp.setBounds(12, 12, 120, 24);
+	private JComboBox getComboBoxTemporada() {
+		if (comboBoxTemporada == null) 
+		{
+			comboBoxTemporada = new JComboBox();
+			comboBoxTemporada.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						getComboBoxJornada().removeAllItems();
+						getComboBoxPartido().removeAllItems();
+						int temp=(int) comboBoxTemporada.getSelectedItem();
+						ArrayList<Integer>jornada=C_DatosPartido.getMisDatos().obtenerJornadasDe(temp);
+						Iterator <Integer> itr=jornada.iterator();						
+						
+						while(itr.hasNext())
+						{
+							int item=itr.next();	
+							getComboBoxJornada().addItem(item);
+						}
+					}
+			}
+			});
+			comboBoxTemporada.setBounds(12, 12, 120, 24);
+			comboBoxTemporada.removeAllItems();
+			ArrayList<Integer> temporadas = C_DatosPartido.getMisDatos().obtenerTemporadas();
+			for(int j=0; j<temporadas.size();j++)
+			{
+				this.getComboBoxTemporada().addItem(temporadas.get(j));
+			}
+			
+			
 		}
-		return cmbTemp;
+		
+		return comboBoxTemporada;
 	}
-	private JComboBox getCmbJor() {
-		if (cmbJor == null) {
-			cmbJor = new JComboBox();
-			cmbJor.setBounds(145, 12, 120, 24);
+	private JComboBox getComboBoxJornada() {
+		if (comboBoxJornada == null) {
+			comboBoxJornada = new JComboBox();
+			comboBoxJornada.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						getComboBoxPartido().removeAllItems();
+						int temp=(int) comboBoxTemporada.getSelectedItem();
+						int jorn=(int) comboBoxJornada.getSelectedItem();
+						ArrayList<String> partidos = C_DatosPartido.getMisDatos().obtenerPartidosDe(jorn, temp);
+						Iterator<String> itr =partidos.iterator();						
+						
+						while(itr.hasNext())
+						{
+							String item=itr.next();	
+							getComboBoxPartido().addItem(item);
+						}
+					}
+					
+				}
+			});
+			comboBoxJornada.setBounds(145, 12, 120, 24);
+			comboBoxJornada.removeAllItems();
 		}
-		return cmbJor;
+		return comboBoxJornada;
 	}
-	private JComboBox getCmbPart() {
-		if (cmbPart == null) {
-			cmbPart = new JComboBox();
-			cmbPart.setBounds(277, 12, 155, 24);
+	private JComboBox getComboBoxPartido() {
+		if (comboBoxPartido == null) {
+			comboBoxPartido = new JComboBox();
+			comboBoxPartido.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) 
+				{
+					if(e.getStateChange()==ItemEvent.SELECTED)
+					{
+						String[] equipos = C_DatosPartido.getMisDatos().transformarPartido((String) comboBoxPartido.getSelectedItem());
+						
+						introducirDatosPartido((int) comboBoxJornada.getSelectedItem(), (int) comboBoxTemporada.getSelectedItem(),equipos[0],equipos[1]);
+						
+					}
+				}
+			});
+			comboBoxPartido.setBounds(277, 12, 155, 24);
 		}
-		return cmbPart;
+		return comboBoxPartido;
 	}
 	private JLabel getLblEquipoLocal() {
 		if (lblEquipoLocal == null) {
@@ -221,7 +354,6 @@ public class IU_DatosPartido extends JFrame {
 	private JTextArea getTxtTarjLocal() {
 		if (txtTarjLocal == null) {
 			txtTarjLocal = new JTextArea();
-			txtTarjLocal.setEditable(false);
 			txtTarjLocal.setBounds(157, 367, 45, 15);
 		}
 		return txtTarjLocal;
@@ -354,11 +486,11 @@ public class IU_DatosPartido extends JFrame {
 		}
 		return label_4;
 	}
-	private JTextArea getCambiosVisit() {
-		if (cambiosVisit == null) {
-			cambiosVisit = new JTextArea();
+	private JTextArea getCambiosVisitante() {
+		if (cambiosVisitante == null) {
+			cambiosVisitante = new JTextArea();
 		}
-		return cambiosVisit;
+		return cambiosVisitante;
 	}
 	private JTextArea getTxtCambiosVisit() {
 		if (txtCambiosVisit == null) {
@@ -372,7 +504,7 @@ public class IU_DatosPartido extends JFrame {
 		if (scrollPane_4 == null) {
 			scrollPane_4 = new JScrollPane();
 			scrollPane_4.setBounds(247, 518, 183, 71);
-			scrollPane_4.setViewportView(getCambiosVisit());
+			scrollPane_4.setViewportView(getCambiosVisitante());
 		}
 		return scrollPane_4;
 	}

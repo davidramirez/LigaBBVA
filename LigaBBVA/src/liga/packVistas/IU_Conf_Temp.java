@@ -79,12 +79,13 @@ public class IU_Conf_Temp extends JFrame {
 		contentPane.add(getLblFechaDeInicio());
 		contentPane.add(getComboFecha());
 		
-		//registramos la ventana en el ccontrolador
+		//registramos la ventana en el controlador
 		C_Conf_Temp.getMiC_Conf_Temp().setIU_Conf_Temp(this);
 		
 		//Comprobamos y obtenemos la fecha de fin de la ultima temporada
 		Date fecha = C_Conf_Temp.getMiC_Conf_Temp().obtenerFechaFinUltimaTemporada();
 		Date fechaActual = new Date();
+		
 		//suponemos que la temporada anterior ha finalizado
 		boolean temporadaFinalizada = true;
 		//comprobamos si habia temporada anterior
@@ -105,8 +106,13 @@ public class IU_Conf_Temp extends JFrame {
 				//establecemos como fecha de inicio la de fin de la anterior
 				comboFecha.setDate(fecha);
 				//cargamos los arbitros de la temporada anterior y los equipos que pasan
-				C_Conf_Temp.getMiC_Conf_Temp().obtenerEquiposQuePasan();
+				//C_Conf_Temp.getMiC_Conf_Temp().obtenerEquiposQuePasan();
 				C_Conf_Temp.getMiC_Conf_Temp().obtenerArbitrosTemporada();
+			}
+			else
+			{
+				//tenemos que inicializar las listas
+				C_Conf_Temp.getMiC_Conf_Temp().inicializarListas();
 			}
 			
 			
@@ -206,7 +212,7 @@ public class IU_Conf_Temp extends JFrame {
 					
 					//hacemos esta ventana no visible y abrimos la interfaz nueva
 					setVisible(false);
-					IU_Anadir_Equipo ventana = new IU_Anadir_Equipo();
+					IU_Anadir_Arbitro ventana = new IU_Anadir_Arbitro();
 					ventana.setVisible(true);
 				}
 			});

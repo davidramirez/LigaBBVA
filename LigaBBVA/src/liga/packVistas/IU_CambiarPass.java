@@ -72,15 +72,22 @@ public class IU_CambiarPass extends JFrame {
 					String passAnt = new String(txtPassAnt.getPassword());
 					String passN = new String(txtPassN.getPassword());
 					String passRep = new String(txtPassRep.getPassword());
-					if (passN.equals(passRep))
+					if(txtUsuario.getText().equals("")||passAnt.equals("")||passN.equals("")||passRep.equals("")||txtPreg.getText().equals("")||txtResp.getText().equals(""))
 					{
-						if(C_Usuario.getMiUsuario().cambiarPass(txtUsuario.getText(), passAnt, passN, txtPreg.getText(), txtResp.getText()))
-							JOptionPane.showMessageDialog(null,"Se han actualizado tus datos correctamente.");
-						else
-							JOptionPane.showMessageDialog(null,"El usuario y la contraseña no coinciden.");
+						JOptionPane.showMessageDialog(null,"Uno de los campos introducidos está vacío.");
 					}
 					else
-					JOptionPane.showMessageDialog(null,"Las nuevas contraseñas no coinciden.");
+					{
+						if (passN.equals(passRep))
+						{
+							if(C_Usuario.getMiUsuario().cambiarPass(txtUsuario.getText(), passAnt, passN, txtPreg.getText(), txtResp.getText()))
+								JOptionPane.showMessageDialog(null,"Se han actualizado tus datos correctamente.");
+							else
+								JOptionPane.showMessageDialog(null,"El usuario y la contraseña no coinciden.");
+						}
+						else
+						JOptionPane.showMessageDialog(null,"Las nuevas contraseñas no coinciden.");
+					}
 				}
 			}
 		});
