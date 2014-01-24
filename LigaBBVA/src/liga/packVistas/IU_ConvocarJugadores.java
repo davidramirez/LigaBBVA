@@ -36,30 +36,15 @@ public class IU_ConvocarJugadores extends JDialog {
 	private DefaultListModel<String> modeloAConvocar = new DefaultListModel<String>();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			IU_ConvocarJugadores dialog = new IU_ConvocarJugadores();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public IU_ConvocarJugadores() {
+	public IU_ConvocarJugadores(final Date fecha) {
 		this.modeloConvocables.clear();
 		this.modeloAConvocar.clear();
 		
 		this.setModal(true);
 		
-		C_GestionEquipo.getC_GestionEquipo().setEquipo("Athletic"); // Parche.
-		java.util.Date aux = new java.util.Date();
-		this.fecha = new Date(aux.getTime()); // Parche.
+		this.fecha = fecha;
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

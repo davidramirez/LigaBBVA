@@ -125,7 +125,7 @@ public class C_Conf_Temp {
 	@SuppressWarnings("deprecation")
 	public Date obtenerFechaFinUltimaTemporada() {
 		numUltimaTemporada = Liga.getMiLiga().obtenerUltimaTemporada();
-		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT fechafin FROM temporada WHERE numtemporada ="+numUltimaTemporada);
+		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT fechafin FROM temporada WHERE numtemporada ='"+numUltimaTemporada+"'");
 		if(r.next()){
 			GregorianCalendar fecha = r.getDate("fechafin");
 			fechaFinUltTemp = new Date(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH), fecha.get(Calendar.DATE));
@@ -146,7 +146,7 @@ public class C_Conf_Temp {
 		for(int i=0;i<17;i++)
 		{
 			Provincia p;
-			r = SGBD.getSGBD().consultaSQL("SELECT provincia FROM equipo WHERE nombre ="+equipos[i]);
+			r = SGBD.getSGBD().consultaSQL("SELECT provincia FROM equipo WHERE nombre ='"+equipos[i]+"'");
 			r.next();
 			p = Provincia.buscarComponente(r.get("provincia"));
 			listaEquipos.anadirEquipo(new Equipo(equipos[i],p));

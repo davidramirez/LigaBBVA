@@ -72,7 +72,7 @@ public class IU_GestionEquipo extends JFrame implements Observer {
 			btnSalir = new JButton("Salir");
 			btnSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					System.exit(0);
+					dispose();
 				}
 			});
 			btnSalir.setBounds(428, 420, 189, 25);

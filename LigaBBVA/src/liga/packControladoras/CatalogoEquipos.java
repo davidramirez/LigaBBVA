@@ -102,9 +102,9 @@ public class CatalogoEquipos {
 		{
 			//creamos una nueva posicion para el array
 			String[] eq = new String[3];
-			eq[0] = r.get("nombre");
-			eq[1] = r.get("provincia");
-			eq[2] = r.get("estaactivo");
+			eq[0] = r.get("e.nombre");
+			eq[1] = r.get("e.provincia");
+			eq[2] = r.get("u.estaactivo");
 			
 			//añadimos el equipo al array
 			rdo.add(eq);

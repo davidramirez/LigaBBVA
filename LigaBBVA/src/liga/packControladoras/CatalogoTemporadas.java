@@ -272,4 +272,22 @@ public class CatalogoTemporadas
 		}
 		return equipos;
 	}
+	
+	/**
+	 * Obtiene la lista de los nombres de los aŕbitros de la temporada actual
+	 * 
+	 * @param temporadaActual Los datos realtivos a la temporada actual.
+	 */
+	
+	public ArrayList<String[]> obtenerNombreArbitros(int temporadaActual) {
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		String[] arbitros = new String[2];
+		ResultadoSQL arbitrosTemp = SGBD.getSGBD().consultaSQL("Select * from Arbitro AS Arbitro INNER JOIN ArbitrosTemporada AS ArbitrosTemporada ON Arbitro.Dni=ArbitrosTemporada.DNIArbitro WHERE ArbitrosTemporada.NumTemporada="+temporadaActual);
+		while(arbitrosTemp.next()) {
+			arbitros[0] = arbitrosTemp.get("dni");
+			arbitros[1] = arbitrosTemp.get("nombre");
+			rdo.add(arbitros);
+		}
+		return rdo;
+	}
 }

@@ -306,6 +306,31 @@ public class Liga
 	}
 		
 	
+	/**
+	 * Obtiene la lista de los nombres de los aŕbitros de la temporada actual
+	 * 
+	 * @param temporadaActual Los datos realtivos a la temporada actual.
+	 */
+	
+	public ArrayList<String[]> obtenerNombreArbitros(int temporadaActual) {
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerNombreArbitros(temporadaActual);
+	}
 	
 
+	/**
+	 * Obtiene los datos relativos a un árbitro a partir de su dni
+	 * 
+	 * @param elArbitroSeleccionado el dni del árbitro seleccionado.
+	 */
+	public String ObtenerDatosArbitro(String elArbitroSeleccionado) {
+		return CatalogoArbitros.getMiCatalogoArbitros().ObtenerDatosArbitro(elArbitroSeleccionado);
+	}
+	
+	/**
+	 * Obtiene los árbitros de una provincia que NO están en la temporada actual.
+	 * 
+	 */
+	public ArrayList<String[]> ObtenerArbitroPorProvincia(String provincia, int temporadaActual) {
+		return CatalogoArbitros.getMiCatalogoArbitros().ObtenerArbitroPorProvincia(provincia, temporadaActual);
+	}
 }
