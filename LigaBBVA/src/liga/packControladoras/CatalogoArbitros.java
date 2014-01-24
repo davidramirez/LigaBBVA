@@ -1,12 +1,17 @@
 package liga.packControladoras;
 
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
+import liga.packModelo.ListaPartidos;
 import liga.packEnumeration.Provincia;
 import liga.packGestorBD.ResultadoSQL;
 import liga.packGestorBD.SGBD;
 import liga.packModelo.Arbitro;
+import liga.packModelo.Equipo;
 import liga.packModelo.ListaArbitros;
+import liga.packModelo.Partido;
 
 public class CatalogoArbitros {
 	
@@ -112,5 +117,38 @@ public class CatalogoArbitros {
 			rdo.add(resultado);
 		}
 		return rdo;
+	}
+	
+	/**
+	 * Busca el siguiente partido del árbitro que va a ser sustituido.
+	 * 
+	 * @param pNumP el numero de partidos que se inhabilita al árbitro.
+	 * @param pElArbitroActua el arbitro actual.
+	 * @param pFecha la fecha actual
+	 */
+	public ArrayList<String[]> BuscarSiguientePartido (int pNumpP, String pElArbitroActua, Date pFecha) {
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		String[] datosPartido = new String[5];
+		ResultadoSQL sigPartidos = SGBD.getSGBD().consultaSQL("SELECT * FROM partido WHERE DNIArbitro='"+pElArbitroActua+"' AND Fecha>='"+pFecha+"'");
+		int i = 0;
+		while(i<pNumpP && sigPartidos.next()) {
+			datosPartido[0] = sigPartidos.getDate("fecha").toString();
+			datosPartido[1] = sigPartidos.get("NumTemporada");
+			datosPartido[2] = sigPartidos.get("NumJornada");
+			datosPartido[3] = sigPartidos.get("NomEquipoLocal");
+			datosPartido[4] = sigPartidos.get("NomEquipoVisitante");
+			rdo.add(datosPartido);
+		}
+		return rdo;
+	}
+	
+	/**
+	 * Sustituye el arbitro actual por el que haya elegido el administrador.
+	 * 
+	 * 
+	 */
+	public void SustituirPartido (String pARbitroSust, int pNumTemporada, int pNumJornada, String pNomEquipoLocal, String pNomEqVisitante,String pElArbitroACtua, Date pFecha) {
+		SGBD.getSGBD().execSQL("UPDATE partido SET DNIArbitro='"+pARbitroSust+"' WHERE NumTemporada="+pNumTemporada+",NumJornada="+pNumJornada+",NomEqLocal='"+pNomEquipoLocal+"',NomEqVisitante='"+pNomEqVisitante+"'");
+		SGBD.getSGBD().execSQL("UPDATE arbitro SET enNeveraHasta='"+pFecha+"' WHERE dni='"+pElArbitroACtua+"'");
 	}
 }

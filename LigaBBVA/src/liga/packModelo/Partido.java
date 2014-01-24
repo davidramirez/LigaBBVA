@@ -33,6 +33,51 @@ public class Partido {
 		return this.equipoLocal;
 	}
 	
+	public int getGolesVisitante() {
+		return golesVisitante;
+	}
+
+
+	public void setGolesVisitante(int golesVisitante) {
+		this.golesVisitante = golesVisitante;
+	}
+
+
+	public int getGolesLocal() {
+		return golesLocal;
+	}
+
+
+	public void setGolesLocal(int golesLocal) {
+		this.golesLocal = golesLocal;
+	}
+
+
+	public Equipo getEquipoLocal() {
+		return equipoLocal;
+	}
+
+
+	public void setEquipoLocal(Equipo equipoLocal) {
+		this.equipoLocal = equipoLocal;
+	}
+
+
+	public Equipo getEquipoVisitante() {
+		return equipoVisitante;
+	}
+
+
+	public void setEquipoVisitante(Equipo equipoVisitante) {
+		this.equipoVisitante = equipoVisitante;
+	}
+
+
+	public void setFecha(GregorianCalendar fecha) {
+		this.fecha = fecha;
+	}
+
+
 	public Equipo getVisitante()
 	{
 		return this.equipoVisitante;

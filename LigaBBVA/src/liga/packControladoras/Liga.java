@@ -333,4 +333,15 @@ public class Liga
 	public ArrayList<String[]> ObtenerArbitroPorProvincia(String provincia, int temporadaActual) {
 		return CatalogoArbitros.getMiCatalogoArbitros().ObtenerArbitroPorProvincia(provincia, temporadaActual);
 	}
+	
+	/**
+	 * Busca el siguiente partido del árbitro que va a ser sustituido.
+	 * 
+	 * @param pNumP el numero de partidos que se inhabilita al árbitro.
+	 * @param pElArbitroActua el arbitro actual.
+	 * @param pFecha la fecha actual
+	 */
+	public ArrayList<String[]> BuscarSiguientePartido (int pNumpP, String pElArbitroActua, Date pFecha) {
+		return CatalogoArbitros.getMiCatalogoArbitros().BuscarSiguientePartido(pNumpP, pElArbitroActua, pFecha);
+	}
 }
