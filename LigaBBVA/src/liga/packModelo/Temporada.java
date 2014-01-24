@@ -98,7 +98,7 @@ public class Temporada {
 		String fechaInicio = this.getFecha().get(Calendar.YEAR)+"-"+this.getFecha().get(Calendar.MONTH+1)+"-"+this.getFecha().get(Calendar.DATE);
 		String fechaFin = this.getFechaFin().get(Calendar.YEAR)+"-"+this.getFechaFin().get(Calendar.MONTH+1)+"-"+this.getFechaFin().get(Calendar.DATE);;
 		
-		SGBD.getSGBD().execSQL("INSERT INTO temporada VALUES ("+this.getNumTemp()+","+fechaInicio+","+fechaFin+")");
+		SGBD.getSGBD().execSQL("INSERT INTO temporada VALUES ('"+this.getNumTemp()+"','"+fechaInicio+"','"+fechaFin+"')");
 		
 		this.getListaEquipos().almacenarEquiposTemporada(this.getNumTemp());
 		

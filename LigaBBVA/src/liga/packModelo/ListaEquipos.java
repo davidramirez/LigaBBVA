@@ -46,7 +46,7 @@ public class ListaEquipos {
 		while(it.hasNext())
 		{
 			unEquipo = it.next();
-			SGBD.getSGBD().execSQL("INSERT INTO equipostemporada VALUES("+pNumTemp+","+unEquipo.getNombre()+")");
+			SGBD.getSGBD().execSQL("INSERT INTO equipostemporada VALUES('"+pNumTemp+"','"+unEquipo.getNombre()+"')");
 		}
 	}
 

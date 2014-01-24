@@ -25,7 +25,7 @@ public class CatalogoArbitros {
 	public ListaArbitros obtenerArbitrosTemporada(int pNumTemp) {
 		
 		ListaArbitros lista = new ListaArbitros();
-		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT * FROM arbitro AS a INNER JOIN arbitrostemporada AS at ON a.dni = at.dniarbitro WHERE at.numtemporada ="+pNumTemp);
+		ResultadoSQL r = SGBD.getSGBD().consultaSQL("SELECT a.nombre, a.apellidos, a.dni, a.provincia FROM arbitro AS a INNER JOIN arbitrostemporada AS at ON a.dni = at.dniarbitro WHERE at.numtemporada ='"+pNumTemp+"'");
 		while(r.next())
 		{
 			lista.anadirArbitro(new Arbitro(r.get("nombre"), r.get("apellido"), Provincia.buscarComponente(r.get("provincia")), r.get("dni")));
@@ -43,11 +43,11 @@ public class CatalogoArbitros {
 		{
 			//creamos una nueva posicion para el array
 			String[] ar = new String[5];
-			ar[0] = r.get("nombre");
-			ar[1] = r.get("apellidos");
-			ar[2] = r.get("dni");
-			ar[3] = r.get("provincia");
-			ar[4] = r.get("estaactivo");
+			ar[0] = r.get("a.nombre");
+			ar[1] = r.get("a.apellidos");
+			ar[2] = r.get("a.dni");
+			ar[3] = r.get("a.provincia");
+			ar[4] = r.get("u.estaactivo");
 			
 			//añadimos el arbitro al array
 			rdo.add(ar);

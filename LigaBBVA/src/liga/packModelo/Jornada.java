@@ -159,7 +159,7 @@ public class Jornada {
 	public void almacenarJornada(int pNumTemp)
 	{
 		String fecha = this.getFecha().get(Calendar.YEAR)+"-"+this.getFecha().get(Calendar.MONTH+1)+"-"+this.getFecha().get(Calendar.DATE);
-		SGBD.getSGBD().execSQL("INSERT INTO jornada VALUES ("+this.getNumJornada()+","+fecha+", FALSE, "+pNumTemp+")");
+		SGBD.getSGBD().execSQL("INSERT INTO jornada VALUES ('"+this.getNumJornada()+"','"+fecha+"', FALSE, '"+pNumTemp+"')");
 		this.getPartidos().almacenarPartidos(pNumTemp, this.getNumJornada());
 	}
 

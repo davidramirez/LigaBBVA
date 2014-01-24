@@ -77,7 +77,7 @@ public class Partido {
 		String dni = this.getArbitro().getDNI();
 		String fecha = this.getFecha().get(Calendar.YEAR)+"-"+this.getFecha().get(Calendar.MONTH+1)+"-"+this.getFecha().get(Calendar.DATE);
 		
-		SGBD.getSGBD().execSQL("INSERT INTO partido VALUES ("+fecha+","+ 0 +","+ 0 + ","+pNumTemp+","+pNumJornada+","+local+","+vis+","+dni+")");
+		SGBD.getSGBD().execSQL("INSERT INTO partido VALUES ('"+fecha+"','"+ 0 +"','"+ 0 + "','"+pNumTemp+"','"+pNumJornada+"','"+local+"','"+vis+"','"+dni+"')");
 	}
 
 

@@ -57,7 +57,7 @@ public class ListaArbitros {
 		while(it.hasNext())
 		{
 			unArbitro = it.next();
-			SGBD.getSGBD().execSQL("INSERT INTO aritrostemporada VALUES ("+pNumTemp+","+unArbitro.getDNI()+")");
+			SGBD.getSGBD().execSQL("INSERT INTO aritrostemporada VALUES ('"+pNumTemp+"','"+unArbitro.getDNI()+"')");
 		}
 	}
 
