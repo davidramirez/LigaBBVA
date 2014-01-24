@@ -67,8 +67,9 @@ public class C_DatosPartido {
 	{
 		ArrayList<String> rdo = new ArrayList<String>();
 		String[][] partidos = Liga.getMiLiga().obtenerPartidosDe(laJor, laTemp);
+	
 		
-		for(int i=0; i<20;i++)
+		for(int i=0; i<partidos.length;i++)
 		{
 			rdo.add(partidos[i][0]+"-"+partidos[i][1]);
 		}

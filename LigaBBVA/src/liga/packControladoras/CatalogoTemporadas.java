@@ -128,11 +128,11 @@ public class CatalogoTemporadas
 	{
 		String[][] rdo= new String[10][2];
 		int i=0;
-		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT NomEqLocal, NomEqVisitante FROM Partido WHERE NumTemporada='"+laTemp+"' AND NumJornada='"+laJor+"'");
+		ResultadoSQL RdoSQL=SGBD.getSGBD().consultaSQL("SELECT nomeqlocal, nomeqvisitante FROM partido WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"'");
 		while (RdoSQL.next())
 		{
-			rdo[i][0]=RdoSQL.get("NomEqLocal");
-			rdo[i][1]=RdoSQL.get("NomEqVisitante");
+			rdo[i][0]=RdoSQL.get("nomeqlocal");
+			rdo[i][1]=RdoSQL.get("nomeqvisitante");
 			i++;
 		}
 		RdoSQL.close();
@@ -200,6 +200,8 @@ public class CatalogoTemporadas
 		ResultadoSQL GoleadoresVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre FROM jugador NATURAL JOIN goles NATURAL JOIN partido "
 				+ "WHERE numtemporada='"+laTemp+"' AND numjornada='"+laJor+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND nombreequipo='"+elVisit+"'");
 	
+		rdo.add(new ArrayList<String>());
+		rdo.add(new ArrayList<String>());
 		while (GoleadoresLocal.next())
 			rdo.get(0).add(GoleadoresLocal.get("nombre"));
 		while (GoleadoresVisitante.next())
@@ -217,17 +219,18 @@ public class CatalogoTemporadas
 	{
 		ArrayList<String> rdo = new ArrayList<String>();
 	
-		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT nombre (FROM sustituciones AS s INNER JOIN "
+		ResultadoSQL CambiosLocal=SGBD.getSGBD().consultaSQL("SELECT j.nombre, jj.nombre FROM (sustituciones AS s INNER JOIN "
 				+ "jugador AS j ON s.codjugsale=j.codjug) INNER JOIN jugador AS jj ON s.codjugentra=jj.codjug where"
 				+ " s.equipoafectado='"+elLocal+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND"
 						+ "numtemporada='"+laTemp+"' AND numjornada='"+laJor+"'");
 		
 		while (CambiosLocal.next())
 		{
+			
 			rdo.add(CambiosLocal.get("j.nombre")+"sale por"+CambiosLocal.get("jj.nombre"));
 		}
 		
-		CambiosLocal.close();
+		//CambiosLocal.close();
 		return rdo;
 	}	
 	
@@ -236,7 +239,7 @@ public class CatalogoTemporadas
 	{
 		ArrayList<String> rdo = new ArrayList<String>();
 	
-		ResultadoSQL CambiosVisitante=SGBD.getSGBD().consultaSQL("SELECT nombre (FROM sustituciones AS s INNER JOIN "
+		ResultadoSQL CambiosVisitante=SGBD.getSGBD().consultaSQL("SELECT j.nombre, jj.nombre FROM (sustituciones AS s INNER JOIN "
 				+ "jugador AS j ON s.codjugsale=j.codjug) INNER JOIN jugador AS jj ON s.codjugentra=jj.codjug where"
 				+ " s.equipoafectado='"+elVisit+"' AND nomeqlocal='"+elLocal+"' AND nomeqvisitante='"+elVisit+"' AND"
 						+ "numtemporada='"+laTemp+"' AND numjornada='"+laJor+"'");
@@ -245,7 +248,7 @@ public class CatalogoTemporadas
 		{
 			rdo.add(CambiosVisitante.get("j.nombre")+"sale por"+CambiosVisitante.get("jj.nombre"));
 		}
-		CambiosVisitante.close();
+		//CambiosVisitante.close();
 		return rdo;
 	}	
 	
