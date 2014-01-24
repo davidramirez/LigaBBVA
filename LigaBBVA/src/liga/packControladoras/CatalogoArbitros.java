@@ -82,4 +82,35 @@ public class CatalogoArbitros {
 	public void actualizarArbitro(Arbitro pArbitro,String pNombreUsuarioAnterior) {
 		SGBD.getSGBD().execSQL("UPDATE arbitro SET nombre='"+pArbitro.getNombre()+"',apellidos='"+pArbitro.getApellidos()+"',provincia='"+pArbitro.getProvincia()+"',fechaNacimiento="+pArbitro.getFechaNacimiento()+",dni='"+pArbitro.getDNI()+"' WHERE nombreUsuario='"+pNombreUsuarioAnterior+"'");
 	}
+	
+	/**
+	 * Obtiene los datos relativos a un árbitro a partir de su dni
+	 * 
+	 * @param elArbitroSeleccionado el dni del árbitro seleccionado.
+	 */
+	public String ObtenerDatosArbitro(String elArbitroSeleccionado) {
+		String provincia = new String();
+		ResultadoSQL rdo = SGBD.getSGBD().consultaSQL("SELECT * from Arbitro WHERE dni='"+elArbitroSeleccionado+"'");
+		if(rdo.next()) {
+			provincia = rdo.get("provincia");
+		}
+		return provincia;
+	}
+	
+	/**
+	 * Obtiene los árbitros de una provincia que NO están en la temporada actual.
+	 * 
+	 */
+	public ArrayList<String[]> ObtenerArbitroPorProvincia(String provincia, int temporadaActual) {
+		String[] resultado = new String[3];
+		ArrayList<String[]> rdo = new ArrayList<String[]>();
+		ResultadoSQL arbitrosSust = SGBD.getSGBD().consultaSQL("SELECT * from Arbitro WHERE Provincia='"+provincia+"' AND dni NOT in(SELECT dniArbitro FROM ArbitrosTemporada WHERE NumTemporada="+temporadaActual);
+		if(arbitrosSust.next()) {
+			resultado[0] = arbitrosSust.get("nombre");
+			resultado[1] = arbitrosSust.get("dni");
+			resultado[2] = arbitrosSust.get("enNeveraHasta");
+			rdo.add(resultado);
+		}
+		return rdo;
+	}
 }
