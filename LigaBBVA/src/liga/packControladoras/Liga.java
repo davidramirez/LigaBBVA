@@ -286,9 +286,14 @@ public class Liga
 
 	}
 	
-	public ArrayList<ArrayList<String>> obtenerCambiosPartido(String elLocal, String elVisit, int laJor, int laTemp)
+	public ArrayList<String> obtenerCambiosLocal(String elLocal, String elVisit, int laJor, int laTemp)
 	{
-		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerCambiosPartido(elLocal, elVisit, laJor, laTemp);
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerCambiosLocal(elLocal, elVisit, laJor, laTemp);
+	}
+	
+	public ArrayList<String> obtenerCambiosVisitante(String elLocal, String elVisit, int laJor, int laTemp)
+	{
+		return CatalogoTemporadas.getMiCatalogoTemporadas().obtenerCambiosVisitante(elLocal, elVisit, laJor, laTemp);
 	}
 	
 	public ArrayList<String[]> obtenerTarjetasLocal(String elLocal, String elVisit, int laJor, int laTemp)

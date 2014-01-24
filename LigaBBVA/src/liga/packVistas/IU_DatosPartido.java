@@ -46,7 +46,7 @@ public class IU_DatosPartido extends JFrame {
 	private JLabel label_3;
 	private JTextArea sancionadosVisit;
 	private JLabel label_4;
-	private JTextArea cambiosVisit;
+	private JTextArea cambiosVisitante;
 	private JTextArea txtCambiosVisit;
 	private JScrollPane scrollPane_4;
 	private JScrollPane scrollPane_5;
@@ -103,7 +103,9 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 		
 		ArrayList<ArrayList<String>> goleadores= C_DatosPartido.getMisDatos().obtenerGoleadoresPartido(elLocal, elVisit, laJor, laTemp);
 		
-		ArrayList<ArrayList<String>> cambios= C_DatosPartido.getMisDatos().obtenerCambiosPartido(elLocal, elVisit, laJor, laTemp);
+		ArrayList<String> cambiosLoc= C_DatosPartido.getMisDatos().obtenerCambiosLocal(elLocal, elVisit, laJor, laTemp);
+
+		ArrayList<String> cambiosVisit= C_DatosPartido.getMisDatos().obtenerCambiosVisitante(elLocal, elVisit, laJor, laTemp);
 		
 		ArrayList<String[]> tarjetasLocal = C_DatosPartido.getMisDatos().obtenerTarjetasLocal(elLocal, elVisit, laJor, laTemp);
 		
@@ -115,6 +117,16 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 		this.txtGolesVisit.setText(goles[1]);
 		this.txtTarjLocal.setText(Integer.toString(tarjetasLocal.size()));
 		this.txtTarjVisit.setText(Integer.toString(tarjetasVisitante.size()));
+		
+		for (int i=0;i<goleadores.get(0).size();i++)
+		{
+			goleadoresLocal.setText(goleadoresLocal.getText()+goleadores.get(0).get(i)+"\n");
+		}
+		
+		for (int i=0;i<goleadores.get(1).size();i++)
+		{
+			goleadoresVisit.setText(goleadoresVisit.getText()+goleadores.get(1).get(i)+"\n");
+		}
 		
 		
 		for (int i = 0;i<titulares.get(0).size();i++)
@@ -129,7 +141,7 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 		
 		for (int i=0; i< tarjetasLocal.size();i++)
 		{
-			sancionadosLocal.setText(sancionadosLocal.getText()+"\n"+tarjetasLocal.get(i)[0]);
+			sancionadosLocal.setText(sancionadosLocal.getText()+tarjetasLocal.get(i)[0]+"\n");
 			if(tarjetasLocal.get(i)[1].equals("1"))
 			{
 				sancionadosLocal.setText(sancionadosLocal.getText()+", amarilla");
@@ -138,6 +150,29 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 			{
 				sancionadosLocal.setText(sancionadosLocal.getText()+", roja");
 			}
+		}
+		
+		for (int i=0; i< tarjetasVisitante.size();i++)
+		{
+			sancionadosVisit.setText(sancionadosVisit.getText()+tarjetasVisitante.get(i)[0]+"\n");
+			if(tarjetasVisitante.get(i)[1].equals("1"))
+			{
+				sancionadosVisit.setText(sancionadosVisit.getText()+", amarilla");
+			}
+			else
+			{
+				sancionadosVisit.setText(sancionadosVisit.getText()+", roja");
+			}
+		}
+		
+		for (int i=0; i< cambiosLoc.size();i++)
+		{
+			cambiosLocal.setText(cambiosLocal.getText()+cambiosLoc.get(i)+"\n");
+		}
+		
+		for (int i=0; i< cambiosVisit.size();i++)
+		{
+			cambiosVisitante.setText(cambiosVisitante.getText()+cambiosVisit.get(i)+"\n");
 		}
 	}
 
@@ -423,11 +458,11 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 		}
 		return label_4;
 	}
-	private JTextArea getCambiosVisit() {
-		if (cambiosVisit == null) {
-			cambiosVisit = new JTextArea();
+	private JTextArea getCambiosVisitante() {
+		if (cambiosVisitante == null) {
+			cambiosVisitante = new JTextArea();
 		}
-		return cambiosVisit;
+		return cambiosVisitante;
 	}
 	private JTextArea getTxtCambiosVisit() {
 		if (txtCambiosVisit == null) {
@@ -441,7 +476,7 @@ String[] goles = C_DatosPartido.getMisDatos().obtenerGolesPartido(elLocal, elVis
 		if (scrollPane_4 == null) {
 			scrollPane_4 = new JScrollPane();
 			scrollPane_4.setBounds(247, 518, 183, 71);
-			scrollPane_4.setViewportView(getCambiosVisit());
+			scrollPane_4.setViewportView(getCambiosVisitante());
 		}
 		return scrollPane_4;
 	}
